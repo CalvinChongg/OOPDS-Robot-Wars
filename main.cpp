@@ -16,13 +16,6 @@
 // Member_4: YAP CHI YI
 // ********************************************************
 
-// Filename examples
-// {
-// TC2L_G04_main.cpp
-// fileInput1.txt, fileInput2.txt, fileOutput1.txt, fileOutput2.txt
-// TC2L_G04_report.docx
-// }
-
 #include <iostream>
 #include <string>
 #include <cmath>
