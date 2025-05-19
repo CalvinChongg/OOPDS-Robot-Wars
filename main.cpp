@@ -255,13 +255,61 @@ public:
             cout << "    ";
             for (int j = 0; j < battlefield_[i].size(); j++) {
                 cout << "+----";
+            }
             cout << "+" << endl;
 
             cout << " " << right << setfill('0') << setw(2) << i;
             
             // last seem here \/
             for (int j = 0; j < battlefield_[i].size(); j++) {
-                cout << "| " << battlefield_[i][j] << " ";
+                if (battlefield_[i][j] == "") {
+                    cout << "|" << "    ";
+                } else {
+                    cout << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
+                }
             }
+            cout << "|" << endl;
         }
+        cout << "    ";
+        for (int j = 0; j < battlefield_[0].size(); j++) {
+            cout << "+----";
+        }
+        cout << "+" << endl;
     }
+};
+
+void GenericRobot::actionThink(Battlefield* battlefield) {
+    // Implement the logic for thinking robot actions here
+    cout << "GenericRobot actionThink" << endl;
+}
+
+void GenericRobot::actionLook(Battlefield* battlefield) {
+    // Implement the logic for seeing robot actions here
+    cout << "GenericRobot actionLook" << endl;
+}
+
+void GenericRobot::actionShoot(Battlefield* battlefield) {
+    // Implement the logic for shooting robot actions here
+    cout << "GenericRobot actionShoot" << endl;
+}
+
+void GenericRobot::actionMove(Battlefield* battlefield) {
+    // Implement the logic for moving robot actions here
+    cout << "GenericRobot actionMove" << endl;
+}
+
+int main() {
+    srand(1211109038);
+
+    Battlefield battlefield;
+
+    Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
+
+    cout << *robotGenericRobot << endl;
+    robotGenericRobot->actions(&battlefield);
+
+    delete robotGenericRobot;
+    robotGenericRobot = nullptr;
+
+    return 0;
+}
