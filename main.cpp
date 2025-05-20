@@ -335,6 +335,7 @@ int main() {
     Battlefield battlefield;
 
     battlefield.readFile("fileInput1.txt");
+    
     battlefield.displayBattlefield();
 
     //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
