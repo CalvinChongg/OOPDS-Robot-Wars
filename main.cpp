@@ -227,11 +227,11 @@ public:
         ifstream GameFile(filename);
         string line;
 
-        battlefield_.clear();  // clear previous contents
+        battlefield_.clear();  
 
         while (getline(GameFile, line)) {
             vector<string> row;
-            row.push_back(line);  // Treat entire line as a single column
+            row.push_back(line);  
 
             // check input for map battlefield size
             if (line.find("M by N:") != string::npos) {
@@ -266,13 +266,13 @@ public:
                 srand(randomX);
 
                 if (posXStr == "random") {
-                    robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;  // Replace mapWidth with your M
+                    robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;  
                 } else {
                     robotXPos = stoi(posXStr);
                 }
 
                 if (posYStr == "random") {
-                    robotsYPos = rand() % BATTLEFIELD_NUM_OF_ROWS_;  // Replace mapHeight with your N
+                    robotsYPos = rand() % BATTLEFIELD_NUM_OF_ROWS_;  
                 } else {
                     robotsYPos = stoi(posYStr);
                 }
