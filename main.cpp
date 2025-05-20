@@ -278,26 +278,6 @@ public:
     }
 };
 
-void GenericRobot::actionThink(Battlefield* battlefield) {
-    // Implement the logic for thinking robot actions here
-    cout << "GenericRobot actionThink" << endl;
-}
-
-void GenericRobot::actionLook(Battlefield* battlefield) {
-    // Implement the logic for seeing robot actions here
-    cout << "GenericRobot actionLook" << endl;
-}
-
-void GenericRobot::actionShoot(Battlefield* battlefield) {
-    // Implement the logic for shooting robot actions here
-    cout << "GenericRobot actionShoot" << endl;
-}
-
-void GenericRobot::actionMove(Battlefield* battlefield) {
-    // Implement the logic for moving robot actions here
-    cout << "GenericRobot actionMove" << endl;
-}
-
 int main() {
     srand(1211109038);
 
