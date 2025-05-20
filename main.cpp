@@ -231,29 +231,45 @@ public:
 
             // check input for map battlefield size
             if (line.find("M by N:") != string::npos) {
-                int rows, cols;
-                sscanf(line.c_str(), "M by N: %d %d", &cols, &rows);
-                cout << "rows = " << rows << ", cols = " << cols << endl;
+                sscanf(line.c_str(), "M by N: %d %d", &BATTLEFIELD_NUM_OF_COLS_, &BATTLEFIELD_NUM_OF_ROWS_);
+                cout << "cols = " << BATTLEFIELD_NUM_OF_COLS_ << ", rows = " << BATTLEFIELD_NUM_OF_ROWS_ << endl;
 
-                battlefield_.resize(rows, vector<string>(cols, ""));
+                battlefield_.resize(BATTLEFIELD_NUM_OF_ROWS_, vector<string>(BATTLEFIELD_NUM_OF_COLS_, ""));
             }
 
             // check input for amount of turns 
             if (line.find("turns:") != string::npos) {
-                int NumOfTurns;
-                sscanf(line.c_str(), "turns: %d", &NumOfTurns);
-                cout << "turns = " << NumOfTurns<<endl;
+                sscanf(line.c_str(), "turns: %d", &turns_);
+                //cout << "turns = " << turns_<<endl;
             }
 
-            // check input for amount of turns 
-            if (line.find("turns:") != string::npos) {
-                int NumOfTurns;
-                sscanf(line.c_str(), "turns: %d", &NumOfTurns);
-                cout << "turns = " << NumOfTurns<<endl;
+            // check input for amount of Robots
+            if (line.find("robots:") != string::npos) {
+                sscanf(line.c_str(), "robots: %d ", &numOfRobots_);
+                //cout << "Robots = " << robots_ <<endl;
             }
 
+            // check input for Robots info
+            if (line.find("GenericRobot") != string::npos) {
+                string tag, robotName;
+                int robotPosX, robotPosY;
 
+                istringstream iss(line);
+                iss >> tag >> robotName >> robotPosX >> robotPosY;
 
+                cout << "Robots in game are = " << robotName << endl;
+                cout << "Robot position = (" << robotPosX << ", " << robotPosY << ")" << endl;
+
+                 // get rid of _ after robotId
+                string robotId = robotName;
+                robotId = robotId.substr(0,robotName.find('_'));
+
+                GenericRobot* robot = new GenericRobot(robotId, robotPosX, robotPosY);
+                robot->setRobotType("GenericRobot");
+                robot->setRobotName(robotName);
+                robots_.push_back(robot);
+                
+            }
 
         }
 
@@ -265,7 +281,7 @@ public:
     void placeRobots() {
         for (int i = 0; i < battlefield_.size(); i++) {
             for (int j = 0; j < battlefield_[i].size(); j++) {
-                if (battlefield_[i][j] != " ") {
+                if (battlefield_[i][j] == " ") {
                     Robot* robot = new GenericRobot(battlefield_[i][j], i, j);
                     robots_.push_back(robot);             // add robot to the vector
                 }
@@ -274,7 +290,9 @@ public:
 
         for (int i = 0; i < robots_.size(); i++) {
             if (robots_[i]->y() < battlefield_.size() && robots_[i]->x() < battlefield_[i].size()) {
-                battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id(); // place robot on the battlefield
+               
+
+                battlefield_[robots_[i]->y()][robots_[i]->x()] = robot->id(); // place robot on the battlefield
             } else {
                 cout << "Robot " << robots_[i]->id() << " is out of bounds!" << endl;
                 exit(1); // exit the program if robot is out of bounds
@@ -344,7 +362,7 @@ int main() {
     Battlefield battlefield;
 
     battlefield.readFile("fileInput1.txt");
-    
+    battlefield.placeRobots();
     battlefield.displayBattlefield();
 
     //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
