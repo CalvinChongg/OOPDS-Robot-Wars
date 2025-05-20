@@ -245,6 +245,15 @@ public:
                 cout << "turns = " << NumOfTurns<<endl;
             }
 
+            // check input for amount of turns 
+            if (line.find("turns:") != string::npos) {
+                int NumOfTurns;
+                sscanf(line.c_str(), "turns: %d", &NumOfTurns);
+                cout << "turns = " << NumOfTurns<<endl;
+            }
+
+
+
 
         }
 
