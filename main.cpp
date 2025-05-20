@@ -220,7 +220,27 @@ public:
     int numOfRobots() const { return numOfRobots_; }
 
     void readFile(string filename) {
-        //read file and store the data in the battlefield_ vector
+        ifstream GameFile(filename);
+        string line;
+
+        battlefield_.clear();  // clear previous contents
+
+        while (getline(GameFile, line, ',')) {
+            // Remove any carriage return or trailing spaces
+            line.erase(0, line.find_first_not_of(" \t"));
+            line.erase(line.find_last_not_of(" \t") + 1);
+
+            vector<string> row;
+            row.push_back(line);  // Treat entire line as a single column
+        }
+
+        string cell = "M by N: 10 15";
+        int rows, cols;
+        sscanf(cell.c_str(), "M by N: %d %d", &rows, &cols);
+
+        battlefield_.resize(rows, vector<string>(cols, ""));
+
+        GameFile.close();
     }
 
     void placeRobots() {
@@ -252,7 +272,7 @@ public:
         cout << endl;
 
         for (int i = 0; i < battlefield_.size(); i++) {
-            cout << "    ";
+            cout << "   ";
             for (int j = 0; j < battlefield_[i].size(); j++) {
                 cout << "+----";
             }
@@ -270,26 +290,50 @@ public:
             }
             cout << "|" << endl;
         }
-        cout << "    ";
+        cout << "   ";
         for (int j = 0; j < battlefield_[0].size(); j++) {
             cout << "+----";
         }
         cout << "+" << endl;
     }
 };
+/*
+void GenericRobot::actionThink(Battlefield* battlefield) {
+    // Implement the logic for thinking robot actions here
+    cout << "GenericRobot actionThink" << endl;
+}
+
+void GenericRobot::actionLook(Battlefield* battlefield) {
+    // Implement the logic for seeing robot actions here
+    cout << "GenericRobot actionLook" << endl;
+}
+
+void GenericRobot::actionShoot(Battlefield* battlefield) {
+    // Implement the logic for shooting robot actions here
+    cout << "GenericRobot actionShoot" << endl;
+}
+
+void GenericRobot::actionMove(Battlefield* battlefield) {
+    // Implement the logic for moving robot actions here
+    cout << "GenericRobot actionMove" << endl;
+}
+*/
 
 int main() {
     srand(1211109038);
 
     Battlefield battlefield;
 
-    Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
+    battlefield.readFile("fileInput1.txt");
+    battlefield.displayBattlefield();
 
-    cout << *robotGenericRobot << endl;
-    robotGenericRobot->actions(&battlefield);
+    //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
 
-    delete robotGenericRobot;
-    robotGenericRobot = nullptr;
+    //cout << *robotGenericRobot << endl;
+    //robotGenericRobot->actions(&battlefield);
+
+    //delete robotGenericRobot;
+    //robotGenericRobot = nullptr;
 
     return 0;
 }
