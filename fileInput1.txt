@@ -1,4 +1,3 @@
-///// 
 M by N: 10 15 
 turns: 300 
 robots: 5 
@@ -7,4 +6,3 @@ GenericRobot GR02_Jet 1 1
 GenericRobot GR03_Alpha 5 2 
 GenericRobot GR04_Beta 2 7 
 GenericRobot GR05_Star random random 
-///// 

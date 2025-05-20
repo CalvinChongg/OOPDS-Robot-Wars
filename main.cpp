@@ -226,17 +226,13 @@ public:
         battlefield_.clear();  // clear previous contents
 
         while (getline(GameFile, line)) {
-            // Remove any carriage return or trailing spaces
-            line.erase(0, line.find_first_not_of(" \t"));
-            line.erase(line.find_last_not_of(" \t") + 1);
-
             vector<string> row;
             row.push_back(line);  // Treat entire line as a single column
 
             // check input for map battlefield size
             if (line.find("M by N:") != string::npos) {
                 int rows, cols;
-                sscanf(line.c_str(), "M by N: %d %d", &rows, &cols);
+                sscanf(line.c_str(), "M by N: %d %d", &cols, &rows);
                 cout << "rows = " << rows << ", cols = " << cols << endl;
 
                 battlefield_.resize(rows, vector<string>(cols, ""));
