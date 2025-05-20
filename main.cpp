@@ -22,8 +22,11 @@
 #include <sstream>
 #include <vector>
 #include <queue>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
+
 
 class Battlefield;
 
@@ -218,6 +221,7 @@ public:
     int BATTLEFIELD_NUM_OF_ROWS() const { return BATTLEFIELD_NUM_OF_ROWS_; } // get number of rows
     int turns() const { return turns_; }
     int numOfRobots() const { return numOfRobots_; }
+    
 
     void readFile(string filename) {
         ifstream GameFile(filename);
@@ -251,20 +255,36 @@ public:
 
             // check input for Robots info
             if (line.find("GenericRobot") != string::npos) {
-                string tag, robotName;
-                int robotPosX, robotPosY;
+                string tag, robotName, posXStr, posYStr;
+                int robotXPos, robotsYPos;
 
                 istringstream iss(line);
-                iss >> tag >> robotName >> robotPosX >> robotPosY;
+                iss >> tag >> robotName >> posXStr >> posYStr;
+                
+                // when encounter pos input of random 
+                int randomX = time(0);
+                srand(randomX);
+
+                if (posXStr == "random") {
+                    robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;  // Replace mapWidth with your M
+                } else {
+                    robotXPos = stoi(posXStr);
+                }
+
+                if (posYStr == "random") {
+                    robotsYPos = rand() % BATTLEFIELD_NUM_OF_ROWS_;  // Replace mapHeight with your N
+                } else {
+                    robotsYPos = stoi(posYStr);
+                }
 
                 cout << "Robots in game are = " << robotName << endl;
-                cout << "Robot position = (" << robotPosX << ", " << robotPosY << ")" << endl;
+                cout << "Robot position = (" << robotXPos << ", " << robotsYPos << ")" << endl;
 
                  // get rid of _ after robotId
                 string robotId = robotName;
                 robotId = robotId.substr(0,robotName.find('_'));
 
-                GenericRobot* robot = new GenericRobot(robotId, robotPosX, robotPosY);
+                GenericRobot* robot = new GenericRobot(robotId, robotXPos, robotsYPos);
                 robot->setRobotType("GenericRobot");
                 robot->setRobotName(robotName);
                 robots_.push_back(robot);
@@ -290,9 +310,7 @@ public:
 
         for (int i = 0; i < robots_.size(); i++) {
             if (robots_[i]->y() < battlefield_.size() && robots_[i]->x() < battlefield_[i].size()) {
-               
-
-                battlefield_[robots_[i]->y()][robots_[i]->x()] = robot->id(); // place robot on the battlefield
+                battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id(); // place robot on the battlefield
             } else {
                 cout << "Robot " << robots_[i]->id() << " is out of bounds!" << endl;
                 exit(1); // exit the program if robot is out of bounds
