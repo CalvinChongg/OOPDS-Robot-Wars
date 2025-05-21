@@ -403,10 +403,25 @@ int main() {
 
     Battlefield battlefield;
 
+    // read the file
     battlefield.readFile("fileInput1.txt");
-    battlefield.placeRobots();
-    battlefield.displayBattlefield();
 
+    // start the game
+    int totalTurns = battlefield.turns();
+    cout << "Total turns: " << totalTurns << endl;
+
+    while (totalTurns > 0) {
+        char choice;
+        cout << "Do you want to continue? (y/n): ";
+        cin >> choice;
+        if (choice == 'n' || choice == 'N') {
+            break;
+        } else if (choice == 'y' || choice == 'Y') {
+            battlefield.displayBattlefield();
+            battlefield.placeRobots();
+        }
+        totalTurns--;
+    };
     //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
 
     //cout << *robotGenericRobot << endl;
