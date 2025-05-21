@@ -206,7 +206,7 @@ private:
     int BATTLEFIELD_NUM_OF_ROWS_ = -1;
 
     int turns_ = 1; // total number of turns
-    int turn = 0; // current turn
+    int turn = 1; // current turn
 
     int numOfRobots_ = -1; // number of robots
 
@@ -220,8 +220,11 @@ public:
     int BATTLEFIELD_NUM_OF_COLS() const { return BATTLEFIELD_NUM_OF_COLS_; } // get number of columns
     int BATTLEFIELD_NUM_OF_ROWS() const { return BATTLEFIELD_NUM_OF_ROWS_; } // get number of rows
     int turns() const { return turns_; }
+    int currentTurn() const { return turn; } // get current turn
     int numOfRobots() const { return numOfRobots_; }
-    
+
+    // Setter Functions
+    void setCurrentTurn(int turn) { this->turn = turn; } // set current turn
 
     void readFile(string filename) {
         ifstream GameFile(filename);
@@ -387,7 +390,10 @@ int main() {
     cout << "Total turns: " << totalTurns << endl;
 
     while (totalTurns > 0) {
+        
+        int currentTurn = battlefield.currentTurn();
         char choice;
+
         cout << "Do you want to continue? (y/n): ";
         cin >> choice;
         if (choice == 'n' || choice == 'N') {
@@ -395,8 +401,14 @@ int main() {
         } else if (choice == 'y' || choice == 'Y') {
             battlefield.displayBattlefield();
             battlefield.placeRobots();
+
+            cout << "Current Turn: " << currentTurn << endl;
+            cout << "Robots in game: " << battlefield.numOfRobots() << endl;
+            currentTurn++;
+            battlefield.setCurrentTurn(currentTurn);
         }
         totalTurns--;
+        cout << "Total turns left: " << totalTurns << endl;
     };
     //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
 
