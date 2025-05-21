@@ -171,54 +171,10 @@ public:
         cout << "Seeing Robot " << id_ << " is looking..." << endl;
     }
 
-    virtual void actionShoot(Battlefield* battlefield)  {
-        // 1. Get the robot we're controlling
-        int myX = this->x();   // Or use getX() depending on your class
-        int myY = this->y();
-        string myId = this->id();  // Assuming id_ is your robot's ID
-
-        cout << "Shooting Robot " << myId << " is preparing to shoot..." << endl;
-
-        // 2. Ask user for target coordinates
-        int targetX, targetY;
-        cout << "Enter target coordinates to shoot (x y): ";
-        cin >> targetX >> targetY;
-
-        // 3. Check if trying to shoot self
-        if (targetX == myX && targetY == myY) {
-            cout << "You cannot shoot yourself!" << endl;
-            return;
-        }
-
-        // 4. Check if a robot exists at the target location
-        vector<Robot*> allRobots = battlefield->robotInfo();
-        Robot* targetRobot = nullptr;
-
-        for (Robot* r : allRobots) {
-            if (r->x() == targetX && r->y() == targetY) {
-                targetRobot = r;
-                break;
-            }
-        }
-
-        if (!targetRobot) {
-            cout << "Missed! No robot found at (" << targetX << ", " << targetY << ")." << endl;
-            return;
-        }
-
-        // 5. Simulate 70% chance to succeed
-        double shootSuccessRate = 0.7;
-        double roll = (double) rand() / RAND_MAX;
-
-        if (roll < shootSuccessRate) {
-            cout << "Hit successful! Robot " << targetRobot->id() << " was shot!" << endl;
-            // Optionally apply damage:
-            // targetRobot->takeDamage(); // If you have this method
-        } else {
-            cout << "Missed the shot due to low accuracy." << endl;
-        }
+    virtual void actionShoot(Battlefield* battlefield) {
+        // Implement the logic for shooting robot actions here
+        cout << "Shooting Robot " << id_ << " is shooting..." << endl;
     }
-
 
     virtual void actionMove(Battlefield* battlefield) {
         // Implement the logic for moving robot actions here
@@ -265,7 +221,6 @@ public:
     int BATTLEFIELD_NUM_OF_ROWS() const { return BATTLEFIELD_NUM_OF_ROWS_; } // get number of rows
     int turns() const { return turns_; }
     int numOfRobots() const { return numOfRobots_; }
-    vector<Robot*> robotInfo() const { return robots_; }
     
 
     void readFile(string filename) {
@@ -397,6 +352,27 @@ public:
         cout << "+" << endl;
     }
 };
+/*
+void GenericRobot::actionThink(Battlefield* battlefield) {
+    // Implement the logic for thinking robot actions here
+    cout << "GenericRobot actionThink" << endl;
+}
+
+void GenericRobot::actionLook(Battlefield* battlefield) {
+    // Implement the logic for seeing robot actions here
+    cout << "GenericRobot actionLook" << endl;
+}
+
+void GenericRobot::actionShoot(Battlefield* battlefield) {
+    // Implement the logic for shooting robot actions here
+    cout << "GenericRobot actionShoot" << endl;
+}
+
+void GenericRobot::actionMove(Battlefield* battlefield) {
+    // Implement the logic for moving robot actions here
+    cout << "GenericRobot actionMove" << endl;
+}
+*/
 
 int main() {
     srand(1211109038);
