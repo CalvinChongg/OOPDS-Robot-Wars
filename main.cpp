@@ -174,6 +174,18 @@ public:
     virtual void actionShoot(Battlefield* battlefield) {
         // Implement the logic for shooting robot actions here
         cout << "Shooting Robot " << id_ << " is shooting..." << endl;
+
+        vector<Robot*> CurrentRobotsInfo = battlefield->robotsInfo();
+        for (Robot* robot : CurrentRobotsInfo) {
+            if (robot != nullptr) {
+                cout << "Robot ID: " << robot->id()
+                    << ", X: " << robot->x()
+                    << ", Y: " << robot->y()
+                    //<< ", Lives: " << robot->getLives()
+                    //<< ", Type: " << typeid(*robot).name()
+                    << endl;
+    }
+}
     }
 
     virtual void actionMove(Battlefield* battlefield) {
@@ -221,6 +233,7 @@ public:
     int BATTLEFIELD_NUM_OF_ROWS() const { return BATTLEFIELD_NUM_OF_ROWS_; } // get number of rows
     int turns() const { return turns_; }
     int numOfRobots() const { return numOfRobots_; }
+    vector<Robot*> robotsInfo() const { return robots_; }
     
 
     void readFile(string filename) {
