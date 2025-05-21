@@ -222,6 +222,7 @@ public:
     int turns() const { return turns_; }
     int currentTurn() const { return turn; } // get current turn
     int numOfRobots() const { return numOfRobots_; }
+    vector<Robot*> robots() const { return robots_; } // get robots
 
     // Setter Functions
     void setCurrentTurn(int turn) { this->turn = turn; } // set current turn
@@ -384,39 +385,51 @@ int main() {
 
     // read the file
     battlefield.readFile("fileInput1.txt");
-
-    // start the game
+    
+    // Get total number of turns and robot list
     int totalTurns = battlefield.turns();
+    vector<Robot*> robots = battlefield.robots();
+    int robotCount = robots.size();
+
     cout << "Total turns: " << totalTurns << endl;
 
-    while (totalTurns > 0) {
-        
-        int currentTurn = battlefield.currentTurn();
-        char choice;
+    // Game Loop
+    int currentTurn = 0;
 
-        cout << "Do you want to continue? (y/n): ";
-        cin >> choice;
-        if (choice == 'n' || choice == 'N') {
-            break;
-        } else if (choice == 'y' || choice == 'Y') {
-            battlefield.displayBattlefield();
-            battlefield.placeRobots();
+    while (currentTurn < totalTurns) {
+        // Determine which robot's turn it is
+        int robotIndex = currentTurn % robotCount;
+        Robot* currentRobot = robots[robotIndex];
 
-            cout << "Current Turn: " << currentTurn << endl;
-            cout << "Robots in game: " << battlefield.numOfRobots() << endl;
+        // Skip dead robots
+        if (!currentRobot->isAlive()) {
             currentTurn++;
-            battlefield.setCurrentTurn(currentTurn);
+            continue;
         }
-        totalTurns--;
-        cout << "Total turns left: " << totalTurns << endl;
-    };
-    //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
 
-    //cout << *robotGenericRobot << endl;
-    //robotGenericRobot->actions(&battlefield);
+        // Display the battlefield
+        battlefield.placeRobots();
+        battlefield.displayBattlefield();
+        cout << "Turn " << currentTurn + 1 << endl;
+        cout << "Robot Info: " << *currentRobot << endl;
 
-    //delete robotGenericRobot;
-    //robotGenericRobot = nullptr;
+        // should implement actions here
+        char proceed;
+        cout << "Press 'y' to execute this robot's actions, or 'n' to quit: ";
+        cin >> proceed;
 
+        if (proceed == 'n' || proceed == 'N') {
+            cout << "Exiting game loop." << endl;
+            break;
+        } else if (proceed == 'y' || proceed == 'Y') {
+            currentRobot->actions(&battlefield);  // Call the robot's action sequence
+        } else {
+            cout << "Wrong input, skipping your turn." << endl;
+        }
+
+        currentTurn++;
+    }
+
+    cout << "\nGame Over. Total turns played: " << currentTurn << endl;
     return 0;
 }
