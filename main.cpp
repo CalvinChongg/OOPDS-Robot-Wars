@@ -376,41 +376,73 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
     cout << "GenericRobot actionShoot" << endl;
 
         string CurrentRobotsName = this->robotName();
-        cout<<"The Current Robot controlled is"<<CurrentRobotsName<<endl;
+        cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
 
         int CurrentRobotsX = this->x();
         int CurrentRobotsY = this->y();
-        cout<<CurrentRobotsX<<CurrentRobotsY<<endl;
-       
-        //1. need to check the target
-        int targetX, targetY ;
-    
-        cout<<"Enter your target coordinates, ( X , Y )"<<endl;
-        cin >> targetX >> targetY;
-        cout<<"hello"<<endl;
+
+        int targetX, targetY;
+
+        bool validTarget = false;
+
+        int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    // assuming battlefield has width()
+        int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  // and height()
+
+        do {
+            cout << "Enter your target coordinates (X Y): ";
+            cin >> targetX >> targetY;
+
+            // calculate distance between target and self
+            int dx = abs(targetX - CurrentRobotsX);
+            int dy = abs(targetY - CurrentRobotsY);
+
+            // check if shooting self
+            bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
+
+            // check if surrounding 8 blocks
+            bool within8Blocks = (dx <= 1 && dy <= 1); 
+
+            // check whether in bounds
+            bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
+
+            validTarget = notSelf && within8Blocks && insideMap;
+
+            if (!validTarget) {
+                cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
+            }
+
+        } while (!validTarget);
         
+        bool hit = false;
+
         for (Robot* robot : battlefield->robots()) { 
             string targetRobotId = robot->id() ;
             int PotentialRobotX = robot->x() ;
             int PotentialRobotY = robot->y() ;
-            cout<<1<<" and "<<2<<endl;
             if (targetX == CurrentRobotsX && targetY == CurrentRobotsY ){
                 cout<<"You can't Shoot Yourself"<<endl;
                 break;
             }
-            // if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
-            //     cout<<"You've successfully shot an enemy Robot"<<endl;
-            //     cout<<"Good Hit!"<<endl;
-            //     // increase kill of current robots
-            //     this->increaseKills();
-            //     robot->reduceLives();
-            //     int lifeLeft = robot->numOfLives();
-            //     cout<< lifeLeft<<endl;
-            // }
+            if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+                int hitChance = rand() % 100; // number from 0-99
+                if (hitChance < 70) { // 70% chance to hit
+                    cout << "You've successfully shot an enemy Robot!" << endl;
+                    robot->reduceLives();
+                    this->increaseKills();
+                    int lifeLeft = robot->numOfLives();
+                    cout<< targetRobotId<<" now has "<<lifeLeft<<" of lives left"<<endl;
+                    cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
+                } else {
+                    cout << "Shot missed! The enemy robot was not hit." << endl;
+                }
+                hit = true;
+            }
+        }
+
+         if (!hit) {
+            cout << "No enemy robot was at the selected location." << endl;
         }
         
-        
-
 }
 
 
