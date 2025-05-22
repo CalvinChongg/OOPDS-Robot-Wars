@@ -43,6 +43,8 @@ protected:
     int numOfLives_ = 3; // number of lives
     int numOfKills_ = 0; // number of kills
 
+    int upgradeCount = 0;
+
 public:
     //PC + DC
     Robot(string id = "", int x = -1, int y = -1) : id_(id), robotPosX(x), robotPosY(y) {}
@@ -94,6 +96,20 @@ public:
     //Pure Virtual Functions
     virtual void setLocations(int x, int y) = 0;
     virtual void actions(Battlefield* battlefield) = 0;
+
+    // for limiting upgrade to 2 per robots
+    int getUpgradeCount() const {
+        return upgradeCount;
+    }
+
+    void incrementUpgradeCount() {
+        if (upgradeCount < 2)
+            upgradeCount++;
+    }
+
+    bool canUpgrade() const {
+        return upgradeCount < 2;
+    }
 };
 
 class ThinkingRobot: virtual public Robot {
@@ -385,8 +401,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
         bool validTarget = false;
 
-        int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    // assuming battlefield has width()
-        int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  // and height()
+        int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
+        int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
 
         do {
             cout << "Enter your target coordinates (X Y): ";
@@ -426,26 +442,96 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
             if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
                 int hitChance = rand() % 100; // number from 0-99
                 if (hitChance < 70) { // 70% chance to hit
-                    cout << "You've successfully shot an enemy Robot!" << endl;
+                    cout<<"You've successfully shot an enemy Robot!"<<endl;
                     robot->reduceLives();
                     this->increaseKills();
                     int lifeLeft = robot->numOfLives();
                     cout<< targetRobotId<<" now has "<<lifeLeft<<" of lives left"<<endl;
                     cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
+                    
+                    
+
+                    if (this->canUpgrade()) {
+                        this->incrementUpgradeCount();
+
+                        cout<<"\nYou've earned an upgrade! Choose one area to upgrade:"<<endl;
+                        cout<<"REMINDER! You can't revert your chocies!"<<endl;
+                        cout<<"1. Moving:     HideBot or JumpBot"<<endl;
+                        cout<<"2. Shooting:   LongShotBot, SemiAutoBot or ThirtyShotBot"<<endl;
+                        cout<<"3. Seeing:     ScoutBot or TrackBot"<<endl;
+
+                        int choice;
+                        do {
+                            cout << "Enter 1, 2, or 3 for your upgrade category: ";
+                            cin >> choice;
+                        } while (choice < 1 || choice > 3);
+
+                        switch (choice) {
+                            case 1: {
+                                int moveChoice;
+                                cout << "Choose your Moving upgrade:\n";
+                                cout << "1. HideBot "<<endl;
+                                cout<<"2. JumpBot "<<endl;
+                                cin >> moveChoice;
+                                if (moveChoice == 1) {
+                                    cout<<"You are now upgraded to HideBot!"<<endl;
+                                    robot->setRobotType("HideBot");
+                                } else {
+                                    cout<<"You are now upgraded to JumpBot!"<<endl;
+                                    robot->setRobotType("JumpBot");
+                                }
+                                break;
+                            }
+                            case 2: {
+                                int shootChoice;
+                                cout<<"Choose your Shooting upgrade: "<<endl;
+                                cout<<"1. LongShotBot"<<endl;
+                                cout<<"2. SemiAutoBot "<<endl;
+                                cout<<"3. ThirtyShotBot "<<endl;
+                                cin >> shootChoice;
+                                if (shootChoice == 1) {
+                                    cout<<"You are now upgraded to LongShotBot!"<<endl;
+                                    robot->setRobotType("LongShotBot");
+                                } else if (shootChoice == 2) {
+                                    cout<<"You are now upgraded to SemiAutoBot!"<<endl;
+                                    robot->setRobotType("SemiAutoBot");
+                                } else {
+                                    cout<<"You are now upgraded to ThirtyShotBot!"<<endl;
+                                    robot->setRobotType("ThirtyShotBot");
+                                }
+                                break;
+                            }
+                            case 3: {
+                                int seeChoice;
+                                cout <<"Choose your Seeing upgrade: "<<endl;
+                                cout <<"1. ScoutBot "<<endl;
+                                cout<<"2. TrackBot "<<endl;
+                                cin >> seeChoice;
+                                if (seeChoice == 1) {
+                                    cout<<"You are now upgraded to ScoutBot!"<<endl;
+                                    robot->setRobotType("ScoutBot");
+                                } else {
+                                    cout<<"You are now upgraded to TrackBot!"<<endl;
+                                    robot->setRobotType("TrackBot");
+                                }
+                                break;
+                            }
+                        }
+
+                    } else {
+                        cout<<"Upgrade limit reached. You can only upgrade twice."<<endl;
+                    }
                 } else {
-                    cout << "Shot missed! The enemy robot was not hit." << endl;
+                    cout<<"Shot missed! The enemy robot was not hit."<<endl;
                 }
                 hit = true;
             }
         }
 
-         if (!hit) {
-            cout << "No enemy robot was at the selected location." << endl;
+        if (!hit) {
+            cout<<"No enemy robot was at the selected location."<<endl;
         }
-        
-}
-
-
+}      
 
 int main() {
     srand(1211109038);
@@ -481,6 +567,8 @@ int main() {
         battlefield.displayBattlefield();
         cout << "Turn " << currentTurn + 1 << endl;
         cout << "Robot Info: " << *currentRobot << endl;
+        cout << "Robot Type: "<<currentRobot->robotType()<<endl;
+        
 
         // should implement actions here
         char proceed;
@@ -495,16 +583,6 @@ int main() {
         } else {
             cout << "Wrong input, skipping your turn." << endl;
         }
-
-        // for (Robot* robot : battlefield.robots()) {
-        //         // Check if the robot is a ShootingRobot (this is just an example)
-        //         if (Robot* robot = currentRobot) {
-        //             cout << "Shooting Robot " << robot->id() << " is going to shoot!" << endl;
-
-        //             // Step 4: Call shootAction() to perform the shooting action
-        //             currentRobot->actions(&battlefield); // Pass battlefield to access all robots
-        //         }
-        // }
 
         currentTurn++;
     }
