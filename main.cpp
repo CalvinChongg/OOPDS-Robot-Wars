@@ -172,34 +172,7 @@ public:
         cout << "Seeing Robot " << id_ << " is looking..." << endl;
     }
     
-    virtual void actionShoot(Battlefield* battlefield) {
-        // Implement the logic for shooting robot actions here
-        cout << "Shooting Robot " << id_ << " is shooting..." << endl;
-
-        //string CurrentRobotsInfo = this->robotName();
-        //cout<<CurrentRobotsInfo<<endl;
-        
-
-        // robot->x();
-        // for (Robot* robot : CurrentRobotsInfo) {
-        //     if (robot != nullptr) {
-        //         cout << "Robot ID: " << robot->id()
-        //             << ", X: " << robot->x()
-        //             << ", Y: " << robot->y()
-        //             //<< ", Lives: " << robot->getLives()
-        //             //<< ", Type: " << typeid(*robot).name()
-        //             << endl;
-        //     }
-        // }
-
-
-        //1. need to check the target
-        int targetX, targetY ;
-    
-        cout<<"Enter your target coordinates, ( X , Y )"<<endl;
-        cin >> targetX >> targetY;
- 
-    }
+    virtual void actionShoot(Battlefield* battlefield) ;
 
     virtual void actionMove(Battlefield* battlefield) {
         // Implement the logic for moving robot actions here
@@ -392,16 +365,55 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
     cout << "GenericRobot actionLook" << endl;
 }
 
-void GenericRobot::actionShoot(Battlefield* battlefield) {
-    // Implement the logic for shooting robot actions here
-    cout << "GenericRobot actionShoot" << endl;
-}
-
 void GenericRobot::actionMove(Battlefield* battlefield) {
     // Implement the logic for moving robot actions here
     cout << "GenericRobot actionMove" << endl;
 }
 */
+
+void GenericRobot::actionShoot(Battlefield* battlefield) {
+    // Implement the logic for shooting robot actions here
+    cout << "GenericRobot actionShoot" << endl;
+
+        string CurrentRobotsName = this->robotName();
+        cout<<"The Current Robot controlled is"<<CurrentRobotsName<<endl;
+
+        int CurrentRobotsX = this->x();
+        int CurrentRobotsY = this->y();
+        cout<<CurrentRobotsX<<CurrentRobotsY<<endl;
+       
+        //1. need to check the target
+        int targetX, targetY ;
+    
+        cout<<"Enter your target coordinates, ( X , Y )"<<endl;
+        cin >> targetX >> targetY;
+        cout<<"hello"<<endl;
+        
+        for (Robot* robot : battlefield->robots()) { 
+            string targetRobotId = robot->id() ;
+            int PotentialRobotX = robot->x() ;
+            int PotentialRobotY = robot->y() ;
+            cout<<1<<" and "<<2<<endl;
+            if (targetX == CurrentRobotsX && targetY == CurrentRobotsY ){
+                cout<<"You can't Shoot Yourself"<<endl;
+                break;
+            }
+            // if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            //     cout<<"You've successfully shot an enemy Robot"<<endl;
+            //     cout<<"Good Hit!"<<endl;
+            //     // increase kill of current robots
+            //     this->increaseKills();
+            //     robot->reduceLives();
+            //     int lifeLeft = robot->numOfLives();
+            //     cout<< lifeLeft<<endl;
+            // }
+        }
+        
+        
+
+}
+
+
 
 int main() {
     srand(1211109038);
@@ -409,7 +421,7 @@ int main() {
     Battlefield battlefield;
 
     // read the file
-    battlefield.readFile("fileInput1.txt");
+    battlefield.readFile("fileInput1.txt"); 
     
     // Get total number of turns and robot list
     int totalTurns = battlefield.turns();
@@ -452,15 +464,15 @@ int main() {
             cout << "Wrong input, skipping your turn." << endl;
         }
 
-        for (Robot* robot : battlefield.robots()) {
-                // Check if the robot is a ShootingRobot (this is just an example)
-                if (ShootingRobot* shooter = dynamic_cast<ShootingRobot*>(robot)) {
-                    cout << "Shooting Robot " << shooter->id() << " is going to shoot!" << endl;
+        // for (Robot* robot : battlefield.robots()) {
+        //         // Check if the robot is a ShootingRobot (this is just an example)
+        //         if (Robot* robot = currentRobot) {
+        //             cout << "Shooting Robot " << robot->id() << " is going to shoot!" << endl;
 
-                    // Step 4: Call shootAction() to perform the shooting action
-                    shooter->actionShoot(&battlefield); // Pass battlefield to access all robots
-                }
-            }
+        //             // Step 4: Call shootAction() to perform the shooting action
+        //             currentRobot->actions(&battlefield); // Pass battlefield to access all robots
+        //         }
+        // }
 
         currentTurn++;
     }
