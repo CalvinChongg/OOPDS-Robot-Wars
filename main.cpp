@@ -188,27 +188,45 @@ public:
         cout << "Seeing Robot " << id_ << " is looking..." << endl;
     }
     
-    virtual void actionShoot(Battlefield* battlefield) ;
+    virtual void actionShoot(Battlefield* battlefield);
 
-    virtual void actionMove(Battlefield* battlefield) {
-        // Implement the logic for moving robot actions here
-        cout << "Moving Robot " << id_ << " is moving..." << endl;
-    }
+    virtual void actionMove(Battlefield* battlefield);
 
     virtual void actions (Battlefield* battlefield) {
-        int randomActionThink = 0;
+        int choice;
 
-        if (randomActionThink % 2 == 0) {
-            actionThink(battlefield);
-            actionLook(battlefield);
-            actionShoot(battlefield);
-            actionMove(battlefield);
-        } else if (randomActionThink % 2 == 1) {
-            actionLook(battlefield);
-            actionShoot(battlefield);
-            actionMove(battlefield);
-            actionThink(battlefield);
+        cout << "Actions:" << endl;
+        cout << "1." << robotType_ << " actionMove" << endl;
+        cout << "2." << robotType_ << " actionShoot" << endl;
+        cout << "3." << robotType_ << " actionLook" << endl;
+        cout << "4." << robotType_ << " actionThink" << endl;
+        cout << "5." << robotType_ << " actionSkip" << endl;
+
+        cout << "Please choose your action: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                actionMove(battlefield);
+                break;
+            case 2:
+                actionShoot(battlefield);
+                break;
+            case 3:
+                actionLook(battlefield);
+                break;
+            case 4:
+                actionThink(battlefield);
+                break;
+            case 5:
+                cout << "Skipping actions." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
         }
+
+
+
     }
 };
 
@@ -237,9 +255,18 @@ public:
     int currentTurn() const { return turn; } // get current turn
     int numOfRobots() const { return numOfRobots_; }
     vector<Robot*> robots() const { return robots_; } // get robots
+    bool isCellEmpty(int x, int y) const { return battlefield_[y][x].empty(); } // Check if the cell is empty
 
     // Setter Functions
     void setCurrentTurn(int turn) { this->turn = turn; } // set current turn
+
+    void setCell(int x, int y, Robot* robot) { 
+        if (robot == nullptr) {
+            battlefield_[y][x] = ""; // Clear the cell if robot is nullptr
+        } else {
+            battlefield_[y][x] = robot->id(); // Set the cell to the robot's id
+        }
+    }
 
     void readFile(string filename) {
         ifstream GameFile(filename);
@@ -380,12 +407,66 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
     // Implement the logic for seeing robot actions here
     cout << "GenericRobot actionLook" << endl;
 }
+*/
 
 void GenericRobot::actionMove(Battlefield* battlefield) {
+
+    int currentX = robotPosX;
+    int currentY = robotPosY;
+
+    vector<pair<string, pair<int, int>>> directions = {
+        {"TL", {-1, -1}}, {"T", {0, -1}}, {"TR", {1, -1}},
+        {"L", {-1, 0}},   {"C", {0, 0}},  {"R", {1, 0}},
+        {"BL", {-1, 1}},  {"B", {0, 1}},  {"BR", {1, 1}}
+    };
     
-cout << "GenericRobot actionMove" << endl;
+    cout << "You can move to one of the 8 surrounding squares \n";
+
+    // Ask for direction input
+    string userInput;
+    cout << "Enter direction (TL, T, TR, L, C, R, BL, B, BR): ";
+    cin >> userInput;
+
+    // Find the matching direction in the vector
+    pair<int, int> delta = {0, 0};
+    bool valid = false;
+    for (const auto& dir : directions) {
+        if (dir.first == userInput) {
+            delta = dir.second;
+            valid = true;
+            break;
+        }
+    }
+
+    if (!valid) {
+        cout << "Invalid direction!" << endl;
+        return;
+    }
+
+    int newX = currentX + delta.first;
+    int newY = currentY + delta.second;
+
+    // Check bounds
+    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() || newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
+        cout << "Move out of bounds!" << endl;
+        return;
+    }
+
+    // Check if destination is empty
+    if (battlefield->isCellEmpty(newX, newY)) {
+        // Move robot
+        battlefield->setCell(newX, newY, this);
+        battlefield->setCell(currentX, currentY, nullptr);
+
+        // Update robot's stored position
+        robotPosX = newX;
+        robotPosY = newY;
+
+        cout << "Moved to (" << newX << ", " << newY << ")" << endl;
+    } else {
+        cout << "Destination occupied!" << endl;
+    }
 }
-*/
 
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
