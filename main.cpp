@@ -508,8 +508,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
         // check if shooting self
         bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
 
-            // check if surrounding 8 blocks
-            bool within8Blocks = (dx <= 1 && dy <= 1); 
+        // check if surrounding 8 blocks
+        bool within8Blocks = (dx <= 1 && dy <= 1); 
 
         // check whether in bounds
         bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
