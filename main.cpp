@@ -43,7 +43,8 @@ protected:
     int numOfLives_ = 3; // number of lives
     int numOfKills_ = 0; // number of kills
 
-    int upgradeCount = 0;
+    int upgradeCount = 0; // number of upgrades
+    int shell_ = 10; // number of shell
 
 public:
     //PC + DC
@@ -73,6 +74,15 @@ public:
 
     int numOfKills() const { return numOfKills_; } // get number of kills
     void setNumOfKills(int numOfKills) { numOfKills_ = numOfKills; } // set number of kills
+
+    int numOfShell() const { return shell_ ;}
+    void setNumOfShells(int shell) { shell_ = shell; } // set number of shells
+
+    void decreaseShell(){
+        if (shell_ > 0) {
+            shell_--;
+        }
+    }
 
     void reduceLives() {
         if (numOfLives_ > 0) {
@@ -429,7 +439,12 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
         }
 
     } while (!validTarget);
-    
+
+    int ShellLeft = this->numOfShell();
+    if (ShellLeft == 0) {
+        cout<<"Oh no! You ran out of shells! You can't shoot anything!"<<endl;
+        return;
+    }
     
     
     bool hit = false;
@@ -448,9 +463,11 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
                 robot->reduceLives();
                 this->increaseKills();
+                this->decreaseShell();
                 int lifeLeft = robot->numOfLives();
                 cout<< targetRobotId<<" now has "<<lifeLeft<<" of lives left"<<endl;
                 cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
+                cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
 
                 if (this->canUpgrade()) {
                     this->incrementUpgradeCount();
