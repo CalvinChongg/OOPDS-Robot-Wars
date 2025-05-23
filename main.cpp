@@ -425,59 +425,70 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     int currentX = robotPosX;
     int currentY = robotPosY;
 
-    vector<pair<string, pair<int, int>>> directions = {
-        {"TL", {-1, -1}}, {"T", {0, -1}}, {"TR", {1, -1}},
-        {"L", {-1, 0}},   {"C", {0, 0}},  {"R", {1, 0}},
-        {"BL", {-1, 1}},  {"B", {0, 1}},  {"BR", {1, 1}}
+    vector<string> directions =
+    {"UL", "U", "UR", "L", "C","R", "DL", "D", "DR"};
+    vector<pair<int, int>> directionsMove = {
+        {-1,-1}, {0,-1}, {1,-1},
+        {-1,0}, {0,0}, {1,0},
+        {-1,1}, {0,1}, {1,1}
     };
-    
-    cout << "You can move to one of the 8 surrounding squares \n";
 
-    // Ask for direction input
+    //Showing available direction
+    cout << "\nAvailable Directions:\n";
+    cout << "UL, U, UR\n";
+    cout << "L, C, R\n";
+    cout << "DL, D, DR\n";
+
+    //Enter direction input
     string userInput;
-    cout << "Enter direction (TL, T, TR, L, C, R, BL, B, BR): ";
+    cout << "Enter direction: ";
     cin >> userInput;
 
-    // Find the matching direction in the vector
-    pair<int, int> delta = {0, 0};
-    bool valid = false;
-    for (const auto& dir : directions) {
-        if (dir.first == userInput) {
-            delta = dir.second;
-            valid = true;
+    //Find matching direction
+    int moveIndex = -1;
+    for (int i = 0; i < directions.size(); i++) {
+        if (directions[i] == userInput){
+            moveIndex = i;
             break;
         }
     }
 
-    if (!valid) {
-        cout << "Invalid direction!" << endl;
+    //Check invalid input 
+    if (moveIndex == -1) {
+        cout << "Invalid move direction\n";
         return;
     }
 
-    int newX = currentX + delta.first;
-    int newY = currentY + delta.second;
+    //Calculate new position
+    int newX = currentX;
+    int newY = currentY;
 
-    // Check bounds
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() || newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Move out of bounds!" << endl;
-        return;
+    if (userInput != "C") {
+        newX += directionsMove[moveIndex].first;
+        newY += directionsMove[moveIndex].second;
     }
 
-    // Check if destination is empty
+    //Check if moves within the boundary
+    if (newX < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
+            cout << "Cannot move outside batterfield\n";
+            return;
+        }
+
+    //Check if target cell empty
     if (battlefield->isCellEmpty(newX, newY)) {
-        // Move robot
-        battlefield->setCell(newX, newY, this);
         battlefield->setCell(currentX, currentY, nullptr);
+        battlefield->setCell(newX, newY, this); 
+        
+    //Update new robot position
+    robotPosX = newX;
+    robotPosY = newY;
 
-        // Update robot's stored position
-        robotPosX = newX;
-        robotPosY = newY;
-
-        cout << "Moved to (" << newX << ", " << newY << ")" << endl;
+    cout << "Moved to (" << newX << "," << newY << ")" << endl;
     } else {
-        cout << "Destination occupied!" << endl;
+        cout << "Destination occupied" << endl;
     }
-}
+}   
 
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
