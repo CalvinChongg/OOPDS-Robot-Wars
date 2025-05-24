@@ -193,10 +193,7 @@ public:
         cout << "Thinking Robot " << id_ << " is thinking..." << endl;
     }
 
-    virtual void actionLook(Battlefield* battlefield) {
-        // Implement the logic for seeing robot actions here
-        cout << "Seeing Robot " << id_ << " is looking..." << endl;
-    }
+    virtual void actionLook(Battlefield* battlefield);
     
     virtual void actionShoot(Battlefield* battlefield);
 
@@ -266,6 +263,14 @@ public:
     int numOfRobots() const { return numOfRobots_; }
     vector<Robot*> robots() const { return robots_; } // get robots
     bool isCellEmpty(int x, int y) const { return battlefield_[y][x].empty(); } // Check if the cell is empty
+    
+    string getCellContent(int x, int y) const {
+        if (y >= 0 && y < BATTLEFIELD_NUM_OF_ROWS_ && x >= 0 && x < BATTLEFIELD_NUM_OF_COLS_) {
+            return battlefield_[y][x];
+        } else {
+            return "";
+        }
+    }
 
     // Setter Functions
     void setCurrentTurn(int turn) { this->turn = turn; } // set current turn
@@ -413,12 +418,39 @@ void GenericRobot::actionThink(Battlefield* battlefield) {
     // Implement the logic for thinking robot actions here
     cout << "GenericRobot actionThink" << endl;
 }
+*/
 
 void GenericRobot::actionLook(Battlefield* battlefield) {
-    // Implement the logic for seeing robot actions here
-    cout << "GenericRobot actionLook" << endl;
+    
+    int currentX = robotPosX;
+    int currentY = robotPosY;
+
+    cout << "=== Robot View (3x3 Grid) ===" << endl;
+
+    for (int y = currentY - 1; y <= currentY + 1; ++y) {
+        for (int x = currentX - 1; x <= currentX + 1; ++x) {
+            // Check bounds
+            if (y >= 0 && y < battlefield->BATTLEFIELD_NUM_OF_ROWS() &&
+                x >= 0 && x < battlefield->BATTLEFIELD_NUM_OF_COLS()) {
+
+                if (x == currentX && y == currentY) {
+                    cout << "[R] ";  // Mark robot itself
+                } else {
+                    string content = battlefield->getCellContent(x, y); // helper call
+                    if (content.empty()) {
+                        cout << "[ ] ";
+                    } else {
+                        cout << "[E] "; // Show first letter or symbol
+                    }
+                }
+
+            } else {
+                cout << "[#] "; // Out of bounds
+            }
+        }
+        cout << endl;
+    }
 }
-*/
 
 void GenericRobot::actionMove(Battlefield* battlefield) {
 
