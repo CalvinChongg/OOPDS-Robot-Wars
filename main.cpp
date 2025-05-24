@@ -24,6 +24,7 @@
 #include <queue>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 
 
 using namespace std;
@@ -261,7 +262,9 @@ public:
     int turns() const { return turns_; }
     int currentTurn() const { return turn; } // get current turn
     int numOfRobots() const { return numOfRobots_; }
-    vector<Robot*> robots() const { return robots_; } // get robots
+    queue<Robot*> destroyedRobots() const { return destroyedRobots_; } // get destroyed robots
+    queue<Robot*> waitingRobots() const { return waitingRobots_; } // get waiting robots
+    vector<Robot*>& robots() { return robots_; } // get robots (non-const reference)
     bool isCellEmpty(int x, int y) const { return battlefield_[y][x].empty(); } // Check if the cell is empty
     
     string getCellContent(int x, int y) const {
@@ -277,9 +280,15 @@ public:
 
     void setCell(int x, int y, Robot* robot) { 
         if (robot == nullptr) {
-            battlefield_[y][x] = ""; // Clear the cell if robot is nullptr
+            battlefield_[y][x] = "";
         } else {
-            battlefield_[y][x] = robot->id(); // Set the cell to the robot's id
+            battlefield_[y][x] = robot->id(); // or however you show the robot on screen
+        }
+    }
+
+    void clearCell(int x, int y) {
+        if (y < battlefield_.size() && x < battlefield_[y].size()) {
+            battlefield_[y][x] = "";
         }
     }
 
@@ -359,21 +368,20 @@ public:
     }
 
     void placeRobots() {
-        for (int i = 0; i < battlefield_.size(); i++) {
-            for (int j = 0; j < battlefield_[i].size(); j++) {
-                if (battlefield_[i][j] == " ") {
-                    Robot* robot = new GenericRobot(battlefield_[i][j], i, j);
-                    robots_.push_back(robot);             // add robot to the vector
-                }
-            }
+        cout << "Active robots at start of turn:" << endl;
+        for (auto r : robots()) {
+            cout << r->id() << endl;
         }
+        
+        for (auto robot : robots_) {
+            int x = robot->x();
+            int y = robot->y();
 
-        for (int i = 0; i < robots_.size(); i++) {
-            if (robots_[i]->y() < battlefield_.size() && robots_[i]->x() < battlefield_[i].size()) {
-                battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id(); // place robot on the battlefield
+            if (y < battlefield_.size() && x < battlefield_[y].size()) {
+                setCell(x, y, robot); // uses robot->id()
             } else {
-                cout << "Robot " << robots_[i]->id() << " is out of bounds!" << endl;
-                exit(1); // exit the program if robot is out of bounds
+                cout << "Robot " << robot->id() << " is out of bounds!" << endl;
+                exit(1);
             }
         }
     }
@@ -582,6 +590,27 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                 cout<< targetRobotId<<" now has "<<lifeLeft<<" of lives left"<<endl;
                 cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
                 cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
+
+                if (!robot->isAlive()) {
+                    cout << targetRobotId << " has been destroyed!" << endl;
+                    battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
+                    battlefield->clearCell(robot->x(), robot->y()); 
+                    battlefield->destroyedRobots().push(robot); // add robot to destroyed robots queue
+                } else {
+                    battlefield->setCell(PotentialRobotX, PotentialRobotY, robot); // update robot position on battlefield
+                }
+
+                auto& robotsVec = battlefield->robots();
+                auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+                if (it != robotsVec.end()) {
+                    robotsVec.erase(it); // remove robot from the vector
+                }
+
+                // cout << "Remaining Robots: " << endl;
+                for (const auto& r : battlefield->robots()) {
+                     cout << *r << endl;
+                }
+
 
                 if (this->canUpgrade()) {
                     this->incrementUpgradeCount();
