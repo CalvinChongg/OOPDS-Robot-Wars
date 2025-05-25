@@ -331,8 +331,8 @@ public:
                 iss >> tag >> robotName >> posXStr >> posYStr;
                 
                 // when encounter pos input of random 
-                int randomX = time(0);
-                srand(randomX);
+                
+                srand(2422132441020);
 
                 if (posXStr == "random") {
                     robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;  
@@ -607,71 +607,55 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
                 // cout << "Remaining Robots: " << endl;
                 for (const auto& r : battlefield->robots()) {
-                     cout << *r << endl;
+                    cout << *r << endl;
                 }
 
 
                 if (this->canUpgrade()) {
                     this->incrementUpgradeCount();
 
-                    cout<<"\nYou've earned an upgrade! Choose one area to upgrade:"<<endl;
-                    cout<<"REMINDER! You can't revert your chocies!"<<endl;
-                    cout<<"1. Moving:     HideBot or JumpBot"<<endl;
-                    cout<<"2. Shooting:   LongShotBot, SemiAutoBot or ThirtyShotBot"<<endl;
-                    cout<<"3. Seeing:     ScoutBot or TrackBot"<<endl;
+                    cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
 
-                    int choice;
-                    do {
-                        cout << "Enter 1, 2, or 3 for your upgrade category: ";
-                        cin >> choice;
-                    } while (choice < 1 || choice > 3);
+                    // Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing)
+                    int choice = rand() % 3 + 1;
 
                     switch (choice) {
                         case 1: {
-                            int moveChoice;
-                            cout << "Choose your Moving upgrade:\n";
-                            cout << "1. HideBot "<<endl;
-                            cout<<"2. JumpBot "<<endl;
-                            cin >> moveChoice;
+                            // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                            int moveChoice = rand() % 2 + 1;
                             if (moveChoice == 1) {
-                                cout<<"You are now upgraded to HideBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 robot->setRobotType("HideBot");
                             } else {
-                                cout<<"You are now upgraded to JumpBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
                                 robot->setRobotType("JumpBot");
                             }
                             break;
                         }
                         case 2: {
-                            int shootChoice;
-                            cout<<"Choose your Shooting upgrade: "<<endl;
-                            cout<<"1. LongShotBot"<<endl;
-                            cout<<"2. SemiAutoBot "<<endl;
-                            cout<<"3. ThirtyShotBot "<<endl;
-                            cin >> shootChoice;
+                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                            int shootChoice = rand() % 3 + 1;
                             if (shootChoice == 1) {
-                                cout<<"You are now upgraded to LongShotBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
                                 robot->setRobotType("LongShotBot");
                             } else if (shootChoice == 2) {
-                                cout<<"You are now upgraded to SemiAutoBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
                                 robot->setRobotType("SemiAutoBot");
                             } else {
-                                cout<<"You are now upgraded to ThirtyShotBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
                                 robot->setRobotType("ThirtyShotBot");
+                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
                             }
                             break;
                         }
                         case 3: {
-                            int seeChoice;
-                            cout <<"Choose your Seeing upgrade: "<<endl;
-                            cout <<"1. ScoutBot "<<endl;
-                            cout<<"2. TrackBot "<<endl;
-                            cin >> seeChoice;
+                            // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                            int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
-                                cout<<"You are now upgraded to ScoutBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
                                 robot->setRobotType("ScoutBot");
                             } else {
-                                cout<<"You are now upgraded to TrackBot!"<<endl;
+                                cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
                                 robot->setRobotType("TrackBot");
                             }
                             break;
@@ -679,7 +663,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     }
 
                 } else {
-                    cout<<"Upgrade limit reached. You can only upgrade twice."<<endl;
+                    cout << "Upgrade limit reached. Can only upgrade twice." << endl;
                 }
             } else {
                 cout<<"Shot missed! The enemy robot was not hit."<<endl;
@@ -764,7 +748,7 @@ public:
 };
 
 int main() {
-    srand(1211109038);
+    srand(2422132441020); 
 
     Battlefield battlefield;
 
