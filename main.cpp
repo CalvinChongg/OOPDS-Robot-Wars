@@ -433,27 +433,38 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
     int currentX = robotPosX;
     int currentY = robotPosY;
 
-    cout << "=== Robot View (3x3 Grid) ===" << endl;
+    // Step 1: Ask for direction to look
+    int dx, dy;
+    cout << "\n[LOOK] Choose a direction to look around you." << endl;
+    cout << "Enter X offset (-1, 0, 1): ";
+    cin >> dx;
+    cout << "Enter Y offset (-1, 0, 1): ";
+    cin >> dy;
 
+    // Step 2: Calculate new center position
+    int centerX = currentX + dx;
+    int centerY = currentY + dy;
+
+    cout << "\n[LOOK] Showing view around (" << centerX << ", " << centerY << ")\n" << endl;
+
+     // Step 3: Print 3x3 grid
     for (int y = currentY - 1; y <= currentY + 1; ++y) {
         for (int x = currentX - 1; x <= currentX + 1; ++x) {
-            // Check bounds
-            if (y >= 0 && y < battlefield->BATTLEFIELD_NUM_OF_ROWS() &&
-                x >= 0 && x < battlefield->BATTLEFIELD_NUM_OF_COLS()) {
-
-                if (x == currentX && y == currentY) {
-                    cout << "[R] ";  // Mark robot itself
+            // Out of bounds check
+            if (x < 0 || x >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+                y < 0 || y >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
+                cout << "[#] "; // Out of map
+            }
+            else if (x == robotPosX && y == robotPosY) {
+                cout << "[R] "; // The robot's own position
+            }
+            else {
+                string content = battlefield->getCellContent(x, y);
+                if (content.empty()) {
+                    cout << "[ ] ";
                 } else {
-                    string content = battlefield->getCellContent(x, y); // helper call
-                    if (content.empty()) {
-                        cout << "[ ] ";
-                    } else {
-                        cout << "[E] "; // Show first letter or symbol
-                    }
+                    cout << "[E] "; // Enemy or some robot
                 }
-
-            } else {
-                cout << "[#] "; // Out of bounds
             }
         }
         cout << endl;
