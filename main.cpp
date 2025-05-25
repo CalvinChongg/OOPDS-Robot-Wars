@@ -519,7 +519,6 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     }
 }
 
-
 void GenericRobot::actionShoot(Battlefield* battlefield) {
     // Implement the logic for shooting robot actions here
     cout << "GenericRobot actionShoot" << endl;
@@ -693,6 +692,62 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
         cout<<"No enemy robot was at the selected location."<<endl;
     }
 }      
+
+class ScoutBot: public GenericRobot {
+public:
+    ScoutBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("ScoutBot");
+        setRobotName("SB" + id); // set robot name
+        cout << "ScoutBot created with ID: " << id << endl;
+    }
+
+    virtual ~ScoutBot() {}
+
+    virtual void actionLook(Battlefield* battlefield) override {
+        int rows = battlefield->BATTLEFIELD_NUM_OF_ROWS();
+        int cols = battlefield->BATTLEFIELD_NUM_OF_COLS();
+
+        cout << "======= ScoutBot View (3x3 Grid) ========\n";
+        
+        cout << endl << "     ";
+        for (int j = 0; j < cols; j++) {
+            cout << "  " << right << setfill('0') << setw(2) << j << " ";
+        }
+        cout << "\n";
+
+        for (int i = 0; i < rows; i++) {
+            cout << "  ";
+            for (int j = 0; j < cols; j++) {
+                cout << "+----";
+            }
+
+            cout << "+\n";
+            cout << " " << right << setfill('0') << setw(2) << i;
+
+            for (int j = 0; j < cols; j++) {
+                string cellContent;
+                if (i == y() && j == x()) {
+                    cellContent = robotName();
+                } else {
+                    cellContent = battlefield->getCellContent(j, i);
+                }
+
+                if (cellContent.empty()) {
+                    cout << "|" << "    ";
+                } else {
+                    cout << "|" << left << setfill(' ') << setw(4) << cellContent;
+                }
+            }
+            cout << "|\n";
+        }
+        cout << "  ";
+
+        for (int j = 0; j < cols; j++) {
+            cout << "+----";
+        }
+        cout << "+\n";
+    }
+};
 
 int main() {
     srand(1211109038);
