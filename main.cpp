@@ -240,6 +240,71 @@ public:
 
 int GenericRobot::robotAutoIncrementInt = 0; // initialize static variable
 
+class ScoutBot : public GenericRobot {
+public:
+    ScoutBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("ScoutBot");
+        setRobotName("SB" + id);
+        cout << "ScoutBot created with ID: " << id << endl;
+    }
+
+    virtual ~ScoutBot() {}
+
+    void actionLook(Battlefield* battlefield) override {
+        cout << "=== ScoutBot View (Full Battlefield) ===" << endl;
+        
+        // Display column numbers
+        cout << endl << "     ";
+        for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+            cout << "  " << right << setfill('0') << setw(2) << j << " ";
+        }
+        cout << endl;
+
+        for (int i = 0; i < battlefield->BATTLEFIELD_NUM_OF_ROWS(); i++) {
+            cout << "   ";
+            for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+                cout << "+----";
+            }
+            cout << "+" << endl;
+
+            cout << " " << right << setfill('0') << setw(2) << i;
+            
+            for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+                string content = battlefield->getCellContent(j, i);
+                if (content.empty()) {
+                    cout << "|" << "    ";
+                } else {
+                    if (j == x() && i == y()) {
+                        cout << "|" << left << setfill(' ') << setw(4) << "[R]"; // Mark robot itself
+                    } else {
+                        cout << "|" << left << setfill(' ') << setw(4) << content;
+                    }
+                }
+            }
+            cout << "|" << endl;
+        }
+        cout << "   ";
+        for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+            cout << "+----";
+        }
+        cout << "+" << endl;
+    }
+};
+
+class ThirtyShotBot: public GenericRobot {
+public:
+    Robot* robot;
+    ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("ThirtyShotBot");
+        setRobotName("TSB" + id); // set robot name
+        cout << "ThirtyShotBot created with ID: " << id << endl;
+        robot->setNumOfShells(30);
+    }
+
+    virtual ~ThirtyShotBot() {}
+    
+};
+
 class Battlefield {
 private:
     int BATTLEFIELD_NUM_OF_COLS_ = -1;
@@ -448,7 +513,7 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
                     if (content.empty()) {
                         cout << "[ ] ";
                     } else {
-                        cout << "[E] "; // Show first letter or symbol
+                        cout << "["<< content.substr(0,1) <<"] "; // Show first letter or symbol
                     }
                 }
 
@@ -669,7 +734,6 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                             cin >> seeChoice;
                             if (seeChoice == 1) {
                                 cout<<"You are now upgraded to ScoutBot!"<<endl;
-                                robot->setRobotType("ScoutBot");
                             } else {
                                 cout<<"You are now upgraded to TrackBot!"<<endl;
                                 robot->setRobotType("TrackBot");
@@ -691,93 +755,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
     if (!hit) {
         cout<<"No enemy robot was at the selected location."<<endl;
     }
-}      
-
-class ScoutBot: public GenericRobot {
-public:
-    ScoutBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
-        setRobotType("ScoutBot");
-        setRobotName("SB" + id); // set robot name
-        cout << "ScoutBot created with ID: " << id << endl;
-    }
-
-    virtual ~ScoutBot() {}
-
-    virtual void actionLook(Battlefield* battlefield) override {
-        int rows = battlefield->BATTLEFIELD_NUM_OF_ROWS();
-        int cols = battlefield->BATTLEFIELD_NUM_OF_COLS();
-
-        cout << "======= ScoutBot View (3x3 Grid) ========\n";
-        
-        cout << endl << "     ";
-        for (int j = 0; j < cols; j++) {
-            cout << "  " << right << setfill('0') << setw(2) << j << " ";
-        }
-        cout << "\n";
-
-        for (int i = 0; i < rows; i++) {
-            cout << "  ";
-            for (int j = 0; j < cols; j++) {
-                cout << "+----";
-            }
-
-            cout << "+\n";
-            cout << " " << right << setfill('0') << setw(2) << i;
-
-            for (int j = 0; j < cols; j++) {
-                string cellContent;
-                if (i == y() && j == x()) {
-                    cellContent = robotName();
-                } else {
-                    cellContent = battlefield->getCellContent(j, i);
-                }
-
-                if (cellContent.empty()) {
-                    cout << "|" << "    ";
-                } else {
-                    cout << "|" << left << setfill(' ') << setw(4) << cellContent;
-                }
-            }
-            cout << "|\n";
-        }
-        cout << "  ";
-
-        for (int j = 0; j < cols; j++) {
-            cout << "+----";
-        }
-        cout << "+\n";
-    }
-};
-
-class ThirtyShotBot: public GenericRobot {
-public:
-    Robot* robot;
-    ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
-        setRobotType("ThirtyShotBot");
-        setRobotName("TSB" + id); // set robot name
-        cout << "ThirtyShotBot created with ID: " << id << endl;
-        robot->setNumOfShells(30);
-    }
-
-    virtual ~ThirtyShotBot() {}
-    
-};
-
-class ThirtyShotBot: public GenericRobot {
-public:
-    Robot* robot;
-    ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
-        setRobotType("ThirtyShotBot");
-        setRobotName("TSB" + id); // set robot name
-        cout << "ThirtyShotBot created with ID: " << id << endl;
-        robot->setNumOfShells(30);
-    }
-
-    virtual ~ThirtyShotBot() {}
-    
-};
-
-
+}
 
 int main() {
     srand(1211109038);
