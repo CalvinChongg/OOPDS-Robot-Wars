@@ -227,6 +227,14 @@ public:
     // Setter Functions
     void setCurrentTurn(int turn) { this->turn = turn; } // set current turn
 
+    void setCell(int x, int y, Robot* robot) {
+        if (x >= 0 && x < BATTLEFIELD_NUM_OF_COLS_ && y >= 0 && y < BATTLEFIELD_NUM_OF_ROWS_) {
+            battlefield_[y][x] = robot->id(); // set the cell to the robot id
+        } else {
+            cout << "Invalid position (" << x << ", " << y << ") for robot." << endl;
+        }
+    }
+
     void readFile(string filename) {
         ifstream GameFile(filename);
         string line;
@@ -302,24 +310,19 @@ public:
         GameFile.close();
     }
 
-    void placeRobots() {
+    void placeRobots(Robot* currentRobot) {
+        // Clear the battlefield
         for (int i = 0; i < battlefield_.size(); i++) {
             for (int j = 0; j < battlefield_[i].size(); j++) {
-                if (battlefield_[i][j] == " ") {
-                    Robot* robot = new GenericRobot(battlefield_[i][j], i, j);
-                    robots_.push_back(robot);             // add robot to the vector
-                }
+                battlefield_[i][j] = "";
             }
         }
 
-        for (int i = 0; i < robots_.size(); i++) {
-            if (robots_[i]->y() < battlefield_.size() && robots_[i]->x() < battlefield_[i].size()) {
-                battlefield_[robots_[i]->y()][robots_[i]->x()] = robots_[i]->id(); // place robot on the battlefield
-            } else {
-                cout << "Robot " << robots_[i]->id() << " is out of bounds!" << endl;
-                exit(1); // exit the program if robot is out of bounds
-            }
+        // Place the current robot
+        if (currentRobot && currentRobot->isAlive()) {
+            setCell(currentRobot->x(), currentRobot->y(), currentRobot);
         }
+
     }
 
     void displayBattlefield() {
@@ -408,7 +411,7 @@ int main() {
         }
 
         // Display the battlefield
-        battlefield.placeRobots();
+        battlefield.placeRobots(currentRobot);
         battlefield.displayBattlefield();
         cout << "Turn " << currentTurn + 1 << endl;
         cout << "Robot Info: " << *currentRobot << endl;
