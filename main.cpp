@@ -749,6 +749,36 @@ public:
     }
 };
 
+class ThirtyShotBot: public GenericRobot {
+public:
+    Robot* robot;
+    ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("ThirtyShotBot");
+        setRobotName("TSB" + id); // set robot name
+        cout << "ThirtyShotBot created with ID: " << id << endl;
+        robot->setNumOfShells(30);
+    }
+
+    virtual ~ThirtyShotBot() {}
+    
+};
+
+class ThirtyShotBot: public GenericRobot {
+public:
+    Robot* robot;
+    ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("ThirtyShotBot");
+        setRobotName("TSB" + id); // set robot name
+        cout << "ThirtyShotBot created with ID: " << id << endl;
+        robot->setNumOfShells(30);
+    }
+
+    virtual ~ThirtyShotBot() {}
+    
+};
+
+
+
 int main() {
     srand(1211109038);
 
