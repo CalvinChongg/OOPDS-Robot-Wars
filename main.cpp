@@ -240,10 +240,6 @@ public:
 };
 
 int GenericRobot::robotAutoIncrementInt = 0; // initialize static variable
-<<<<<<< HEAD
-=======
-
->>>>>>> robots
 class Battlefield {
 private:
     int BATTLEFIELD_NUM_OF_COLS_ = -1;
@@ -677,82 +673,62 @@ public:
                     }
 
                     // cout << "Remaining Robots: " << endl; /*troubleshooting*/
-                    // for (const auto& r : battlefield->robots()) {
+                    // for (const auto& r : bazttlefield->robots()) {
                     //      cout << *r << endl;
                     // }
 
 
                     if (this->canUpgrade()) {
-                        this->incrementUpgradeCount();
+                        cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
 
-                        cout<<"\nYou've earned an upgrade! Choose one area to upgrade:"<<endl;
-                        cout<<"REMINDER! You can't revert your chocies!"<<endl;
-                        cout<<"1. Moving:     HideBot or JumpBot"<<endl;
-                        cout<<"2. Shooting:   LongShotBot, SemiAutoBot or ThirtyShotBot"<<endl;
-                        cout<<"3. Seeing:     ScoutBot or TrackBot"<<endl;
-
-                        int choice;
-                        do {
-                            cout << "Enter 1, 2, or 3 for your upgrade category: ";
-                            cin >> choice;
-                        } while (choice < 1 || choice > 3);
+                        // Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing)
+                        int choice = rand() % 3 + 1;
 
                         switch (choice) {
                             case 1: {
-                                int moveChoice;
-                                cout << "Moving upgrade:\n";
-                                cout << "1. HideBot "<<endl;
-                                cout<<"2. JumpBot "<<endl;
-                                cout << "Enter the upgrade number:\n";
-                                cin >> moveChoice;
+                                // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                                int moveChoice = rand() % 2 + 1;
                                 if (moveChoice == 1) {
-                                    cout<<"You are now upgraded to HideBot!"<<endl;
-                                    robot->setRobotType("HideBot");
+                                    cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+                                    this->setRobotType("HideBot");
                                 } else {
-                                    cout<<"You are now upgraded to JumpBot!"<<endl;
-                                    robot->setRobotType("JumpBot");
+                                    cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                                    this->setRobotType("JumpBot");
                                 }
                                 break;
                             }
                             case 2: {
-                                int shootChoice;
-                                cout<<"Shooting upgrade: "<<endl;
-                                cout<<"1. LongShotBot"<<endl;
-                                cout<<"2. SemiAutoBot "<<endl;
-                                cout<<"3. ThirtyShotBot "<<endl;
-                                cout << "Enter the upgrade number:\n";
-                                cin >> shootChoice;
+                                // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                                int shootChoice = rand() % 3 + 1;
                                 if (shootChoice == 1) {
-                                    cout<<"You are now upgraded to LongShotBot!"<<endl;
-                                    robot->setRobotType("LongShotBot");
+                                    cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                                    this->setRobotType("LongShotBot");
                                 } else if (shootChoice == 2) {
-                                    cout<<"You are now upgraded to SemiAutoBot!"<<endl;
-                                    robot->setRobotType("SemiAutoBot");
+                                    cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                                    this->setRobotType("ScoutBot");
                                 } else {
-                                    cout<<"You are now upgraded to ThirtyShotBot!"<<endl;
-                                    robot->setRobotType("ThirtyShotBot");
+                                    cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                                    this->setRobotType("ThirtyShotBot");
+                                    //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
                                 }
                                 break;
                             }
                             case 3: {
-                                int seeChoice;
-                                cout <<"Seeing upgrade: "<<endl;
-                                cout <<"1. ScoutBot "<<endl;
-                                cout<<"2. TrackBot "<<endl;
-                                cout << "Enter the upgrade number:\n";
-                                cin >> seeChoice;
+                                // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                                int seeChoice = rand() % 2 + 1;
                                 if (seeChoice == 1) {
-                                    cout<<"You are now upgraded to ScoutBot!"<<endl;
+                                    cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                                    this->setRobotType("ScoutBot");
                                 } else {
-                                    cout<<"You are now upgraded to TrackBot!"<<endl;
-                                    robot->setRobotType("TrackBot");
+                                    cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                                    this->setRobotType("TrackBot");
                                 }
                                 break;
                             }
                         }
 
                     } else {
-                        cout<<"Upgrade limit reached. You can only upgrade twice."<<endl;
+                        cout << "Upgrade limit reached. Can only upgrade twice." << endl;
                     }
                 } else {
                     cout<<"Shot missed! The enemy robot was not hit."<<endl;
@@ -1006,6 +982,8 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
     // Implement the logic for shooting robot actions here
+    cout << "GenericRobot actionShoot" << endl;
+
     string CurrentRobotsName = this->robotName();
     cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
 
@@ -1049,8 +1027,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
         cout<<"Oh no! You ran out of shells! You can't shoot anything!"<<endl;
         return;
     }
-    
-    
+
+
     bool hit = false;
 
     for (Robot* robot : battlefield->robots()) { 
@@ -1062,12 +1040,6 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
-            if (robot->robotType() == "HideBot") {
-                // technically, HideBot is invisible, so you can't shoot it
-                cout << "Shot missed! The enemy robot was not hit." << endl;
-                this->decreaseShell();
-                return;
-            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -1094,17 +1066,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     robotsVec.erase(it); // remove robot from the vector
                 }
 
-<<<<<<< HEAD
                 // cout << "Remaining Robots: " << endl;
                 for (const auto& r : battlefield->robots()) {
                     cout << *r << endl;
                 }
-=======
-                // cout << "Remaining Robots: " << endl; /*troubleshooting*/
-                // for (const auto& r : battlefield->robots()) {
-                //      cout << *r << endl;
-                // }
->>>>>>> robots
 
 
                 if (this->canUpgrade()) {
@@ -1117,17 +1082,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
                     switch (choice) {
                         case 1: {
-<<<<<<< HEAD
                             // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
                             int moveChoice = rand() % 2 + 1;
-=======
-                            int moveChoice;
-                            cout << "Moving upgrade:\n";
-                            cout << "1. HideBot "<<endl;
-                            cout<<"2. JumpBot "<<endl;
-                            cout << "Enter the upgrade number:\n";
-                            cin >> moveChoice;
->>>>>>> robots
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 this->setRobotType("HideBot");
@@ -1138,18 +1094,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                             break;
                         }
                         case 2: {
-<<<<<<< HEAD
                             // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
                             int shootChoice = rand() % 3 + 1;
-=======
-                            int shootChoice;
-                            cout<<"Shooting upgrade: "<<endl;
-                            cout<<"1. LongShotBot"<<endl;
-                            cout<<"2. SemiAutoBot "<<endl;
-                            cout<<"3. ThirtyShotBot "<<endl;
-                            cout << "Enter the upgrade number:\n";
-                            cin >> shootChoice;
->>>>>>> robots
                             if (shootChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
                                 this->setRobotType("LongShotBot");
@@ -1164,17 +1110,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                             break;
                         }
                         case 3: {
-<<<<<<< HEAD
                             // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
                             int seeChoice = rand() % 2 + 1;
-=======
-                            int seeChoice;
-                            cout <<"Seeing upgrade: "<<endl;
-                            cout <<"1. ScoutBot "<<endl;
-                            cout<<"2. TrackBot "<<endl;
-                            cout << "Enter the upgrade number:\n";
-                            cin >> seeChoice;
->>>>>>> robots
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
                                 this->setRobotType("ScoutBot");
@@ -1201,77 +1138,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
     }
 }
 
-<<<<<<< HEAD
-class ScoutBot : public GenericRobot {
-public:
-    ScoutBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
-        setRobotType("ScoutBot");
-        setRobotName("SB" + id);
-        cout << "ScoutBot created with ID: " << id << endl;
-    }
 
-    virtual ~ScoutBot() {}
-
-    void actionLook(Battlefield* battlefield) override {
-        cout << "=== ScoutBot View (Full Battlefield) ===" << endl;
-        
-        // Display column numbers
-        cout << endl << "     ";
-        for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
-            cout << "  " << right << setfill('0') << setw(2) << j << " ";
-        }
-        cout << endl;
-
-        for (int i = 0; i < battlefield->BATTLEFIELD_NUM_OF_ROWS(); i++) {
-            cout << "   ";
-            for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
-                cout << "+----";
-            }
-            cout << "+" << endl;
-
-            cout << " " << right << setfill('0') << setw(2) << i;
-            
-            for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
-                string content = battlefield->getCellContent(j, i);
-                if (content.empty()) {
-                    cout << "|" << "    ";
-                } else {
-                    if (j == x() && i == y()) {
-                        cout << "|" << left << setfill(' ') << setw(4) << "[R]"; // Mark robot itself
-                    } else {
-                        cout << "|" << left << setfill(' ') << setw(4) << content;
-                    }
-                }
-            }
-            cout << "|" << endl;
-        }
-        cout << "   ";
-        for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
-            cout << "+----";
-        }
-        cout << "+" << endl;
-    }
-};
-
-class ThirtyShotBot: public GenericRobot {
-public:
-    Robot* robot;
-    ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
-        setRobotType("ThirtyShotBot");
-        setRobotName("TSB" + id); // set robot name
-        cout << "ThirtyShotBot created with ID: " << id << endl;
-        robot->setNumOfShells(30);
-    }
-
-    virtual ~ThirtyShotBot() {}
-    
-};
-
-=======
 
 
 // Main Function
->>>>>>> robots
 int main() {
     srand(time(0)); 
 
