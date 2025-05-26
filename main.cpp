@@ -191,7 +191,6 @@ public:
 
     virtual void actionThink(Battlefield* battlefield) {
         // Implement the logic for thinking robot actions here
-        cout << "Thinking Robot " << id_ << " is thinking..." << endl;
     }
 
     virtual void actionLook(Battlefield* battlefield);
@@ -270,6 +269,7 @@ public:
     string getCellContent(int x, int y) const {
         if (y >= 0 && y < BATTLEFIELD_NUM_OF_ROWS_ && x >= 0 && x < BATTLEFIELD_NUM_OF_COLS_) {
             return battlefield_[y][x];
+            cout << "Cell content at (" << x << ", " << y << ") is: " << battlefield_[y][x] << "\n"; /*troubleshooting*/
         } else {
             return "";
         }
@@ -313,13 +313,11 @@ public:
             // check input for amount of turns 
             if (line.find("turns:") != string::npos) {
                 sscanf(line.c_str(), "turns: %d", &turns_);
-                //cout << "turns = " << turns_<<endl;
             }
 
             // check input for amount of Robots
             if (line.find("robots:") != string::npos) {
                 sscanf(line.c_str(), "robots: %d ", &numOfRobots_);
-                //cout << "Robots = " << robots_ <<endl;
             }
 
             // check input for Robots info
@@ -368,10 +366,11 @@ public:
     }
 
     void placeRobots() {
-        cout << "Active robots at start of turn:" << endl;
-        for (auto r : robots()) {
-            cout << r->id() << endl;
-        }
+        // this is to check active robots in the current round, troubleshooting
+        // cout << "Active robots at start of turn:" << endl;
+        // for (auto r : robots()) {
+        //     cout << r->id() << endl;
+        // }
         
         for (auto robot : robots_) {
             int x = robot->x();
@@ -421,12 +420,15 @@ public:
     }
 };
 
+
+
+// Seeing Upgrades
 class ScoutBot : public GenericRobot {
 public:
     ScoutBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
         setRobotType("ScoutBot");
         setRobotName("SB" + id);
-        cout << "ScoutBot created with ID: " << id << endl;
+        // cout << "ScoutBot created with ID: " << id << endl; /*troubleshooting*/
     }
 
     virtual ~ScoutBot() {}
@@ -472,13 +474,118 @@ public:
     }
 };
 
+class TrackBot : public GenericRobot {
+private:
+    int trackersLeft = 3;
+    vector<string> trackedRobots; // to keep track of robots
+public:
+    TrackBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("TrackBot");
+        setRobotName("TB" + id);
+        // cout << "TrackBot created with ID: " << id << endl; /*troubleshooting*/
+    }
+
+    virtual ~TrackBot() {}
+
+    virtual void actions(Battlefield* battlefield) override {
+        int choice;
+
+        cout << "Actions: \n";
+        cout << "1. " << robotType() << " actionThink\n";
+        cout << "2. " << robotType() << " actionMove\n";
+        cout << "3. " << robotType() << " actionShoot\n";
+        cout << "4. " << robotType() << " actionLook\n";
+        cout << "5. " << robotType() << " actionTrack\n";
+        cout << "6. " << robotType() << " actionSkip\n";
+
+        cout << "Please choose your action: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                actionThink(battlefield);
+                break;
+            case 2:
+                actionMove(battlefield);
+                break;
+            case 3:
+                actionShoot(battlefield);
+                break;
+            case 4:
+                actionLook(battlefield);
+                break;
+            case 5:
+                actionTrack(battlefield);
+                break;
+            case 6:
+                cout << "Skipping actions. \n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again. \n";
+        }
+
+    }
+
+    void actionTrack(Battlefield* battlefield) {
+        if (trackersLeft <= 0) {
+            cout << "No trackers left! \n";
+            return;
+        }
+    
+        cout << "Looking for robots to track... \n";
+        bool found = false;
+
+        for (int y = robotPosY - 1; y <= robotPosY + 1; y++) {
+            for (int x = robotPosX - 1; x <= robotPosX + 1; x++) {
+                if (y >= 0 && y < battlefield->BATTLEFIELD_NUM_OF_ROWS() && x >= 0 && x < battlefield->BATTLEFIELD_NUM_OF_COLS()) {
+                    if (x == robotPosX && y == robotPosY) {
+                        continue; // Skip self
+                    }
+
+                    Robot* enemy = nullptr;
+                    for (Robot* r : battlefield->robots()) {
+                        if (r->x() == x && r->y() == y) {
+                            enemy = r;
+                            break;
+                        }
+                    }
+
+                    if (enemy && enemy->id() != this->id()) {
+                        cout << "Tracking robot: " << enemy->id() << " at (" << x << ", " << y << ") \n";
+                        trackedRobots.push_back(enemy->id());
+                        trackersLeft--;
+                        cout << "Tracker placed. Trackers left: " << trackersLeft << endl;
+                        found = true;
+                        break; // Stop after finding the first robot
+                    }
+                }
+            }
+        }
+
+        if (!found) {
+            cout << "No robots found in the surrounding area to track. \n";
+        } 
+    }
+
+    const vector<string>& getTrackedRobots() const {
+        return trackedRobots; // return tracked robots
+    }
+
+    bool isTracking(const string& robotId) const {
+        return find(trackedRobots.begin(), trackedRobots.end(), robotId) != trackedRobots.end();
+    }
+};
+
+
+
+// Shooting Upgrades
 class ThirtyShotBot: public GenericRobot {
 public:
     Robot* robot;
     ThirtyShotBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
         setRobotType("ThirtyShotBot");
         setRobotName("TSB" + id); // set robot name
-        cout << "ThirtyShotBot created with ID: " << id << endl;
+        // cout << "ThirtyShotBot created with ID: " << id << endl; /*troubleshooting*/
         robot->setNumOfShells(30);
     }
 
@@ -586,8 +693,6 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
     // Implement the logic for shooting robot actions here
-    cout << "GenericRobot actionShoot" << endl;
-
     string CurrentRobotsName = this->robotName();
     cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
 
@@ -670,10 +775,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     robotsVec.erase(it); // remove robot from the vector
                 }
 
-                // cout << "Remaining Robots: " << endl;
-                for (const auto& r : battlefield->robots()) {
-                     cout << *r << endl;
-                }
+                // cout << "Remaining Robots: " << endl; /*troubleshooting*/
+                // for (const auto& r : battlefield->robots()) {
+                //      cout << *r << endl;
+                // }
 
 
                 if (this->canUpgrade()) {
@@ -694,9 +799,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     switch (choice) {
                         case 1: {
                             int moveChoice;
-                            cout << "Choose your Moving upgrade:\n";
+                            cout << "Moving upgrade:\n";
                             cout << "1. HideBot "<<endl;
                             cout<<"2. JumpBot "<<endl;
+                            cout << "Enter the upgrade number:\n";
                             cin >> moveChoice;
                             if (moveChoice == 1) {
                                 cout<<"You are now upgraded to HideBot!"<<endl;
@@ -709,10 +815,11 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                         }
                         case 2: {
                             int shootChoice;
-                            cout<<"Choose your Shooting upgrade: "<<endl;
+                            cout<<"Shooting upgrade: "<<endl;
                             cout<<"1. LongShotBot"<<endl;
                             cout<<"2. SemiAutoBot "<<endl;
                             cout<<"3. ThirtyShotBot "<<endl;
+                            cout << "Enter the upgrade number:\n";
                             cin >> shootChoice;
                             if (shootChoice == 1) {
                                 cout<<"You are now upgraded to LongShotBot!"<<endl;
@@ -728,9 +835,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                         }
                         case 3: {
                             int seeChoice;
-                            cout <<"Choose your Seeing upgrade: "<<endl;
+                            cout <<"Seeing upgrade: "<<endl;
                             cout <<"1. ScoutBot "<<endl;
                             cout<<"2. TrackBot "<<endl;
+                            cout << "Enter the upgrade number:\n";
                             cin >> seeChoice;
                             if (seeChoice == 1) {
                                 cout<<"You are now upgraded to ScoutBot!"<<endl;
@@ -795,18 +903,20 @@ int main() {
         
 
         // should implement actions here
-        char proceed;
-        cout << "Press 'y' to execute this robot's actions, or 'n' to quit: ";
-        cin >> proceed;
+        currentRobot->actions(&battlefield);
 
-        if (proceed == 'n' || proceed == 'N') {
-            cout << "Exiting game loop." << endl;
-            break;
-        } else if (proceed == 'y' || proceed == 'Y') {
-            currentRobot->actions(&battlefield);  // Call the robot's action sequence
-        } else {
-            cout << "Wrong input, skipping your turn." << endl;
-        }
+        // char proceed;
+        // cout << "Press 'y' to execute this robot's actions, or 'n' to quit: ";
+        // cin >> proceed;
+
+        // if (proceed == 'n' || proceed == 'N') {
+        //     cout << "Exiting game loop." << endl;
+        //     break;
+        // } else if (proceed == 'y' || proceed == 'Y') {
+        //     currentRobot->actions(&battlefield);  // Call the robot's action sequence
+        // } else {
+        //     cout << "Wrong input, skipping your turn." << endl;
+        // }
 
         currentTurn++;
     }
