@@ -1127,14 +1127,18 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     cout << "Upgrade limit reached. Can only upgrade twice." << endl;
                 }
             } else {
+                this->decreaseShell();
                 cout<<"Shot missed! The enemy robot was not hit."<<endl;
+                cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
             }
             hit = true;
         }
     }
 
     if (!hit) {
+        this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
+        cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
     }
 }
 
