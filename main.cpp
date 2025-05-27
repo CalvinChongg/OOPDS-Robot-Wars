@@ -262,11 +262,11 @@ public:
     int turns() const { return turns_; }
     int currentTurn() const { return turn; } // get current turn
     int numOfRobots() const { return numOfRobots_; }
-    queue<Robot*> destroyedRobots() const { return destroyedRobots_; } // get destroyed robots
-    queue<Robot*> waitingRobots() const { return waitingRobots_; } // get waiting robots
+    queue<Robot*>& destroyedRobots() { return destroyedRobots_; } // get destroyed robots
+    queue<Robot*>& waitingRobots() { return waitingRobots_; } // get waiting robots
     vector<Robot*>& robots() { return robots_; } // get robots (non-const reference)
     bool isCellEmpty(int x, int y) const { return battlefield_[y][x].empty(); } // Check if the cell is empty
-    
+
     string getCellContent(int x, int y) const {
         if (y >= 0 && y < BATTLEFIELD_NUM_OF_ROWS_ && x >= 0 && x < BATTLEFIELD_NUM_OF_COLS_) {
             return battlefield_[y][x];
@@ -367,21 +367,44 @@ public:
     }
 
     void placeRobots() {
-        // this is to check active robots in the current round, troubleshooting
-        // cout << "Active robots at start of turn:" << endl;
-        // for (auto r : robots()) {
-        //     cout << r->id() << endl;
-        // }
-        
         for (auto robot : robots_) {
-            int x = robot->x();
-            int y = robot->y();
+            string robotID = robot->id();
 
-            if (y < battlefield_.size() && x < battlefield_[y].size()) {
-                setCell(x, y, robot); // uses robot->id()
-            } else {
-                cout << "Robot " << robot->id() << " is out of bounds!" << endl;
-                exit(1);
+            // Check if robot is in destroyedRobots_
+            bool isDestroyed = false;
+            queue<Robot*> tempDestroyed = destroyedRobots_;
+            while (!tempDestroyed.empty()) {
+                Robot* r = tempDestroyed.front();
+                tempDestroyed.pop();
+                if (r->id() == robotID) {
+                    isDestroyed = true;
+                    break;
+                }
+            }
+
+            // Check if robot is in waitingRobots_
+            bool isWaiting = false;
+            queue<Robot*> tempWaiting = waitingRobots_;
+            while (!tempWaiting.empty()) {
+                Robot* r = tempWaiting.front();
+                tempWaiting.pop();
+                if (r->id() == robotID) {
+                    isWaiting = true;
+                    break;
+                }
+            }
+
+            // Place robot only if it's active
+            if (!isDestroyed && !isWaiting) {
+                int x = robot->x();
+                int y = robot->y();
+
+                if (y < battlefield_.size() && x < battlefield_[y].size()) {
+                    setCell(x, y, robot);
+                } else {
+                    cout << "Robot " << robot->id() << " is out of bounds!" << endl;
+                    exit(1);
+                }
             }
         }
     }
@@ -1044,6 +1067,33 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
                 robot->reduceLives();
+
+                if (!robot->isAlive()) {
+                    cout << targetRobotId << " has been destroyed!" << endl;
+
+                    battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+
+                    battlefield->destroyedRobots().push(robot);  // add to destroyed queue
+
+                    // Optional: If destroyed robots should be removed from active list
+                    auto& robotsVec = battlefield->robots();
+                    auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+                    if (it != robotsVec.end()) {
+                        robotsVec.erase(it);
+                    }
+
+                } else {
+                    cout << targetRobotId << " was hit and is now temporarily inactive!" << endl;
+
+                    battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove temporarily
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
+
+                    battlefield->waitingRobots().push(robot); // add to waiting queue
+                    
+                }
+
+
                 this->increaseKills();
                 this->decreaseShell();
                 int lifeLeft = robot->numOfLives();
@@ -1051,25 +1101,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                 cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
                 cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
 
-                if (!robot->isAlive()) {
-                    cout << targetRobotId << " has been destroyed!" << endl;
-                    battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(robot->x(), robot->y()); 
-                    battlefield->destroyedRobots().push(robot); // add robot to destroyed robots queue
-                } else {
-                    battlefield->setCell(PotentialRobotX, PotentialRobotY, robot); // update robot position on battlefield
-                }
-
-                auto& robotsVec = battlefield->robots();
-                auto it = find(robotsVec.begin(), robotsVec.end(), robot);
-                if (it != robotsVec.end()) {
-                    robotsVec.erase(it); // remove robot from the vector
-                }
-
                 // cout << "Remaining Robots: " << endl;
-                for (const auto& r : battlefield->robots()) {
-                    cout << *r << endl;
-                }
+                // for (const auto& r : battlefield->robots()) {
+                //     cout << *r << endl;
+                // }
 
 
                 if (this->canUpgrade()) {
@@ -1134,7 +1169,9 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
     }
 
     if (!hit) {
+        this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
+        cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
     }
 }
 
