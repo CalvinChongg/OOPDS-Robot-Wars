@@ -252,7 +252,7 @@ private:
 
     vector<Robot*> robots_;
     queue<Robot*> destroyedRobots_;
-    queue<Robot*> waitingRobots_;
+    queue<pair<Robot*, int>> waitingRobots_;
     vector<vector<string>> battlefield_; //2D vector for battlefield
 
 public:
@@ -263,9 +263,24 @@ public:
     int currentTurn() const { return turn; } // get current turn
     int numOfRobots() const { return numOfRobots_; }
     queue<Robot*>& destroyedRobots() { return destroyedRobots_; } // get destroyed robots
-    queue<Robot*>& waitingRobots() { return waitingRobots_; } // get waiting robots
+    queue<pair<Robot*, int>>& waitingRobots() { return waitingRobots_; } // get waiting robots
     vector<Robot*>& robots() { return robots_; } // get robots (non-const reference)
     bool isCellEmpty(int x, int y) const { return battlefield_[y][x].empty(); } // Check if the cell is empty
+
+    void updateWaitingRobots() { // make the waiting robots return after said rounds
+    int size = waitingRobots_.size();
+    for (int i = 0; i < size; ++i) {
+        auto [robot, turnsWaited] = waitingRobots_.front();
+        waitingRobots_.pop();
+
+        if (turnsWaited + 1 >= 5) {
+            cout << robot->id() << " has waited 5 turns and is returning to the battlefield.\n";
+            robots_.push_back(robot); // Re-add to active robot list if needed
+        } else {
+            waitingRobots_.push({robot, turnsWaited + 1});
+        }
+    }
+}
 
     string getCellContent(int x, int y) const {
         if (y >= 0 && y < BATTLEFIELD_NUM_OF_ROWS_ && x >= 0 && x < BATTLEFIELD_NUM_OF_COLS_) {
@@ -384,9 +399,9 @@ public:
 
             // Check if robot is in waitingRobots_
             bool isWaiting = false;
-            queue<Robot*> tempWaiting = waitingRobots_;
+            queue<pair<Robot*, int>> tempWaiting = waitingRobots_;
             while (!tempWaiting.empty()) {
-                Robot* r = tempWaiting.front();
+                Robot* r = tempWaiting.front().first;
                 tempWaiting.pop();
                 if (r->id() == robotID) {
                     isWaiting = true;
@@ -1089,8 +1104,12 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove temporarily
                     battlefield->clearCell(PotentialRobotX, PotentialRobotY);
 
-                    battlefield->waitingRobots().push(robot); // add to waiting queue
-                    
+                    battlefield->waitingRobots().push({robot, 0}); // add to waiting queue
+                    auto& robotsVec = battlefield->robots();
+                    auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+                    if (it != robotsVec.end()) {
+                        robotsVec.erase(it);
+                    }
                 }
 
 
@@ -1201,6 +1220,7 @@ int main() {
         // Determine which robot's turn it is
         int robotIndex = (currentTurn % robotCount);
         Robot* currentRobot = robots[robotIndex];
+        
 
         // Skip dead robots
         if (!currentRobot->isAlive()) {
@@ -1211,6 +1231,7 @@ int main() {
         // Display the battlefield
         battlefield.placeRobots();
         battlefield.displayBattlefield();
+        battlefield.updateWaitingRobots();
         cout << "Turn " << currentTurn + 1 << endl;
         cout << "Robot Info: " << *currentRobot << endl;
         cout << "Robot Type: "<<currentRobot->robotType()<<endl;
