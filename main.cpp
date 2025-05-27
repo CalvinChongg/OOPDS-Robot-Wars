@@ -267,20 +267,60 @@ public:
     vector<Robot*>& robots() { return robots_; } // get robots (non-const reference)
     bool isCellEmpty(int x, int y) const { return battlefield_[y][x].empty(); } // Check if the cell is empty
 
-    void updateWaitingRobots() { // make the waiting robots return after said rounds
-    int size = waitingRobots_.size();
-    for (int i = 0; i < size; ++i) {
-        auto [robot, turnsWaited] = waitingRobots_.front();
-        waitingRobots_.pop();
+    void updateWaitingRobots() {
+        int size = waitingRobots_.size();
+        for (int i = 0; i < size; ++i) {
+            auto [robot, turnsWaited] = waitingRobots_.front();
+            waitingRobots_.pop();
 
-        if (turnsWaited + 1 >= 5) {
-            cout << robot->id() << " has waited 5 turns and is returning to the battlefield.\n";
-            robots_.push_back(robot); // Re-add to active robot list if needed
-        } else {
-            waitingRobots_.push({robot, turnsWaited + 1});
+            if (turnsWaited + 1 >= 5) {
+                // Find random empty position
+                int newX, newY;
+                bool positionFound = false;
+                
+                // Try random positions first
+                for (int attempt = 0; attempt < 100; attempt++) {
+                    newX = rand() % BATTLEFIELD_NUM_OF_COLS_;
+                    newY = rand() % BATTLEFIELD_NUM_OF_ROWS_;
+                    
+                    if (isCellEmpty(newX, newY)) {
+                        positionFound = true;
+                        break;
+                    }
+                }
+                
+                // Fallback: linear search if random failed
+                if (!positionFound) {
+                    for (newY = 0; newY < BATTLEFIELD_NUM_OF_ROWS_; newY++) {
+                        for (newX = 0; newX < BATTLEFIELD_NUM_OF_COLS_; newX++) {
+                            if (isCellEmpty(newX, newY)) {
+                                positionFound = true;
+                                goto position_found;
+                            }
+                        }
+                    }
+                    position_found:;
+                }
+
+                if (positionFound) {
+                    // Update robot position
+                    robot->setX(newX);
+                    robot->setY(newY);
+                    setCell(newX, newY, robot);
+                    
+                    cout << robot->id() << " has waited 5 turns and is returning at (" 
+                        << newX << "," << newY << ")\n";
+                    robots_.push_back(robot);
+                } else {
+                    cout << "No empty space found for " << robot->id() 
+                        << ", keeping in waiting queue\n";
+                    waitingRobots_.push({robot, turnsWaited + 1});
+                }
+            } else {
+                waitingRobots_.push({robot, turnsWaited + 1});
+            }
         }
     }
-}
 
     string getCellContent(int x, int y) const {
         if (y >= 0 && y < BATTLEFIELD_NUM_OF_ROWS_ && x >= 0 && x < BATTLEFIELD_NUM_OF_COLS_) {
@@ -1088,28 +1128,33 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
                     battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    robot->setX(-1);
+                    robot->setY(-2);
 
                     battlefield->destroyedRobots().push(robot);  // add to destroyed queue
 
-                    // Optional: If destroyed robots should be removed from active list
-                    auto& robotsVec = battlefield->robots();
-                    auto it = find(robotsVec.begin(), robotsVec.end(), robot);
-                    if (it != robotsVec.end()) {
-                        robotsVec.erase(it);
-                    }
+                    // // Optional: If destroyed robots should be removed from active list
+                    // auto& robotsVec = battlefield->robots();
+                    // auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+                    // if (it != robotsVec.end()) {
+                    //     robotsVec.erase(it);
+                    // }
 
                 } else {
                     cout << targetRobotId << " was hit and is now temporarily inactive!" << endl;
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove temporarily
                     battlefield->clearCell(PotentialRobotX, PotentialRobotY);
+                    robot->setX(-1);
+                    robot->setY(-1);
 
                     battlefield->waitingRobots().push({robot, 0}); // add to waiting queue
-                    auto& robotsVec = battlefield->robots();
-                    auto it = find(robotsVec.begin(), robotsVec.end(), robot);
-                    if (it != robotsVec.end()) {
-                        robotsVec.erase(it);
-                    }
+
+                    // auto& robotsVec = battlefield->robots();
+                    // auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+                    // if (it != robotsVec.end()) {
+                    //     robotsVec.erase(it);
+                    // }
                 }
 
 
@@ -1220,7 +1265,6 @@ int main() {
         // Determine which robot's turn it is
         int robotIndex = (currentTurn % robotCount);
         Robot* currentRobot = robots[robotIndex];
-        
 
         // Skip dead robots
         if (!currentRobot->isAlive()) {
@@ -1232,7 +1276,23 @@ int main() {
         battlefield.placeRobots();
         battlefield.displayBattlefield();
         battlefield.updateWaitingRobots();
+
         cout << "Turn " << currentTurn + 1 << endl;
+
+        if (currentRobot->x()== -1 && currentRobot->y()== -1){ // check if is in waiting queue
+            cout<<"\nSkipping Turns, Robot "<<currentRobot->robotName()<<" is still in waiting queue.\n"<<endl;
+            currentTurn++;
+            continue;  
+        }
+
+        if (currentRobot->x()== -1 && currentRobot->y()== -2){ // check if is in destroyed queue
+            cout<<"\nSkipping Turns, Robot "<<currentRobot->robotName()<<" is destroyed and out of the game!\n"<<endl;
+            currentTurn++;
+            continue;  
+        }
+
+
+
         cout << "Robot Info: " << *currentRobot << endl;
         cout << "Robot Type: "<<currentRobot->robotType()<<endl;
         
