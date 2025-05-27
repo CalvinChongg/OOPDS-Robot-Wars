@@ -870,6 +870,232 @@ public:
 };
 
 
+
+// Extra Upgrades
+class nukeBot: public GenericRobot {
+private:
+    int nukeCount = 0; 
+    int maxNukes = 2;
+
+public:
+    nukeBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("nukeBot");
+        setRobotName("NB" + id);
+        // cout << "nukeBot created with ID: " << id << endl; /*troubleshooting*/
+    }
+
+    virtual ~nukeBot() {}
+
+    virtual void actions(Battlefield* battlefield) override {
+        int choice;
+
+        cout << "Actions: \n";
+        cout << "1. " << robotType() << " actionThink\n";
+        cout << "2. " << robotType() << " actionMove\n";
+        cout << "3. " << robotType() << " actionShoot\n";
+        cout << "4. " << robotType() << " actionLook\n";
+        cout << "5. " << robotType() << " actionNuke\n";
+        cout << "6. " << robotType() << " actionSkip\n";
+
+        cout << "Please choose your action: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                actionThink(battlefield);
+                break;
+            case 2:
+                actionMove(battlefield);
+                break;
+            case 3:
+                actionShoot(battlefield);
+                break;
+            case 4:
+                actionLook(battlefield);
+                break;
+            case 5:
+                actionNuke(battlefield);
+                break;
+            case 6:
+                cout << "Skipping actions. \n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again. \n";
+        }
+    }
+
+    void actionNuke(Battlefield* battlefield) {
+        if (nukeCount >= maxNukes) {
+            cout << "You've already used all your nukes (" << maxNukes << "/" << maxNukes << ")!" << endl;
+            return;
+        }
+
+        char confirm;
+        cout << "WARNING: This will destroy ALL other robots on the battlefield!" << endl;
+        cout << "You have " << (maxNukes - nukeCount) << " nukes remaining. Confirm? (y/n): ";
+        cin >> confirm;
+
+        if (confirm == 'y' && confirm == 'Y') {
+            nukeCount++;
+            
+            // Destroy all other robots
+            auto& robots = battlefield->robots();
+            for (auto it = robots.begin(); it != robots.end(); ) {
+                if (*it != this) { // Don't nuke yourself
+                    // Clear their position on battlefield
+                    battlefield->clearCell((*it)->x(), (*it)->y());
+                    // battlefield->destroyedRobots().push(*it);
+                    // Remove from active robots
+                    // it = robots.erase(it);
+                    this->increaseKills();
+                } else {
+                    it++;
+                }
+            }
+
+            cout << "NUKE DETONATED! All other robots have been destroyed!" << endl;
+            cout << "Nukes remaining: " << (maxNukes - nukeCount) << endl;
+            cout << "Kills: " << this->numOfKills() << endl;
+        } else {
+            cout << "Nuke cancelled." << endl;
+        }
+    }
+};
+
+class JukeBot : public GenericRobot {
+private:
+    int turnCounter = 0;
+    const int teleportInterval = 5;
+
+public:
+    JukeBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("JukeBot");
+        setRobotName("JB" + id);
+    }
+
+    virtual ~JukeBot() {}
+
+    virtual void actions(Battlefield* battlefield) override {
+        turnCounter++;
+        
+        // Check if it's time to teleport
+        if (turnCounter % teleportInterval == 0) {
+            actionJuke(battlefield);
+        } else {
+            // Show normal actions if not teleporting this turn
+            GenericRobot::actions(battlefield);
+        }
+    }
+
+    void actionJuke(Battlefield* battlefield) {
+        int newX, newY;
+        bool validPosition = false;
+        int maxAttempts = 100;
+        int attempts = 0;
+
+        // Try to find a random empty position
+        while (!validPosition && attempts < maxAttempts) {
+            newX = rand() % battlefield->BATTLEFIELD_NUM_OF_COLS();
+            newY = rand() % battlefield->BATTLEFIELD_NUM_OF_ROWS();
+            
+            // Check if position is empty and not current position
+            if (battlefield->isCellEmpty(newX, newY)) {
+                validPosition = true;
+            }
+            attempts++;
+        }
+
+        if (validPosition) {
+            // Clear old position
+            battlefield->clearCell(robotPosX, robotPosY);
+            
+            // Update position
+            robotPosX = newX;
+            robotPosY = newY;
+            
+            // Set new position
+            battlefield->setCell(newX, newY, this);
+            
+            cout << "JUKEBOT TELEPORTED! New position: (" << newX << ", " << newY << ")" << endl;
+            cout << "Next teleport in " << (teleportInterval - (turnCounter % teleportInterval)) << " turns" << endl;
+        } else {
+            cout << "Couldn't find a valid position to teleport to!" << endl;
+        }
+
+        // Show remaining actions
+        GenericRobot::actions(battlefield);
+    }
+};
+
+class GodBot : public GenericRobot {
+public:
+    GodBot(string id = "", int x = -1, int y = -1) : GenericRobot(id, x, y) {
+        setRobotType("GodBot");
+        setRobotName("GB" + id);
+    }
+
+    virtual ~GodBot() {}
+
+    virtual void actionLook(Battlefield* battlefield) override {
+        cout << "=== GOD VIEW (All Robot Locations) ===" << endl;
+        
+        // Display column numbers
+        cout << endl << "     ";
+        for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+            cout << "  " << right << setfill('0') << setw(2) << j << " ";
+        }
+        cout << endl;
+
+        for (int i = 0; i < battlefield->BATTLEFIELD_NUM_OF_ROWS(); i++) {
+            cout << "   ";
+            for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+                cout << "+----";
+            }
+            cout << "+" << endl;
+
+            cout << " " << right << setfill('0') << setw(2) << i;
+            
+            for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+                string content = battlefield->getCellContent(j, i);
+                if (content.empty()) {
+                    cout << "|" << "    ";
+                } else {
+                    if (j == x() && i == y()) {
+                        cout << "|" << left << setfill(' ') << setw(4) << "[G]"; // Mark godbot itself
+                    } else {
+                        // For other robots, show their type's first letter
+                        for (Robot* r : battlefield->robots()) {
+                            if (r->x() == j && r->y() == i) {
+                                string type = r->robotType();
+                                char typeChar = type.empty() ? '?' : type[0];
+                                cout << "|" << left << setfill(' ') << setw(4) << string(1, typeChar);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            cout << "|" << endl;
+        }
+        cout << "   ";
+        for (int j = 0; j < battlefield->BATTLEFIELD_NUM_OF_COLS(); j++) {
+            cout << "+----";
+        }
+        cout << "+" << endl;
+
+        // Additional information about all robots
+        cout << "\nDetailed Robot Information:\n";
+        for (Robot* r : battlefield->robots()) {
+            if (r != this) { // Don't show yourself in this list
+                cout << r->robotType() << " " << r->id() 
+                     << " at (" << r->x() << ", " << r->y() << ")"
+                     << " Lives: " << r->numOfLives()
+                     << " Kills: " << r->numOfKills() << endl;
+            }
+        }
+    }
+};
+
 // Action Logics
 /*
 void GenericRobot::actionThink(Battlefield* battlefield) {
@@ -1087,9 +1313,12 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 this->setRobotType("HideBot");
-                            } else {
+                            } else if (moveChoice == 2) {
                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
                                 this->setRobotType("JumpBot");
+                            } else {
+                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                                this->setRobotType("JukeBot");
                             }
                             break;
                         }
@@ -1118,6 +1347,17 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                             } else {
                                 cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
                                 this->setRobotType("TrackBot");
+                            }
+                            break;
+                        }
+                        case 4: {
+                            int extraChoice = rand() % 2 + 1;
+                            if (extraChoice == 1) {
+                                cout << this->id() << " are now upgraded to NukeBot!" << endl;
+                                this->setRobotType("NukeBot");
+                            } else if (extraChoice == 2) {
+                                cout << this->id() << " are now upgraded to GodBot!" << endl;
+                                this->setRobotType("GodBot");
                             }
                             break;
                         }
