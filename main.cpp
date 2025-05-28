@@ -640,7 +640,7 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     }
 
     //Check if moves within the boundary
-    if (newX < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
         newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
             cout << "Cannot move outside batterfield\n";
             return;
