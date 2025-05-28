@@ -421,34 +421,71 @@ public:
         GameFile.close();
     }
 
-    void placeCurrentRobot(Robot* robot) {
-        if (robot == nullptr) {
-            cout << "No robot to place!" << endl;
-            return;
-        }
+    // void placeCurrentRobot(Robot* robot) {
+    //     if (robot == nullptr) {
+    //         cout << "No robot to place!" << endl;
+    //         return;
+    //     }
 
-        string robotID = robot->id();
-        int x = robot->x();
-        int y = robot->y();
+    //     string robotID = robot->id();
+    //     int x = robot->x();
+    //     int y = robot->y();
 
-        // Check if the robot is already placed
-        for (const auto& row : battlefield_) {
-            for (const auto& cell : row) {
-                if (cell == robotID) {
-                    cout << "Robot " << robotID << " is already placed at (" << x << ", " << y << ")." << endl;
-                    return;
-                }
+    //     // Check if the robot is already placed
+    //     // for (const auto& row : battlefield_) {
+    //     //     for (const auto& cell : row) {
+    //     //         if (cell == robotID) {
+    //     //             cout << "Robot " << robotID << " is already placed at (" << x << ", " << y << ")." << endl;
+    //     //             return;
+    //     //         }
+    //     //     }
+    //     // }
+
+    //     // Place the robot on the battlefield
+    //     for (Robot* robots : robots_) { 
+    //         if (robotID == robots->id()) {
+    //              if (y < battlefield_.size() && x < battlefield_[y].size()) {
+    //                 setCell(x, y, robot);
+    //             } else {
+    //                 cout << "Robot " << robotID << " is out of bounds!" << endl;
+    //                 exit(1);
+    //             }
+    //         }
+    //     }
+
+    //     // if (y < battlefield_.size() && x < battlefield_[y].size()) {
+    //     //     setCell(x, y, robot);
+    //     // } else {
+    //     //     cout << "Robot " << robotID << " is out of bounds!" << endl;
+    //     //     exit(1);
+    //     // }
+    // }
+
+    void placeCurrentRobot(Robot* robot, int currentTurn, int robotCount) {
+        // Clear battlefield display grid first
+        for (int i = 0; i < battlefield_.size(); ++i) {
+            for (int j = 0; j < battlefield_[i].size(); ++j) {
+                battlefield_[i][j] = "";
             }
         }
 
-        // Place the robot on the battlefield
+        int robotIndex = (currentTurn % robotCount);
+        Robot* currentRobot = robots_[robotIndex];
+
+        if (robot != currentRobot) return;
+
+        int x = robot->x();
+        int y = robot->y();
+
         if (y < battlefield_.size() && x < battlefield_[y].size()) {
             setCell(x, y, robot);
         } else {
-            cout << "Robot " << robotID << " is out of bounds!" << endl;
+            cout << "Robot " << robot->id() << " is out of bounds!" << endl;
             exit(1);
         }
     }
+
+
 
     void placeRobots() {
         for (auto robot : robots_) {
@@ -493,8 +530,15 @@ public:
         }
     }
 
-    void displayBattlefield() {
-        cout << "Display Battlefield" << endl;
+    void displayBattlefield(Robot* robot, int currentTurn, int robotCount) {
+        int robotIndex = (currentTurn % robotCount);
+        Robot* currentRobot = robots_[robotIndex];
+
+        int robotX = currentRobot->x();
+        int robotY = currentRobot->y();
+
+        cout << "Display Battlefield (Current Robot Only)" << endl;
+
         cout << endl << "     ";
         for (int j = 0; j < battlefield_[0].size(); j++) {
             cout << "  " << right << setfill('0') << setw(2) << j << " ";
@@ -509,23 +553,24 @@ public:
             cout << "+" << endl;
 
             cout << " " << right << setfill('0') << setw(2) << i;
-            
-            // last seem here \/
+
             for (int j = 0; j < battlefield_[i].size(); j++) {
-                if (battlefield_[i][j] == "") {
-                    cout << "|" << "    ";
+                if (i == robotY && j == robotX) {
+                    cout << "|" << left << setfill(' ') << setw(4) << currentRobot->id();
                 } else {
-                    cout << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
+                    cout << "|" << "    ";
                 }
             }
             cout << "|" << endl;
         }
+
         cout << "   ";
         for (int j = 0; j < battlefield_[0].size(); j++) {
             cout << "+----";
         }
         cout << "+" << endl;
     }
+
 };
 
 
@@ -1400,45 +1445,43 @@ void GenericRobot::actionLook(Battlefield* battlefield) {
 }
 
 void GenericRobot::actionMove(Battlefield* battlefield) {
-
     int currentX = robotPosX;
     int currentY = robotPosY;
 
-    vector<string> directions =
-    {"UL", "U", "UR", "L", "C","R", "DL", "D", "DR"};
+    vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
-        {-1,-1}, {0,-1}, {1,-1},
-        {-1,0}, {0,0}, {1,0},
-        {-1,1}, {0,1}, {1,1}
+        {-1, -1}, {0, -1}, {1, -1},
+        {-1, 0}, {0, 0}, {1, 0},
+        {-1, 1}, {0, 1}, {1, 1}
     };
 
-    //Showing available direction
+    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
     cout << "DL, D, DR\n";
 
-    //Enter direction input
+    // Enter direction input
     string userInput;
     cout << "Enter direction: ";
     cin >> userInput;
 
-    //Find matching direction
+    // Find matching direction
     int moveIndex = -1;
     for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput){
+        if (directions[i] == userInput) {
             moveIndex = i;
             break;
         }
     }
 
-    //Check invalid input 
+    // Check invalid input 
     if (moveIndex == -1) {
         cout << "Invalid move direction\n";
         return;
     }
 
-    //Calculate new position
+    // Calculate new position
     int newX = currentX;
     int newY = currentY;
 
@@ -1447,27 +1490,34 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         newY += directionsMove[moveIndex].second;
     }
 
-    //Check if moves within the boundary
+    // Check if moves within the boundary
     if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
         newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-            cout << "Cannot move outside batterfield\n";
-            return;
-        }
+        cout << "Cannot move outside battlefield\n";
+        return;
+    }
 
-    //Check if target cell empty
-    if (battlefield->isCellEmpty(newX, newY)) {
-        battlefield->setCell(currentX, currentY, nullptr);
-        battlefield->setCell(newX, newY, this); 
-        
-    //Update new robot position
+    // Check if destination is occupied
+    for (Robot* robot : battlefield->robots()) { 
+        int PotentialRobotX = robot->x();
+        int PotentialRobotY = robot->y();
+
+        if (newX == PotentialRobotX && newY == PotentialRobotY) {
+            cout << "Destination occupied" << endl;
+            return;  // Stop and do not move if the destination is occupied
+        }
+    }
+
+    //If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
+    
+
+    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    } else {
-        cout << "Destination occupied" << endl;
-    }
-}   
+}  
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
     // Implement the logic for shooting robot actions here
@@ -1586,8 +1636,8 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     this->incrementUpgradeCount();
 
                     cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
-                    cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                    ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
+                    //cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                   // ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
                     // IM LOSING MY SHIT HERE
 
                     //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing, 4 - Extras)
@@ -1703,9 +1753,13 @@ int main() {
         }
 
         // Display the battlefield
-        battlefield.placeCurrentRobot(currentRobot);
-        battlefield.displayBattlefield();
+        //battlefield.placeCurrentRobot(currentRobot);
+        battlefield.placeRobots();
+        //battlefield.placeCurrentRobot(currentRobot, currentTurn, robotCount);
+        battlefield.displayBattlefield(currentRobot, currentTurn, robotCount);
         battlefield.updateWaitingRobots();
+
+        
 
         cout << "Turn " << currentTurn + 1 << endl;
 
