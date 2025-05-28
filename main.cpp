@@ -502,52 +502,71 @@ public:
 
 
 // Seeing Upgrades
-class ScoutBot : public GenericRobot {
+class ScoutBot: public ThinkingRobot, public SeeingRobot, 
+                    public ShootingRobot, public MovingRobot 
+{
 
 };
 
-class TrackBot : public GenericRobot {
+class TrackBot: public ThinkingRobot, public SeeingRobot, 
+                public ShootingRobot, public MovingRobot 
+{
 
 };
 
 
 
 // Shooting Upgrades
-class LongShotBot: public GenericRobot {
+class LongShotBot: public ThinkingRobot, public SeeingRobot, 
+                   public ShootingRobot, public MovingRobot 
+{
 
 };
 
-class SemiAutoBot: public GenericRobot {
+class SemiAutoBot: public ThinkingRobot, public SeeingRobot, 
+                   public ShootingRobot, public MovingRobot 
+{
 
 };
 
-class ThirtyShotBot: public GenericRobot {
+class ThirtyShotBot: public ThinkingRobot, public SeeingRobot, 
+                     public ShootingRobot, public MovingRobot 
+{
 
 };
 
 
 
 // Moving Upgrades
-class HideBot: public GenericRobot {
+class HideBot: public ThinkingRobot, public SeeingRobot, 
+               public ShootingRobot, public MovingRobot 
+{
 
 };
 
-class JumpBot: public GenericRobot {
+class JumpBot: public ThinkingRobot, public SeeingRobot, 
+               public ShootingRobot, public MovingRobot 
+{
 
 };
-
 
 
 // Extra Upgrades
-class nukeBot: public GenericRobot {
+class NukeBot: public ThinkingRobot, public SeeingRobot, 
+               public ShootingRobot, public MovingRobot 
+{
 
 };
 
-class JukeBot : public GenericRobot {
+class JukeBot: public ThinkingRobot, public SeeingRobot, 
+               public ShootingRobot, public MovingRobot 
+{
 
 };
 
-class GodBot : public GenericRobot {
+class GodBot: public ThinkingRobot, public SeeingRobot, 
+              public ShootingRobot, public MovingRobot 
+{
 
 };
 
