@@ -586,11 +586,13 @@ class ScoutBot: public ThinkingRobot, public SeeingRobot,
 {
 public:
     ScoutBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "SB" + id.substr(2,2);
         robotType_ = "ScoutBot";
         robotPosX = x;
         robotPosY = y;
-        robotName_ = "SB" + id;
+        robotName_ ;
+
+        
     }
 
     virtual ~ScoutBot() {}
@@ -2651,7 +2653,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
             int hitChance = rand() % 100; // number from 0-99
-            if (hitChance < 70) { // 70% chance to hit
+            if (hitChance < 99) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
                 robot->reduceLives();
 
@@ -2705,31 +2707,50 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
                 if (this->canUpgrade()) {
                     this->incrementUpgradeCount();
+                    cout << "\n" << this->id() << " earned an upgrade! A random upgrade is applied!" << endl;
+                    cout << this->id() << " is now upgraded to ScoutBot!" << endl;
 
-                    cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
-                    cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                    ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(2,2), this->x(), this->y());
-                    cout << upgradedRobot->id() << endl;
-                    cout << upgradedRobot->robotName() << endl;
-                    cout << upgradedRobot->robotType() << endl;
-                    cout << upgradedRobot->x() << endl;
-                    cout << upgradedRobot->y() << endl;
+                    // Create new upgraded robot
+                    ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
-                    // Copy over important state
+                    // Copy state
                     upgradedRobot->setNumOfLives(this->numOfLives());
                     upgradedRobot->setNumOfKills(this->numOfKills());
                     upgradedRobot->setNumOfShells(this->numOfShell());
                     upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
-                    battlefield->robots().push_back(upgradedRobot);
-                    
+                    int robotName_pos = this->robotName().find("_");
+                    upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
 
-                    // Update battlefield cell
-                    battlefield->setCell(this->x(), this->y(), upgradedRobot); 
-                    
-                    delete this; 
+                    // Replace the robot in the battlefield vector immediately
+                    for (auto& robot : battlefield->robots()) {
+                        if (robot == this) {
+                            robot = upgradedRobot;
+                            break; // important: break to avoid double replacement
+                        }
+                    }
 
-                    
+                    // CHECKING PURPOSES
+                    // for (auto& robot : battlefield->robots()) {
+                    //     cout<<robot->id()<<endl;
+                    //     cout<<robot->robotName()<<endl;
+                    //     cout<<robot->numOfKills()<<endl;
+                    //     cout<<robot->numOfLives()<<endl;
+                    //     cout<<endl;
+                    // }
+
+                    // Update battlefield grid cell
+                    battlefield->setCell(this->x(), this->y(), upgradedRobot);
+
+                    // Finally, delete the current object
+                    delete this;
+
+                    // IMPORTANT: Do not use 'this' anymore after this point!
+
+                    // Use the upgraded robot to continue the turn
+                    //upgradedRobot->actions(battlefield);
+                    return;
+
                     //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing, 4 - Extras)
                     // int choice = rand() % 4 + 1;
 
@@ -2823,7 +2844,7 @@ int main() {
     
     // Get total number of turns and robot list
     int totalTurns = battlefield.turns();
-    vector<Robot*> robots = battlefield.robots();
+    vector<Robot*>& robots = battlefield.robots();
     int robotCount = robots.size();
 
     cout << "Total turns: " << totalTurns << endl;
