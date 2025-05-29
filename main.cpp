@@ -3284,7 +3284,8 @@ int main() {
     Battlefield battlefield;
 
     // read the file
-    battlefield.readFile("fileInput1.txt"); 
+    string inputFile = "fileInput1.txt";
+    battlefield.readFile(inputFile); 
     
     // Get total number of turns and robot list
     int totalTurns = battlefield.turns();
@@ -3375,7 +3376,9 @@ int main() {
     cout << "\nGame Over. Total turns played: " << currentTurn << endl;
     outputLines.push_back("\nGame Over. Total turns played: " + to_string(currentTurn)  );   
 
-    ofstream outFile("output.txt");
+    string outputFile = "fileOutput" + inputFile.substr(9);
+
+    ofstream outFile(outputFile);
     for (const string& line : outputLines) {
         outFile << line << endl;
     }
