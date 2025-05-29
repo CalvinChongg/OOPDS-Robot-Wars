@@ -260,6 +260,7 @@ private:
     queue<Robot*> destroyedRobots_;
     queue<pair<Robot*, int>> waitingRobots_;
     vector<vector<string>> battlefield_; //2D vector for battlefield
+    vector<string> outputLines;
 
 public:
     //Getter Functions
@@ -2912,6 +2913,8 @@ int main() {
     }
 
     cout << "\nGame Over. Total turns played: " << currentTurn << endl;
+
+    
     
 
     
