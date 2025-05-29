@@ -120,6 +120,14 @@ public:
             upgradeCount++;
     }
 
+    void setUpgradeCount(int count) {
+        if (count >= 0 && count <= 2) {
+            upgradeCount = count;
+        } else {
+            cout << "Max UpgradeCount." << endl;
+        }
+    }
+
     bool canUpgrade() const {
         return upgradeCount < 2;
     }
@@ -191,9 +199,7 @@ public:
         robotPosY = y; // set y position of robot
     }
 
-    virtual void actionThink(Battlefield* battlefield) {
-        // Implement the logic for thinking robot actions here
-    }
+    virtual void actionThink(Battlefield* battlefield);
 
     virtual void actionLook(Battlefield* battlefield);
     
@@ -570,7 +576,6 @@ public:
         }
         cout << "+" << endl;
     }
-
 };
 
 
@@ -606,8 +611,8 @@ public:
 
         cout << "=== Robot View (3x3 Grid) ===" << endl;
 
-        for (int y = currentY - 1; y <= currentY + 1; ++y) {
-            for (int x = currentX - 1; x <= currentX + 1; ++x) {
+        for (int y = 0; y <= battlefield->BATTLEFIELD_NUM_OF_ROWS(); ++y) {
+            for (int x = 0; x <= battlefield->BATTLEFIELD_NUM_OF_COLS(); ++x) {
                 // Check bounds
                 if (y >= 0 && y < battlefield->BATTLEFIELD_NUM_OF_ROWS() &&
                     x >= 0 && x < battlefield->BATTLEFIELD_NUM_OF_COLS()) {
@@ -2702,69 +2707,88 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                     this->incrementUpgradeCount();
 
                     cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
-                    //cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                   // ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
-                    // IM LOSING MY SHIT HERE
+                    cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                    ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(2,2), this->x(), this->y());
+                    cout << upgradedRobot->id() << endl;
+                    cout << upgradedRobot->robotName() << endl;
+                    cout << upgradedRobot->robotType() << endl;
+                    cout << upgradedRobot->x() << endl;
+                    cout << upgradedRobot->y() << endl;
 
+                    // Copy over important state
+                    upgradedRobot->setNumOfLives(this->numOfLives());
+                    upgradedRobot->setNumOfKills(this->numOfKills());
+                    upgradedRobot->setNumOfShells(this->numOfShell());
+                    upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                    battlefield->robots().push_back(upgradedRobot);
+                    
+
+                    // Update battlefield cell
+                    battlefield->setCell(this->x(), this->y(), upgradedRobot); 
+                    
+                    delete this; 
+
+                    
                     //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing, 4 - Extras)
-                    int choice = rand() % 4 + 1;
+                    // int choice = rand() % 4 + 1;
 
-                    switch (choice) {
-                        case 1: {
-                            // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
-                            int moveChoice = rand() % 2 + 1;
-                            if (moveChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                this->setRobotType("HideBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                this->setRobotType("JumpBot");
-                            }
-                            break;
-                        }
-                        case 2: {
-                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                            int shootChoice = rand() % 3 + 1;
-                            if (shootChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                this->setRobotType("LongShotBot");
-                            } else if (shootChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                this->setRobotType("ScoutBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
-                            }
-                            break;
-                        }
-                        case 3: {
-                            // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
-                            int seeChoice = rand() % 2 + 1;
-                            if (seeChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                this->setRobotType("ScoutBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                                this->setRobotType("TrackBot");
-                            }
-                            break;
-                        }
-                        case 4: {
-                            int extraChoice = rand() % 3 + 1;
-                            if (extraChoice == 1) {
-                                cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                this->setRobotType("NukeBot");
-                            } else if (extraChoice == 2) {
-                                cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                this->setRobotType("GodBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                this->setRobotType("JukeBot");
-                            }
-                            break;
-                        }
-                    }
+                    // switch (choice) {
+                    //     case 1: {
+                    //         // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                    //         int moveChoice = rand() % 2 + 1;
+                    //         if (moveChoice == 1) {
+                    //             cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+                    //             this->setRobotType("HideBot");
+                    //         } else {
+                    //             cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                    //             this->setRobotType("JumpBot");
+                    //         }
+                    //         break;
+                    //     }
+                    //     case 2: {
+                    //         // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                    //         int shootChoice = rand() % 3 + 1;
+                    //         if (shootChoice == 1) {
+                    //             cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                    //             this->setRobotType("LongShotBot");
+                    //         } else if (shootChoice == 2) {
+                    //             cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                    //             this->setRobotType("ScoutBot");
+                    //         } else {
+                    //             cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                    //             this->setRobotType("ThirtyShotBot");
+                    //             //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+                    //         }
+                    //         break;
+                    //     }
+                    //     case 3: {
+                    //         // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                    //         int seeChoice = rand() % 2 + 1;
+                    //         if (seeChoice == 1) {
+                    //             cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                    //             this->setRobotType("ScoutBot");
+                    //         } else {
+                    //             cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                    //             this->setRobotType("TrackBot");
+                    //         }
+                    //         break;
+                    //     }
+                    //     case 4: {
+                    //         int extraChoice = rand() % 3 + 1;
+                    //         if (extraChoice == 1) {
+                    //             cout << this->id() << " are now upgraded to NukeBot!" << endl;
+                    //             this->setRobotType("NukeBot");
+                    //         } else if (extraChoice == 2) {
+                    //             cout << this->id() << " are now upgraded to GodBot!" << endl;
+                    //             this->setRobotType("GodBot");
+                    //         } else {
+                    //             cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                    //             this->setRobotType("JukeBot");
+                    //         }
+                    //         break;
+                    //     }
+                    //   }
 
                 } else {
                     cout << "Upgrade limit reached. Can only upgrade twice." << endl;
