@@ -785,217 +785,217 @@ public:
     }
 
     void actionShoot(Battlefield* battlefield) override ;
-    // {
+    // // {
 
-    //     string CurrentRobotsName = this->robotName();
-    //     cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
-    //     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
+    // //     string CurrentRobotsName = this->robotName();
+    // //     cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    // //     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
-    //     int CurrentRobotsX = this->x();
-    //     int CurrentRobotsY = this->y();
+    // //     int CurrentRobotsX = this->x();
+    // //     int CurrentRobotsY = this->y();
 
-    //     int targetX, targetY;
+    // //     int targetX, targetY;
 
-    //     bool validTarget = false;
+    // //     bool validTarget = false;
 
-    //     int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    //     int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    // //     int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
+    // //     int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
 
-    //     do {
-    //         cout << "Enter your target coordinates (X Y): ";
-    //         outputLines.push_back("Enter your target coordinates (X Y): ");
+    // //     do {
+    // //         cout << "Enter your target coordinates (X Y): ";
+    // //         outputLines.push_back("Enter your target coordinates (X Y): ");
 
-    //         cin >> targetX >> targetY;
-    //         outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+    // //         cin >> targetX >> targetY;
+    // //         outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
 
-    //         // calculate distance between target and self
-    //         int dx = abs(targetX - CurrentRobotsX);
-    //         int dy = abs(targetY - CurrentRobotsY);
+    // //         // calculate distance between target and self
+    // //         int dx = abs(targetX - CurrentRobotsX);
+    // //         int dy = abs(targetY - CurrentRobotsY);
 
-    //         // check if shooting self
-    //         bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
+    // //         // check if shooting self
+    // //         bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
 
-    //         // check if surrounding 8 blocks
-    //         bool within8Blocks = (dx <= 1 && dy <= 1); 
+    // //         // check if surrounding 8 blocks
+    // //         bool within8Blocks = (dx <= 1 && dy <= 1); 
 
-    //         // check whether in bounds
-    //         bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
+    // //         // check whether in bounds
+    // //         bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
 
-    //         validTarget = notSelf && within8Blocks && insideMap;
+    // //         validTarget = notSelf && within8Blocks && insideMap;
 
-    //         if (!validTarget) {
-    //             cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-    //             outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
-    //         }
+    // //         if (!validTarget) {
+    // //             cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
+    // //             outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+    // //         }
 
-    //     } while (!validTarget);
+    // //     } while (!validTarget);
 
-    //     int ShellLeft = this->numOfShell();
-    //     if (ShellLeft == 0) {
-    //         cout<<"Oh no! You ran out of shells! You can't shoot anything!"<<endl;
-    //         outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!");
-    //         return;
-    //     }
-
-
-    //     bool hit = false;
-
-    //     for (Robot* robot : battlefield->robots()) { 
-    //         string targetRobotId = robot->id() ;
-    //         int PotentialRobotX = robot->x() ;
-    //         int PotentialRobotY = robot->y() ;
-    //         if (targetX == CurrentRobotsX && targetY == CurrentRobotsY ){
-    //             cout<<"\nYou can't Shoot Yourself"<<endl;
-    //             outputLines.push_back("\nYou can't Shoot Yourself");
-    //             break;
-    //         }
-    //         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
-    //             int hitChance = rand() % 100; // number from 0-99
-    //             if (hitChance < 70) { // 70% chance to hit
-    //                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
-    //                 outputLines.push_back("\nYou've successfully shot an enemy Robot!");
-    //                 robot->reduceLives();
-
-    //                 if (!robot->isAlive()) {
-    //                     cout << targetRobotId << " has been destroyed!" << endl;
-    //                     outputLines.push_back(targetRobotId + " has been destroyed!");
-
-    //                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-    //                     battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
-    //                     robot->setX(-1);
-    //                     robot->setY(-2);
-
-    //                     battlefield->destroyedRobots().push(robot);  // add to destroyed queue
-
-    //                     // // Optional: If destroyed robots should be removed from active list
-    //                     // auto& robotsVec = battlefield->robots();
-    //                     // auto it = find(robotsVec.begin(), robotsVec.end(), robot);
-    //                     // if (it != robotsVec.end()) {
-    //                     //     robotsVec.erase(it);
-    //                     // }
-
-    //                 } else {
-    //                     cout << targetRobotId << " was hit and is now temporarily inactive!" << endl;
-    //                     outputLines.push_back(targetRobotId + " was hit and is now temporarily inactive!");
-
-    //                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove temporarily
-    //                     battlefield->clearCell(PotentialRobotX, PotentialRobotY);
-    //                     robot->setX(-1);
-    //                     robot->setY(-1);
-
-    //                     battlefield->waitingRobots().push({robot, 0}); // add to waiting queue
-
-    //                     // auto& robotsVec = battlefield->robots();
-    //                     // auto it = find(robotsVec.begin(), robotsVec.end(), robot);
-    //                     // if (it != robotsVec.end()) {
-    //                     //     robotsVec.erase(it);
-    //                     // }
-    //                 }
+    // //     int ShellLeft = this->numOfShell();
+    // //     if (ShellLeft == 0) {
+    // //         cout<<"Oh no! You ran out of shells! You can't shoot anything!"<<endl;
+    // //         outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!");
+    // //         return;
+    // //     }
 
 
-    //                 this->increaseKills();
-    //                 this->decreaseShell();
-    //                 int lifeLeft = robot->numOfLives();
+    // //     bool hit = false;
 
-    //                 cout<< targetRobotId<<" now has "<<lifeLeft<<" of lives left"<<endl;
-    //                 cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
-    //                 cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
+    // //     for (Robot* robot : battlefield->robots()) { 
+    // //         string targetRobotId = robot->id() ;
+    // //         int PotentialRobotX = robot->x() ;
+    // //         int PotentialRobotY = robot->y() ;
+    // //         if (targetX == CurrentRobotsX && targetY == CurrentRobotsY ){
+    // //             cout<<"\nYou can't Shoot Yourself"<<endl;
+    // //             outputLines.push_back("\nYou can't Shoot Yourself");
+    // //             break;
+    // //         }
+    // //         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+    // //             int hitChance = rand() % 100; // number from 0-99
+    // //             if (hitChance < 70) { // 70% chance to hit
+    // //                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
+    // //                 outputLines.push_back("\nYou've successfully shot an enemy Robot!");
+    // //                 robot->reduceLives();
 
-    //                 outputLines.push_back(targetRobotId + " now has " + to_string(lifeLeft) + " of lives left");
-    //                 outputLines.push_back(this->id() + " now has " + to_string(this->numOfKills()) + " of kills!");
-    //                 outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
+    // //                 if (!robot->isAlive()) {
+    // //                     cout << targetRobotId << " has been destroyed!" << endl;
+    // //                     outputLines.push_back(targetRobotId + " has been destroyed!");
 
-    //                 // cout << "Remaining Robots: " << endl;
-    //                 // for (const auto& r : battlefield->robots()) {
-    //                 //     cout << *r << endl;
-    //                 // }
+    // //                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
+    // //                     battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+    // //                     robot->setX(-1);
+    // //                     robot->setY(-2);
+
+    // //                     battlefield->destroyedRobots().push(robot);  // add to destroyed queue
+
+    // //                     // // Optional: If destroyed robots should be removed from active list
+    // //                     // auto& robotsVec = battlefield->robots();
+    // //                     // auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+    // //                     // if (it != robotsVec.end()) {
+    // //                     //     robotsVec.erase(it);
+    // //                     // }
+
+    // //                 } else {
+    // //                     cout << targetRobotId << " was hit and is now temporarily inactive!" << endl;
+    // //                     outputLines.push_back(targetRobotId + " was hit and is now temporarily inactive!");
+
+    // //                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove temporarily
+    // //                     battlefield->clearCell(PotentialRobotX, PotentialRobotY);
+    // //                     robot->setX(-1);
+    // //                     robot->setY(-1);
+
+    // //                     battlefield->waitingRobots().push({robot, 0}); // add to waiting queue
+
+    // //                     // auto& robotsVec = battlefield->robots();
+    // //                     // auto it = find(robotsVec.begin(), robotsVec.end(), robot);
+    // //                     // if (it != robotsVec.end()) {
+    // //                     //     robotsVec.erase(it);
+    // //                     // }
+    // //                 }
 
 
-    //                 if (this->canUpgrade()) {
-    //                     this->incrementUpgradeCount();
+    // //                 this->increaseKills();
+    // //                 this->decreaseShell();
+    // //                 int lifeLeft = robot->numOfLives();
 
-    //                     cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
-    //                     outputLines.push_back("\n" + this->id() + " earned an upgrade! A random upgrade is applied!");
-    //                     //cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-    //                     // ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
-    //                     // IM LOSING MY SHIT HERE
+    // //                 cout<< targetRobotId<<" now has "<<lifeLeft<<" of lives left"<<endl;
+    // //                 cout<< this->id() <<" now has "<< this->numOfKills() <<" of kills!"<<endl;
+    // //                 cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
 
-    //                     NukeBot* NewRobot = new NukeBot(this->id(), this->x(), this->y());
+    // //                 outputLines.push_back(targetRobotId + " now has " + to_string(lifeLeft) + " of lives left");
+    // //                 outputLines.push_back(this->id() + " now has " + to_string(this->numOfKills()) + " of kills!");
+    // //                 outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
 
-    //                     // Copy state
-    //                     upgradedRobot->setNumOfLives(this->numOfLives());
-    //                     upgradedRobot->setNumOfKills(this->numOfKills());
-    //                     upgradedRobot->setNumOfShells(this->numOfShell());
-    //                     upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+    // //                 // cout << "Remaining Robots: " << endl;
+    // //                 // for (const auto& r : battlefield->robots()) {
+    // //                 //     cout << *r << endl;
+    // //                 // }
 
-    //                     int robotName_pos = this->robotName().find("_");
-    //                     upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
 
-    //                     // Replace the robot in the battlefield vector immediately
-    //                     for (auto& robot : battlefield->robots()) {
-    //                         if (robot == this) {
-    //                             robot = upgradedRobot;
-    //                             break; // important: break to avoid double replacement
+    // //                 if (this->canUpgrade()) {
+    // //                     this->incrementUpgradeCount();
+
+    // //                     cout<<"\n" << this->id() <<" earned an upgrade! A random upgrade is applied!" << endl;
+    // //                     outputLines.push_back("\n" + this->id() + " earned an upgrade! A random upgrade is applied!");
+    // //                     //cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+    // //                     // ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
+    // //                     // IM LOSING MY SHIT HERE
+
+    // //                     NukeBot* NewRobot = new NukeBot(this->id(), this->x(), this->y());
+
+    // //                     // Copy state
+    // //                     upgradedRobot->setNumOfLives(this->numOfLives());
+    // //                     upgradedRobot->setNumOfKills(this->numOfKills());
+    // //                     upgradedRobot->setNumOfShells(this->numOfShell());
+    // //                     upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+    // //                     int robotName_pos = this->robotName().find("_");
+    // //                     upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+    // //                     // Replace the robot in the battlefield vector immediately
+    // //                     for (auto& robot : battlefield->robots()) {
+    // //                         if (robot == this) {
+    // //                             robot = upgradedRobot;
+    // //                             break; // important: break to avoid double replacement
+    // //                         }
+    // //                     }
+
+    // //                     return;
+
+    // //                     //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Extras)
+    // //                     // int choice = rand() % 3 + 1;
+
+    //                     switch (choice) {
+    //                         case 1: {
+    //                             // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+    //                             int moveChoice = rand() % 2 + 1;
+    //                             if (moveChoice == 1) {
+    //                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to HideBot!");
+    //                                 this->setRobotType("HideBot");
+    //                             } else {
+    //                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+    //                                 this->setRobotType("JumpBot");
+    //                             }
+    //                         }
+    //                         case 2: {
+    //                             // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+    //                             int shootChoice = rand() % 3 + 1;
+    //                             if (shootChoice == 1) {
+    //                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+    //                                 this->setRobotType("LongShotBot");
+    //                             } else if (shootChoice == 2) {
+    //                                 cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+    //                                 this->setRobotType("ScoutBot");
+    //                             } else {
+    //                                 cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+    //                                 this->setRobotType("ThirtyShotBot");
+    //                                 //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+    //                             }
+    //                             break;
+    //                         }
+    //                         case 3: {
+    //                             // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+    //                             int extraChoice = rand() % 3 + 1;
+    //                             if (extraChoice == 1) {
+    //                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+    //                                 this->setRobotType("NukeBot");
+    //                             } else if (extraChoice == 2) {
+    //                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+    //                                 this->setRobotType("GodBot");
+    //                             } else {
+    //                                 cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+    //                                 outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+    //                                 this->setRobotType("JukeBot");
+    //                             }
+    //                             break;
     //                         }
     //                     }
-
-    //                     return;
-
-    //                     //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Extras)
-    //                     // int choice = rand() % 3 + 1;
-
-                        switch (choice) {
-                            case 1: {
-                                // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
-                                int moveChoice = rand() % 2 + 1;
-                                if (moveChoice == 1) {
-                                    cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to HideBot!");
-                                    this->setRobotType("HideBot");
-                                } else {
-                                    cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
-                                    this->setRobotType("JumpBot");
-                                }
-                            }
-                            case 2: {
-                                // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                                int shootChoice = rand() % 3 + 1;
-                                if (shootChoice == 1) {
-                                    cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
-                                    this->setRobotType("LongShotBot");
-                                } else if (shootChoice == 2) {
-                                    cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
-                                    this->setRobotType("ScoutBot");
-                                } else {
-                                    cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
-                                    this->setRobotType("ThirtyShotBot");
-                                    //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
-                                }
-                                break;
-                            }
-                            case 3: {
-                                // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
-                                int extraChoice = rand() % 3 + 1;
-                                if (extraChoice == 1) {
-                                    cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
-                                    this->setRobotType("NukeBot");
-                                } else if (extraChoice == 2) {
-                                    cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to GodBot!");
-                                    this->setRobotType("GodBot");
-                                } else {
-                                    cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                    outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
-                                    this->setRobotType("JukeBot");
-                                }
-                                break;
-                            }
-                        }
 
     //                 } else {
     //                     cout << "Upgrade limit reached. Can only upgrade twice." << endl;
