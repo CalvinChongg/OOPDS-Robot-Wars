@@ -2004,94 +2004,265 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
                     // ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
                     // IM LOSING MY SHIT HERE
 
-                    NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+                    //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Extras)
+                    int choice = rand() % 3 + 1;
 
-                    // Copy state
-                    upgradedRobot->setNumOfLives(this->numOfLives());
-                    upgradedRobot->setNumOfKills(this->numOfKills());
-                    upgradedRobot->setNumOfShells(this->numOfShell());
-                    upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+                    switch (choice) {
+                        case 1: {
+                            // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                            int moveChoice = rand() % 2 + 1;
+                            if (moveChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to HideBot!");
 
-                    int robotName_pos = this->robotName().find("_");
-                    upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
 
-                    // Replace the robot in the battlefield vector immediately
-                    for (auto& robot : battlefield->robots()) {
-                        if (robot == this) {
-                            robot = upgradedRobot;
-                            break; // important: break to avoid double replacement
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                        }
+                        case 2: {
+                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                            int shootChoice = rand() % 3 + 1;
+                            if (shootChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else if (shootChoice == 2) {
+                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
+                        }
+                        // case 3: {
+                        //     // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                        //     int seeChoice = rand() % 2 + 1;
+                        //     if (seeChoice == 1) {
+                        //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                        //         ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else {
+                        //         cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                        //         TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     }
+                        //     break;
+                        // }
+                        case 3: {
+                            // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+                            int extraChoice = rand() % 3 + 1;
+                            if (extraChoice == 1) {
+                                cout << this->id() << " are now upgraded to NukeBot!" << endl;
+                                outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else if (extraChoice == 2) {
+                                cout << this->id() << " are now upgraded to GodBot!" << endl;
+                                outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
                         }
                     }
-
-                    return;
-
-                    //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Extras)
-                    // int choice = rand() % 3 + 1;
-
-                    // switch (choice) {
-                    //     case 1: {
-                    //         // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
-                    //         int moveChoice = rand() % 2 + 1;
-                    //         if (moveChoice == 1) {
-                    //             cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to HideBot!");
-                    //             this->setRobotType("HideBot");
-                    //         } else {
-                    //             cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
-                    //             this->setRobotType("JumpBot");
-                    //         }
-                    //     }
-                    //     case 2: {
-                    //         // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                    //         int shootChoice = rand() % 3 + 1;
-                    //         if (shootChoice == 1) {
-                    //             cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
-                    //             this->setRobotType("LongShotBot");
-                    //         } else if (shootChoice == 2) {
-                    //             cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
-                    //             this->setRobotType("ScoutBot");
-                    //         } else {
-                    //             cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
-                    //             this->setRobotType("ThirtyShotBot");
-                    //             //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
-                    //         }
-                    //         break;
-                    //     }
-                    //     // case 3: {
-                    //     //     // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
-                    //     //     int seeChoice = rand() % 2 + 1;
-                    //     //     if (seeChoice == 1) {
-                    //     //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                    //     //         this->setRobotType("ScoutBot");
-                    //     //     } else {
-                    //     //         cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                    //     //         this->setRobotType("TrackBot");
-                    //     //     }
-                    //     //     break;
-                    //     // }
-                    //     case 3: {
-                    //         // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
-                    //         int extraChoice = rand() % 3 + 1;
-                    //         if (extraChoice == 1) {
-                    //             cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
-                    //             this->setRobotType("NukeBot");
-                    //         } else if (extraChoice == 2) {
-                    //             cout << this->id() << " are now upgraded to GodBot!" << endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to GodBot!");
-                    //             this->setRobotType("GodBot");
-                    //         } else {
-                    //             cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                    //             outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
-                    //             this->setRobotType("JukeBot");
-                    //         }
-                    //         break;
-                    //     }
-                    // }
 
                 } else {
                     cout << "Upgrade limit reached. Can only upgrade twice." << endl;
@@ -2416,11 +2587,50 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to HideBot!");
-                                this->setRobotType("HideBot");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
-                                this->setRobotType("JumpBot");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                         }
                         case 2: {
@@ -2429,16 +2639,72 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                             if (shootChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
-                                this->setRobotType("LongShotBot");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (shootChoice == 2) {
                                 cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
-                                this->setRobotType("ScoutBot");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -2447,10 +2713,50 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                         //     int seeChoice = rand() % 2 + 1;
                         //     if (seeChoice == 1) {
                         //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                        //         this->setRobotType("ScoutBot");
+                        //         outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                        //         ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     } else {
                         //         cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                        //         this->setRobotType("TrackBot");
+                        //         outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                        //         TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     }
                         //     break;
                         // }
@@ -2460,15 +2766,72 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                             if (extraChoice == 1) {
                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
-                                this->setRobotType("NukeBot");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (extraChoice == 2) {
                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to GodBot!");
-                                this->setRobotType("GodBot");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
-                                this->setRobotType("JukeBot");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -2835,7 +3198,7 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
                     // ScoutBot* upgradedRobot = new ScoutBot(this->id().substr(5), this->x(), this->y());
                     // IM LOSING MY SHIT HERE
 
-                    //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Extras)
+                    //Randomly choose upgrade category (1 - Moving, 2 - Seeing, 3 - Extras)
                     int choice = rand() % 3 + 1;
 
                     switch (choice) {
@@ -2845,59 +3208,251 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to HideBot!");
-                                this->setRobotType("HideBot");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
-                                this->setRobotType("JumpBot");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                         }
-                        case 2: {
-                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                            int shootChoice = rand() % 3 + 1;
-                            if (shootChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
-                                this->setRobotType("LongShotBot");
-                            } else if (shootChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
-                                this->setRobotType("ScoutBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
-                            }
-                            break;
-                        }
-                        // case 3: {
-                        //     // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
-                        //     int seeChoice = rand() % 2 + 1;
-                        //     if (seeChoice == 1) {
-                        //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                        //         this->setRobotType("ScoutBot");
+                        // case 2: {
+                        //     // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                        //     int shootChoice = rand() % 3 + 1;
+                        //     if (shootChoice == 1) {
+                        //         cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                        //         LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else if (shootChoice == 2) {
+                        //         cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                        //         SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     } else {
-                        //         cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                        //         this->setRobotType("TrackBot");
+                        //         cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                        //         ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     }
                         //     break;
                         // }
+                        case 2: {
+                            // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                            int seeChoice = rand() % 2 + 1;
+                            if (seeChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
+                        }
                         case 3: {
                             // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
                             int extraChoice = rand() % 3 + 1;
                             if (extraChoice == 1) {
                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
-                                this->setRobotType("NukeBot");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (extraChoice == 2) {
                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to GodBot!");
-                                this->setRobotType("GodBot");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
-                                this->setRobotType("JukeBot");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -3208,59 +3763,251 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to HideBot!");
-                                this->setRobotType("HideBot");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
-                                this->setRobotType("JumpBot");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                         }
-                        case 2: {
-                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                            int shootChoice = rand() % 3 + 1;
-                            if (shootChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
-                                this->setRobotType("LongShotBot");
-                            } else if (shootChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
-                                this->setRobotType("ScoutBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
-                            }
-                            break;
-                        }
-                        // case 3: {
-                        //     // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
-                        //     int seeChoice = rand() % 2 + 1;
-                        //     if (seeChoice == 1) {
-                        //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                        //         this->setRobotType("ScoutBot");
+                        // case 2: {
+                        //     // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                        //     int shootChoice = rand() % 3 + 1;
+                        //     if (shootChoice == 1) {
+                        //         cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                        //         LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else if (shootChoice == 2) {
+                        //         cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                        //         SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     } else {
-                        //         cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                        //         this->setRobotType("TrackBot");
+                        //         cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                        //         ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     }
                         //     break;
                         // }
+                        case 2: {
+                            // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                            int seeChoice = rand() % 2 + 1;
+                            if (seeChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
+                        }
                         case 3: {
                             // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
                             int extraChoice = rand() % 3 + 1;
                             if (extraChoice == 1) {
                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
-                                this->setRobotType("NukeBot");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (extraChoice == 2) {
                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to GodBot!");
-                                this->setRobotType("GodBot");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
-                                this->setRobotType("JukeBot");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -3572,59 +4319,251 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to HideBot!");
-                                this->setRobotType("HideBot");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
-                                this->setRobotType("JumpBot");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                         }
-                        case 2: {
-                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                            int shootChoice = rand() % 3 + 1;
-                            if (shootChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
-                                this->setRobotType("LongShotBot");
-                            } else if (shootChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
-                                this->setRobotType("ScoutBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
-                            }
-                            break;
-                        }
-                        // case 3: {
-                        //     // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
-                        //     int seeChoice = rand() % 2 + 1;
-                        //     if (seeChoice == 1) {
-                        //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                        //         this->setRobotType("ScoutBot");
+                        // case 2: {
+                        //     // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                        //     int shootChoice = rand() % 3 + 1;
+                        //     if (shootChoice == 1) {
+                        //         cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                        //         LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else if (shootChoice == 2) {
+                        //         cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                        //         SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     } else {
-                        //         cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                        //         this->setRobotType("TrackBot");
+                        //         cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                        //         ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
                         //     }
                         //     break;
                         // }
+                        case 2: {
+                            // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                            int seeChoice = rand() % 2 + 1;
+                            if (seeChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
+                        }
                         case 3: {
                             // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
                             int extraChoice = rand() % 3 + 1;
                             if (extraChoice == 1) {
                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
-                                this->setRobotType("NukeBot");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (extraChoice == 2) {
                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
                                 outputLines.push_back(this->id() + " are now upgraded to GodBot!");
-                                this->setRobotType("GodBot");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
                                 outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
-                                this->setRobotType("JukeBot");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -3890,60 +4829,260 @@ void HideBot::actionShoot(Battlefield* battlefield) {
                     // IM LOSING MY SHIT HERE
 
                     //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing, 4 - Extras)
-                    int choice = rand() % 4 + 1;
+                    int choice = rand() % 3 + 1;
 
                     switch (choice) {
+                        // case 1: {
+                        //     // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                        //     int moveChoice = rand() % 2 + 1;
+                        //     if (moveChoice == 1) {
+                        //         cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to HideBot!");
+
+                        //         HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else {
+                        //         cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+                        //         JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     }
+                        // }
                         case 1: {
-                            // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
-                            int moveChoice = rand() % 2 + 1;
-                            if (moveChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                this->setRobotType("HideBot");
-                            } else if (moveChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                this->setRobotType("JumpBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                this->setRobotType("JukeBot");
-                            }
-                            break;
-                        }
-                        case 2: {
                             // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
                             int shootChoice = rand() % 3 + 1;
                             if (shootChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                this->setRobotType("LongShotBot");
+                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (shootChoice == 2) {
                                 cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
-                        case 3: {
+                        case 2: {
                             // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                                this->setRobotType("TrackBot");
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
-                        case 4: {
-                            int extraChoice = rand() % 2 + 1;
+                        case 3: {
+                            // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+                            int extraChoice = rand() % 3 + 1;
                             if (extraChoice == 1) {
                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                this->setRobotType("NukeBot");
+                                outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (extraChoice == 2) {
                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                this->setRobotType("GodBot");
+                                outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -4239,57 +5378,257 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
                     int choice = rand() % 4 + 1;
 
                     switch (choice) {
+                        // case 1: {
+                        //     // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                        //     int moveChoice = rand() % 2 + 1;
+                        //     if (moveChoice == 1) {
+                        //         cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to HideBot!");
+
+                        //         HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else {
+                        //         cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+                        //         JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     }
+                        // }
                         case 1: {
-                            // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
-                            int moveChoice = rand() % 2 + 1;
-                            if (moveChoice == 1) {
-                                cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                this->setRobotType("HideBot");
-                            } else if (moveChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                this->setRobotType("JumpBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                this->setRobotType("JukeBot");
-                            }
-                            break;
-                        }
-                        case 2: {
                             // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
                             int shootChoice = rand() % 3 + 1;
                             if (shootChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                this->setRobotType("LongShotBot");
+                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (shootChoice == 2) {
                                 cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
-                        case 3: {
+                        case 2: {
                             // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                                this->setRobotType("TrackBot");
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
-                        case 4: {
-                            int extraChoice = rand() % 2 + 1;
+                        case 3: {
+                            // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+                            int extraChoice = rand() % 3 + 1;
                             if (extraChoice == 1) {
                                 cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                this->setRobotType("NukeBot");
+                                outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+                                NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (extraChoice == 2) {
                                 cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                this->setRobotType("GodBot");
+                                outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+                                GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+                                JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -4553,62 +5892,262 @@ void NukeBot::actionShoot(Battlefield* battlefield) {
                         //Randomly choose upgrade category (1 - Moving, 2 - Shooting, 3 - Seeing, 4 - Extras)
                         int choice = rand() % 4 + 1;
 
-                        switch (choice) {
-                            case 1: {
-                                // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
-                                int moveChoice = rand() % 2 + 1;
-                                if (moveChoice == 1) {
-                                    cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                    this->setRobotType("HideBot");
-                                } else if (moveChoice == 2) {
-                                    cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                    this->setRobotType("JumpBot");
-                                } else {
-                                    cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                    this->setRobotType("JukeBot");
+                    switch (choice) {
+                        case 1: {
+                            // Randomly choose Moving upgrade (1 - HideBot, 2 - JumpBot)
+                            int moveChoice = rand() % 2 + 1;
+                            if (moveChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to HideBot!");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
                                 }
-                                break;
-                            }
-                            case 2: {
-                                // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
-                                int shootChoice = rand() % 3 + 1;
-                                if (shootChoice == 1) {
-                                    cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                    this->setRobotType("LongShotBot");
-                                } else if (shootChoice == 2) {
-                                    cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                    this->setRobotType("ScoutBot");
-                                } else {
-                                    cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                    this->setRobotType("ThirtyShotBot");
-                                    //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
                                 }
-                                break;
-                            }
-                            case 3: {
-                                // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
-                                int seeChoice = rand() % 2 + 1;
-                                if (seeChoice == 1) {
-                                    cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                    this->setRobotType("ScoutBot");
-                                } else {
-                                    cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                                    this->setRobotType("TrackBot");
-                                }
-                                break;
-                            }
-                            case 4: {
-                                int extraChoice = rand() % 2 + 1;
-                                if (extraChoice == 1) {
-                                    cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                    this->setRobotType("NukeBot");
-                                } else if (extraChoice == 2) {
-                                    cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                    this->setRobotType("GodBot");
-                                }
-                                break;
+
+                                return;
                             }
                         }
+                        case 2: {
+                            // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
+                            int shootChoice = rand() % 3 + 1;
+                            if (shootChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else if (shootChoice == 2) {
+                                cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
+                        }
+                        case 3: {
+                            // Randomly choose Seeing upgrade (1 - ScoutBot, 2 - TrackBot)
+                            int seeChoice = rand() % 2 + 1;
+                            if (seeChoice == 1) {
+                                cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            } else {
+                                cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
+                            }
+                            break;
+                        }
+                        // case 3: {
+                        //     // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+                        //     int extraChoice = rand() % 3 + 1;
+                        //     if (extraChoice == 1) {
+                        //         cout << this->id() << " are now upgraded to NukeBot!" << endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+                        //         NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else if (extraChoice == 2) {
+                        //         cout << this->id() << " are now upgraded to GodBot!" << endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+                        //         GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else {
+                        //         cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+                        //         JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     }
+                        //     break;
+                        // }
+                    }
 
                     } else {
                         cout << "Upgrade limit reached. Can only upgrade twice." << endl;
@@ -4898,29 +6437,125 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
                             int moveChoice = rand() % 2 + 1;
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                this->setRobotType("HideBot");
-                            } else if (moveChoice == 2) {
-                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                this->setRobotType("JumpBot");
+                                outputLines.push_back(this->id() + " are now upgraded to HideBot!");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
-                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                this->setRobotType("JukeBot");
+                                cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
+                                outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
-                            break;
                         }
                         case 2: {
                             // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
                             int shootChoice = rand() % 3 + 1;
                             if (shootChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                this->setRobotType("LongShotBot");
+                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (shootChoice == 2) {
                                 cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -4929,24 +6564,128 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                                this->setRobotType("TrackBot");
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
-                        case 4: {
-                            int extraChoice = rand() % 2 + 1;
-                            if (extraChoice == 1) {
-                                cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                this->setRobotType("NukeBot");
-                            } else if (extraChoice == 2) {
-                                cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                this->setRobotType("GodBot");
-                            }
-                            break;
-                        }
+                        // case 3: {
+                        //     // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+                        //     int extraChoice = rand() % 3 + 1;
+                        //     if (extraChoice == 1) {
+                        //         cout << this->id() << " are now upgraded to NukeBot!" << endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+                        //         NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else if (extraChoice == 2) {
+                        //         cout << this->id() << " are now upgraded to GodBot!" << endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+                        //         GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else {
+                        //         cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+                        //         JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     }
+                        //     break;
+                        // }
                     }
 
                 } else {
@@ -5248,26 +6987,125 @@ void GodBot::actionShoot(Battlefield* battlefield) {
                             int moveChoice = rand() % 2 + 1;
                             if (moveChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to HideBot!"<< endl;
-                                this->setRobotType("HideBot");
+                                outputLines.push_back(this->id() + " are now upgraded to HideBot!");
+
+                                HideBot* upgradedRobot = new HideBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to JumpBot!"<< endl;
-                                this->setRobotType("JumpBot");
+                                outputLines.push_back(this->id() + " are now upgraded to JumpBot!");
+                                JumpBot* upgradedRobot = new JumpBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
-                            break;
                         }
                         case 2: {
                             // Randomly choose Shooting upgrade (1 - LongShotBot, 2 - SemiAutoBot, 3 - ThirtyShotBot)
                             int shootChoice = rand() % 3 + 1;
                             if (shootChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to LongShotBot!"<< endl;
-                                this->setRobotType("LongShotBot");
+                                outputLines.push_back(this->id() + " are now upgraded to LongShotBot!");
+                                LongShotBot* upgradedRobot = new LongShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else if (shootChoice == 2) {
                                 cout <<this->id() <<" are now upgraded to SemiAutoBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to SemiAutoBot!");
+                                SemiAutoBot* upgradedRobot = new SemiAutoBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to ThirtyShotBot!"<< endl;
-                                this->setRobotType("ThirtyShotBot");
-                                //ThirtyShotBot(this->id().substr(5),this->x(),this->y());
+                                outputLines.push_back(this->id() + " are now upgraded to ThirtyShotBot!");
+                                ThirtyShotBot* upgradedRobot = new ThirtyShotBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
@@ -5276,28 +7114,128 @@ void GodBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                this->setRobotType("ScoutBot");
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             } else {
                                 cout <<this->id() <<" are now upgraded to TrackBot!"<< endl;
-                                this->setRobotType("TrackBot");
+                                outputLines.push_back(this->id() + " are now upgraded to TrackBot!");
+                                TrackBot* upgradedRobot = new TrackBot(this->id(), this->x(), this->y());
+
+                                // Copy state
+                                upgradedRobot->setNumOfLives(this->numOfLives());
+                                upgradedRobot->setNumOfKills(this->numOfKills());
+                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                                int robotName_pos = this->robotName().find("_");
+                                upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                                // Replace the robot in the battlefield vector immediately
+                                for (auto& robot : battlefield->robots()) {
+                                    if (robot == this) {
+                                        robot = upgradedRobot;
+                                        break; // important: break to avoid double replacement
+                                    }
+                                }
+
+                                return;
                             }
                             break;
                         }
-                        case 4: {
-                            // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
-                            int extraChoice = rand() % 3 + 1;
-                            if (extraChoice == 1) {
-                                cout << this->id() << " are now upgraded to NukeBot!" << endl;
-                                this->setRobotType("NukeBot");
-                            } else if (extraChoice == 2) {
-                                cout << this->id() << " are now upgraded to GodBot!" << endl;
-                                this->setRobotType("GodBot");
-                            } else {
-                                cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
-                                this->setRobotType("JukeBot");
-                            }
-                            break;
-                        }
+                        // case 3: {
+                        //     // Randomly choose Extra upgrade (1 - NukeBot, 2 - GodBot, 3 - JukeBot)
+                        //     int extraChoice = rand() % 3 + 1;
+                        //     if (extraChoice == 1) {
+                        //         cout << this->id() << " are now upgraded to NukeBot!" << endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to NukeBot!");
+                        //         NukeBot* upgradedRobot = new NukeBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else if (extraChoice == 2) {
+                        //         cout << this->id() << " are now upgraded to GodBot!" << endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to GodBot!");
+                        //         GodBot* upgradedRobot = new GodBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     } else {
+                        //         cout <<this->id() <<" are now upgraded to JukeBot!"<< endl;
+                        //         outputLines.push_back(this->id() + " are now upgraded to JukeBot!");
+                        //         JukeBot* upgradedRobot = new JukeBot(this->id(), this->x(), this->y());
+
+                        //         // Copy state
+                        //         upgradedRobot->setNumOfLives(this->numOfLives());
+                        //         upgradedRobot->setNumOfKills(this->numOfKills());
+                        //         upgradedRobot->setNumOfShells(this->numOfShell());
+                        //         upgradedRobot->setUpgradeCount(this->getUpgradeCount());
+
+                        //         int robotName_pos = this->robotName().find("_");
+                        //         upgradedRobot->setRobotName(upgradedRobot->id() + this->robotName().substr(robotName_pos));
+
+                        //         // Replace the robot in the battlefield vector immediately
+                        //         for (auto& robot : battlefield->robots()) {
+                        //             if (robot == this) {
+                        //                 robot = upgradedRobot;
+                        //                 break; // important: break to avoid double replacement
+                        //             }
+                        //         }
+
+                        //         return;
+                        //     }
+                        //     break;
+                        // }
                     }
 
                 } else {
