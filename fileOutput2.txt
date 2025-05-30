@@ -1,0 +1,393 @@
+cols = 5, rows = 5
+Robots in game are = GR01_Kidd
+Robot position = (3, 4)
+Robots in game are = GR02_Jet
+Robot position = (1, 1)
+Robots in game are = GR03_Alpha
+Robot position = (4, 2)
+Robots in game are = GR04_Beta
+Robot position = (3, 3)
+Robots in game are = GR05_Star
+Robot position = (3, 0)
+s: 
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |GR01|    |
+   +----+----+----+----+----+
+Turn 1
+GR01 at (3, 4)
+GR01 at (3, 4)
+Robot Info: GR01 at (3, 4)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [G] [ ] 
+[ ] [R] [ ] 
+[#] [#] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Cannot move outside battlefield
+The Current Robot controlled is GR01_Kidd
+Random target selected at: 2 3
+No enemy robot was at the selected location.
+GR01 now has 9 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |GR02|    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 2
+GR02 at (1, 1)
+GR02 at (1, 1)
+Robot Info: GR02 at (1, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (2,1)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 2 2
+No enemy robot was at the selected location.
+GR02 now has 9 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 3
+GR03 at (4, 2)
+GR03 at (4, 2)
+Robot Info: GR03 at (4, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[G] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (4,3)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 2
+No enemy robot was at the selected location.
+GR03 now has 9 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |GR04|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 4
+GR04 at (3, 3)
+GR04 at (3, 3)
+Robot Info: GR04 at (3, 3)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [G] 
+[ ] [G] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (3,2)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 2 3
+No enemy robot was at the selected location.
+GR04 now has 9 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |GR05|    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 5
+GR05 at (3, 0)
+GR05 at (3, 0)
+Robot Info: GR05 at (3, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[G] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DL
+Destination occupied
+The Current Robot controlled is GR05_Star
+Random target selected at: 2 1
+
+You've successfully shot an enemy Robot!
+GR02 was hit and is now temporarily inactive!
+GR02 now has 2 of lives left
+GR05 now has 1 of kills!
+GR05 now has 9 of shells left!
+
+GR05 earned an upgrade! A random upgrade is applied!
+GR05 are now upgraded to TrackBot!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |GR01|    |
+   +----+----+----+----+----+
+Turn 6
+GR01 at (3, 4)
+GR01 at (3, 4)
+Robot Info: GR01 at (3, 4)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [G] 
+[ ] [R] [ ] 
+[#] [#] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (4,4)
+The Current Robot controlled is GR01_Kidd
+Random target selected at: 3 4
+No enemy robot was at the selected location.
+GR01 now has 8 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 7
+
+Skipping Turns, Robot GR02_Jet is still in waiting queue.
+
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |GR03|
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 8
+GR03 at (4, 3)
+GR03 at (4, 3)
+Robot Info: GR03 at (4, 3)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[G] [ ] [#] 
+[ ] [R] [#] 
+[ ] [G] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Cannot move outside battlefield
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 3
+No enemy robot was at the selected location.
+GR03 now has 8 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |GR04|    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 9
+GR04 at (3, 2)
+GR04 at (3, 2)
+Robot Info: GR04 at (3, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionMove
+2.GenericRobot actionShoot
+3.GenericRobot actionLook
+4.GenericRobot actionThink
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [ ] 
+[ ] [ ] [G] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DL
+Moved to (2,3)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 3 4
+No enemy robot was at the selected location.
+GR04 now has 8 of shells left!
+Display Battlefield (Current Robot Only)
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |TB05|    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+GR02 has waited 5 turns and is returning at (3,4)
+
+Turn 10
+TB05 at (3, 0)
+TB05 at (3, 0)
+Robot Info: TB05 at (3, 0)
+Robot Type: TrackBot
+Actions:
+1. TrackBot actionMove
+2. TrackBot actionShoot
+3. TrackBot actionLook
+4. TrackBot actionThink
+5. TrackBot PlantTracker
+HideBot is analyzing the battlefield...
+No robots are being tracked.
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+The Current Robot controlled is TB05_Star
+Random target selected at: 2 0
+No enemy robot was at the selected location.
+TB05 now has 8 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UR
+Cannot move outside battlefield
+
+Game Over. Total turns played: 10
