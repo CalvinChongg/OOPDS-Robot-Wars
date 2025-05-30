@@ -411,7 +411,7 @@ public:
                 
                 // when encounter pos input of random 
                 
-                srand(time(0));
+                //srand(time(0));
 
                 if (posXStr == "random") {
                     robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;  
@@ -7726,6 +7726,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 // Main Function
 int main() {
     srand(time(0)); 
+    //srand(2422122441020/1000);
 
     Battlefield battlefield;
 
