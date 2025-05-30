@@ -660,11 +660,11 @@ private:
     static const int MAX_TRACKERS = 3;
 public:
     TrackBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
-        robotType_ = "ScoutBot";
+        id_ = "TB" + id.substr(2,2);
+        robotType_ = "TrackBot";
         robotPosX = x;
         robotPosY = y;
-        robotName_ = "SB" + id;
+        robotName_ ;
     }
 
     virtual ~TrackBot() {}
@@ -719,11 +719,11 @@ class LongShotBot: public ThinkingRobot, public SeeingRobot,
 {
 public:
     LongShotBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "LS" + id.substr(2,2);
         robotType_ = "LongShotBot";
         robotPosX = x;
         robotPosY = y;
-        robotName_ = "LSB" + id;
+        robotName_ ;
     }
 
     virtual ~LongShotBot() {}
@@ -760,16 +760,16 @@ public:
     }
 };
 
-class SemiAutoBot: public ThinkingRobot, public SeeingRobot, 
+class SemiAutoBot: public ThinkingRobot, public SeeingRobot,    
                 public ShootingRobot, public MovingRobot 
 {
 public:
     SemiAutoBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "SA" + id.substr(2,2);
         robotType_ = "SemiAutoBot";
         robotPosX = x;
         robotPosY = y;
-        robotName_ = "SAB" + id;
+        robotName_ ;
     }
 
     virtual ~SemiAutoBot() {}
@@ -834,11 +834,11 @@ class ThirtyShotBot: public ThinkingRobot, public SeeingRobot,
 {
 public:
     ThirtyShotBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "TS" + id.substr(2,2);
         robotType_ = "ThirtyShotBot";
         robotPosX = x;
         robotPosY = y;
-        robotName_ = "TSB" + id;
+        robotName_ ;
         setNumOfShells(30);
     }
 
@@ -885,10 +885,11 @@ private:
     bool isHidden = false;
 public:
     HideBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "HB" + id.substr(2,2);
+        robotType_ = "HideBot";
         robotPosX = x;
         robotPosY = y;
-        robotType_ = "HideBot";
+        robotName_ ;
     }
 
     void setLocations(int x, int y) override {
@@ -935,10 +936,11 @@ private:
 
 public:
     JumpBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "JB" + id.substr(2,2);
+        robotType_ = "JumpBot";
         robotPosX = x;
         robotPosY = y;
-        robotType_ = "JumpBot";
+        robotName_ ;
     }
 
     void setLocations(int x, int y) override {
@@ -1031,10 +1033,11 @@ private:
 
 public:
     JukeBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "JK" + id.substr(2,2);
+        robotType_ = "JukeBot";
         robotPosX = x;
         robotPosY = y;
-        robotType_ = "JukeBot";
+        robotName_ ;
     }
 
     void setLocations(int x, int y) override {
@@ -1129,10 +1132,11 @@ class GodBot: public ThinkingRobot, public SeeingRobot,
 {
 public:
     GodBot(string id = "", int x = -1, int y = -1) {
-        id_ = id;
+        id_ = "GB" + id.substr(2,2);
+        robotType_ = "GodBot";
         robotPosX = x;
         robotPosY = y;
-        robotType_ = "GodBot";
+        robotName_ ;
     }
 
     void setLocations(int x, int y) override {
