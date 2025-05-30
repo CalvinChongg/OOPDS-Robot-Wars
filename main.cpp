@@ -1225,8 +1225,8 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -1240,25 +1240,26 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -1278,7 +1279,6 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
         cout << "Cannot move outside battlefield\n";
         outputLines.push_back("Cannot move outside battlefield");
-
         return;
     }
 
@@ -1290,82 +1290,79 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 
 }  
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
-
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        
-
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -1636,8 +1633,8 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -1651,25 +1648,26 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -1700,77 +1698,78 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 }
 
 void ScoutBot::actionShoot(Battlefield* battlefield){
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -2212,8 +2211,8 @@ void TrackBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -2227,25 +2226,26 @@ void TrackBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -2276,77 +2276,78 @@ void TrackBot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 }
 
 void TrackBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -2836,8 +2837,8 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -2851,25 +2852,26 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -2900,77 +2902,79 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 }
 
 void LongShotBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid targets within Manhattan distance <= 3 (excluding self)
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -3; dx <= 3; dx++) {
+        for (int dy = -3; dy <= 3; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
+            if (abs(dx) + abs(dy) > 3) continue; // Skip if Manhattan distance > 3
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid tiles found for targeting." << endl;
+        outputLines.push_back("No valid tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -3394,8 +3398,8 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -3409,25 +3413,26 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -3458,77 +3463,78 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 }
 
 void SemiAutoBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -3542,7 +3548,22 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
-            int hitChance = rand() % 100; // number from 0-99
+            bool threeShotSuccess = false;
+            int hitChance;
+            for (int i = 0; i < 3 ; i++){
+                int chance = rand() % 100; // number from 0-99
+                if (chance < 70){
+                    threeShotSuccess = true;
+                    break;
+                }
+            }
+            if (threeShotSuccess = true){
+                hitChance = 69;
+            } else if (threeShotSuccess = false) {
+                hitChance = 80;
+            }
+
+
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
                 outputLines.push_back("\nYou've successfully shot an enemy Robot!");
@@ -3953,8 +3974,8 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -3968,25 +3989,26 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -4017,77 +4039,77 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 }
 
 void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
-
-    } while (!validTarget);
-
-    int ShellLeft = this->numOfShell();
-    if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
-        this->reduceLives();
-        this->setNumOfShells(30);
-
-        return;
     }
 
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
+
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
+    int ShellLeft = this->numOfShell();
+    if (ShellLeft == 0) {
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
+        this->reduceLives();
+        this->setNumOfShells(30);
+        return;
+    }
 
     bool hit = false;
 
@@ -4512,8 +4534,8 @@ void HideBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -4527,25 +4549,26 @@ void HideBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    outputLines.push_back("Enter direction: ");
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
 
-    cin >> userInput;
-    outputLines.push_back(userInput);
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
         return;
@@ -4576,80 +4599,78 @@ void HideBot::actionMove(Battlefield* battlefield) {
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
             outputLines.push_back("Destination occupied");
-            return;  // Stop and do not move if the destination is occupied
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
-    outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 }
 
 void HideBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
-
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back( targetX + " " + targetY);
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
-
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!");
-
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
+        this->reduceLives();
+        this->setNumOfShells(30);
         return;
     }
 
-
     bool hit = false;
+
 
     for (Robot* robot : battlefield->robots()) { 
         string targetRobotId = robot->id() ;
@@ -5074,20 +5095,20 @@ void JumpBot::actionLook(Battlefield* battlefield) {
 void JumpBot::actionMove(Battlefield* battlefield) {
     cout << "1. Regular Move\n2. Jump\nChoose action: ";
     outputLines.push_back("1. Regular Move\n2. Jump\nChoose action: ");
-    int choice;
-    cin >> choice;
-    outputLines.push_back(to_string(choice));
+    int choice = rand() % 2;
 
 
-    if (choice == 1) {
+    if (choice == 0) {
+        cout << "Regular Move Chosen"<<endl;
+        outputLines.push_back("Regular Move Chosen");
         int currentX = robotPosX;
         int currentY = robotPosY;
 
         vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
         vector<pair<int, int>> directionsMove = {
             {-1, -1}, {0, -1}, {1, -1},
-            {-1, 0}, {0, 0}, {1, 0},
-            {-1, 1}, {0, 1}, {1, 1}
+            {-1, 0},  {0, 0},  {1, 0},
+            {-1, 1},  {0, 1},  {1, 1}
         };
 
         // Show available directions
@@ -5101,25 +5122,26 @@ void JumpBot::actionMove(Battlefield* battlefield) {
         outputLines.push_back("L, C, R");
         outputLines.push_back("DL, D, DR");
 
-        // Enter direction input
-        string userInput;
-        cout << "Enter direction: ";
-        outputLines.push_back("Enter direction: ");
+        // Random direction selection (replace user input)
+        int moveIndex = rand() % directions.size();
+        string userInput = directions[moveIndex];
 
-        cin >> userInput;
-        outputLines.push_back(userInput);
+        cout << "Random direction selected: " << userInput << endl;
+        outputLines.push_back("Random direction selected: " + userInput);
 
         // Find matching direction
-        int moveIndex = -1;
+        // (Already known due to random selection, but keeping logic for consistency)
+        bool validInput = false;
         for (int i = 0; i < directions.size(); i++) {
             if (directions[i] == userInput) {
                 moveIndex = i;
+                validInput = true;
                 break;
             }
         }
 
         // Check invalid input 
-        if (moveIndex == -1) {
+        if (!validInput) {
             cout << "Invalid move direction\n";
             outputLines.push_back("Invalid move direction");
             return;
@@ -5150,56 +5172,61 @@ void JumpBot::actionMove(Battlefield* battlefield) {
             if (newX == PotentialRobotX && newY == PotentialRobotY) {
                 cout << "Destination occupied" << endl;
                 outputLines.push_back("Destination occupied");
-                return;  // Stop and do not move if the destination is occupied
+                return;
             }
         }
 
-        //If we reach here, it means the destination is free
+        // If we reach here, it means the destination is free
         robotPosX = newX;
         robotPosY = newY;
-        
 
         battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
         battlefield->setCell(newX, newY, this);
 
         cout << "Moved to (" << newX << "," << newY << ")" << endl;
-        outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
-    } else if (choice == 2 && jumpCount < MAX_JUMPS) {
+        outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
+    } else if (choice == 1 && jumpCount < MAX_JUMPS) {
+        cout << "Jump Move Chosen" << endl;
+        outputLines.push_back("Jump Move Chosen");
+
         int newX, newY;
+
+        // Generate random coordinates
+        newX = rand() % battlefield->BATTLEFIELD_NUM_OF_COLS();
+        newY = rand() % battlefield->BATTLEFIELD_NUM_OF_ROWS();
+
         cout << "Enter jump coordinates (X Y): ";
         outputLines.push_back("Enter jump coordinates (X Y): ");
-        cin >> newX >> newY;
-        outputLines.push_back(newX + " " + newY);
+        cout << newX << " " << newY << endl;
+        outputLines.push_back(to_string(newX) + " " + to_string(newY));
 
-        
         // Validate coordinates
         if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
             newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
             cout << "Invalid jump location!" << endl;
-            outputLines.push_back( "Invalid jump location!");
-
+            outputLines.push_back("Invalid jump location!");
             return;
         }
-        
+
         // Check if occupied
         for (Robot* robot : battlefield->robots()) {
             if (robot->x() == newX && robot->y() == newY) {
                 cout << "Jump location occupied!" << endl;
-            outputLines.push_back( "Invalid jump location!");
-
+                outputLines.push_back("Invalid jump location!");
                 return;
             }
         }
-        
+
         // Perform jump
         battlefield->setCell(robotPosX, robotPosY, nullptr);
         robotPosX = newX;
         robotPosY = newY;
         battlefield->setCell(robotPosX, robotPosY, this);
         jumpCount++;
-        cout << id_ << " jumped to (" << newX << "," << newY << ")!" << endl;
-        outputLines.push_back(id_ + "jumped to (" + to_string(newX)+ "," + to_string(newY) + ")");
 
+        cout << id_ << " jumped to (" << newX << "," << newY << ")!" << endl;
+        outputLines.push_back(id_ + " jumped to (" + to_string(newX) + "," + to_string(newY) + ")!");
 
     } else {
         cout << "Jump limit reached or invalid choice!" << endl;
@@ -5211,58 +5238,59 @@ void JumpBot::actionMove(Battlefield* battlefield) {
 void JumpBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -5693,8 +5721,8 @@ void NukeBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -5703,23 +5731,33 @@ void NukeBot::actionMove(Battlefield* battlefield) {
     cout << "L, C, R\n";
     cout << "DL, D, DR\n";
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    cin >> userInput;
+    outputLines.push_back("\nAvailable Directions:");
+    outputLines.push_back("UL, U, UR");
+    outputLines.push_back("L, C, R");
+    outputLines.push_back("DL, D, DR");
+
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
+
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
+        outputLines.push_back("Invalid move direction");
         return;
     }
 
@@ -5736,6 +5774,7 @@ void NukeBot::actionMove(Battlefield* battlefield) {
     if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
         newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
         cout << "Cannot move outside battlefield\n";
+        outputLines.push_back("Cannot move outside battlefield");
         return;
     }
 
@@ -5746,83 +5785,83 @@ void NukeBot::actionMove(Battlefield* battlefield) {
 
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
-            return;  // Stop and do not move if the destination is occupied
+            outputLines.push_back("Destination occupied");
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
 }
 
 void NukeBot::actionShoot(Battlefield* battlefield) {
     cout << "1. Regular Shoot\n2. Nuke\nChoose action: ";
-    int choice;
-    cin >> choice;
+    outputLines.push_back("1. Regular Shoot\n2. Nuke\nChoose action: ");
+    int choice = rand() % 2;
 
     if (choice == 1) {
+        cout<<"Regular Shoot Choosen"<<endl;
+        outputLines.push_back("Regular Shoot Choosen");    
+
         string CurrentRobotsName = this->robotName();
-        cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+        cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
         outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
         int CurrentRobotsX = this->x();
         int CurrentRobotsY = this->y();
 
         int targetX, targetY;
-
         bool validTarget = false;
 
-        int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-        int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+        int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+        int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-        do {
-            cout << "Enter your target coordinates (X Y): ";
-            outputLines.push_back("Enter your target coordinates (X Y): ");
+        vector<pair<int, int>> possibleTargets;
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0) continue; // Skip self
 
-            cin >> targetX >> targetY;
-            outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+                int newX = CurrentRobotsX + dx;
+                int newY = CurrentRobotsY + dy;
 
-            // calculate distance between target and self
-            int dx = abs(targetX - CurrentRobotsX);
-            int dy = abs(targetY - CurrentRobotsY);
-
-            // check if shooting self
-            bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-            // check if surrounding 8 blocks
-            bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-            // check whether in bounds
-            bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-            validTarget = notSelf && within8Blocks && insideMap;
-
-            if (!validTarget) {
-                cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-                outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+                if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                    possibleTargets.emplace_back(newX, newY);
+                }
             }
+        }
 
-        } while (!validTarget);
+        if (!possibleTargets.empty()) {
+            int index = rand() % possibleTargets.size();
+            targetX = possibleTargets[index].first;
+            targetY = possibleTargets[index].second;
+
+            cout << "Random target selected at: " << targetX << " " << targetY << endl;
+            outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+            
+            validTarget = true;
+        } else {
+            cout << "No valid adjacent tiles found for targeting." << endl;
+            outputLines.push_back("No valid adjacent tiles found for targeting.");
+            return; 
+        }
 
         int ShellLeft = this->numOfShell();
         if (ShellLeft == 0) {
-            cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-            outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+            cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+            outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
             this->reduceLives();
-            this->setNumOfShells(10);
-
+            this->setNumOfShells(30);
             return;
         }
 
-
         bool hit = false;
-
         for (Robot* robot : battlefield->robots()) { 
             string targetRobotId = robot->id() ;
             int PotentialRobotX = robot->x() ;
@@ -6187,7 +6226,11 @@ void NukeBot::actionShoot(Battlefield* battlefield) {
         }
     } else if (choice == 2 && nukeCount < MAX_NUKES) {
         nukeCount++;
+        cout<<"Regular Shoot Choosen"<<endl;
+        outputLines.push_back("Regular Shoot Choosen");   
         cout << "NUKE INCOMING!!!!" << endl;
+        outputLines.push_back("NUKE INCOMING!!!!");   
+
         
         // Hit all robots except self
         for (Robot* robot : battlefield->robots()) {
@@ -6209,9 +6252,13 @@ void NukeBot::actionShoot(Battlefield* battlefield) {
         }
         
         cout << "All robots hit by nuke!" << endl;
+        outputLines.push_back("All robots hit by nuke!");   
     } else {
         cout << "Maximum nukes reached!" << endl;
+        outputLines.push_back("Maximum nukes reached!");   
         cout << "skipping turn." << endl;
+        outputLines.push_back("skipping turn." );   
+
     }
 }
 
@@ -6270,8 +6317,8 @@ void JukeBot::actionMove(Battlefield* battlefield) {
     vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
     vector<pair<int, int>> directionsMove = {
         {-1, -1}, {0, -1}, {1, -1},
-        {-1, 0}, {0, 0}, {1, 0},
-        {-1, 1}, {0, 1}, {1, 1}
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
     };
 
     // Show available directions
@@ -6280,23 +6327,33 @@ void JukeBot::actionMove(Battlefield* battlefield) {
     cout << "L, C, R\n";
     cout << "DL, D, DR\n";
 
-    // Enter direction input
-    string userInput;
-    cout << "Enter direction: ";
-    cin >> userInput;
+    outputLines.push_back("\nAvailable Directions:");
+    outputLines.push_back("UL, U, UR");
+    outputLines.push_back("L, C, R");
+    outputLines.push_back("DL, D, DR");
+
+    // Random direction selection (replace user input)
+    int moveIndex = rand() % directions.size();
+    string userInput = directions[moveIndex];
+
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
 
     // Find matching direction
-    int moveIndex = -1;
+    // (Already known due to random selection, but keeping logic for consistency)
+    bool validInput = false;
     for (int i = 0; i < directions.size(); i++) {
         if (directions[i] == userInput) {
             moveIndex = i;
+            validInput = true;
             break;
         }
     }
 
     // Check invalid input 
-    if (moveIndex == -1) {
+    if (!validInput) {
         cout << "Invalid move direction\n";
+        outputLines.push_back("Invalid move direction");
         return;
     }
 
@@ -6313,6 +6370,7 @@ void JukeBot::actionMove(Battlefield* battlefield) {
     if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
         newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
         cout << "Cannot move outside battlefield\n";
+        outputLines.push_back("Cannot move outside battlefield");
         return;
     }
 
@@ -6323,76 +6381,78 @@ void JukeBot::actionMove(Battlefield* battlefield) {
 
         if (newX == PotentialRobotX && newY == PotentialRobotY) {
             cout << "Destination occupied" << endl;
-            return;  // Stop and do not move if the destination is occupied
+            outputLines.push_back("Destination occupied");
+            return;
         }
     }
 
-    //If we reach here, it means the destination is free
+    // If we reach here, it means the destination is free
     robotPosX = newX;
     robotPosY = newY;
-    
 
     battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
 }
 
 void JukeBot::actionShoot(Battlefield* battlefield) {
 
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    // Generate list of valid adjacent targets
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -1; dx <= 1; dx++) {
+        for (int dy = -1; dy <= 1; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
 
-        cin >> targetX >> targetY;
-        outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-        // calculate distance between target and self
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool within8Blocks = (dx <= 1 && dy <= 1); 
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && within8Blocks && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
+    }
 
-    } while (!validTarget);
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
 
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid adjacent tiles found for targeting." << endl;
+        outputLines.push_back("No valid adjacent tiles found for targeting.");
+        return; 
+    }
+
+    // Shell check
     int ShellLeft = this->numOfShell();
     if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!YOU ARE SELF DESTRUCTING!");
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
         this->reduceLives();
         this->setNumOfShells(10);
 
         return;
     }
-
 
     bool hit = false;
 
@@ -6814,19 +6874,22 @@ void GodBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("1. Regular Move\n2. Jump\nChoose action: ");
 
 
-    int choice;
-    cin >> choice;
-    outputLines.push_back(to_string(choice));
+    int choice = rand() % 2;
+   
 
     if (choice == 1) {
+        cout<<"Regular Move Chosen"<<endl;
+        outputLines.push_back("Regular Move Chosen");
+
+
         int currentX = robotPosX;
         int currentY = robotPosY;
 
         vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
         vector<pair<int, int>> directionsMove = {
             {-1, -1}, {0, -1}, {1, -1},
-            {-1, 0}, {0, 0}, {1, 0},
-            {-1, 1}, {0, 1}, {1, 1}
+            {-1, 0},  {0, 0},  {1, 0},
+            {-1, 1},  {0, 1},  {1, 1}
         };
 
         // Show available directions
@@ -6840,25 +6903,26 @@ void GodBot::actionMove(Battlefield* battlefield) {
         outputLines.push_back("L, C, R");
         outputLines.push_back("DL, D, DR");
 
-        // Enter direction input
-        string userInput;
-        cout << "Enter direction: ";
-        outputLines.push_back("Enter direction: ");
+        // Random direction selection (replace user input)
+        int moveIndex = rand() % directions.size();
+        string userInput = directions[moveIndex];
 
-        cin >> userInput;
-        outputLines.push_back(userInput);
+        cout << "Random direction selected: " << userInput << endl;
+        outputLines.push_back("Random direction selected: " + userInput);
 
         // Find matching direction
-        int moveIndex = -1;
+        // (Already known due to random selection, but keeping logic for consistency)
+        bool validInput = false;
         for (int i = 0; i < directions.size(); i++) {
             if (directions[i] == userInput) {
                 moveIndex = i;
+                validInput = true;
                 break;
             }
         }
 
         // Check invalid input 
-        if (moveIndex == -1) {
+        if (!validInput) {
             cout << "Invalid move direction\n";
             outputLines.push_back("Invalid move direction");
             return;
@@ -6889,58 +6953,59 @@ void GodBot::actionMove(Battlefield* battlefield) {
             if (newX == PotentialRobotX && newY == PotentialRobotY) {
                 cout << "Destination occupied" << endl;
                 outputLines.push_back("Destination occupied");
-                return;  // Stop and do not move if the destination is occupied
+                return;
             }
         }
 
-        //If we reach here, it means the destination is free
+        // If we reach here, it means the destination is free
         robotPosX = newX;
         robotPosY = newY;
-        
 
         battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
         battlefield->setCell(newX, newY, this);
 
         cout << "Moved to (" << newX << "," << newY << ")" << endl;
-        outputLines.push_back("Moved to (" + to_string(newX)+ "," + to_string(newY) + ")");
+        outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 
         
     } else if (choice == 2) {
-        int newX, newY;
-        cout << "Enter jump coordinates (X Y): ";
+        cout << "Regular Move Chosen" << endl;
+        outputLines.push_back("Jump Move Chosen");
+
+        // Generate random jump coordinates
+        int newX = rand() % battlefield->BATTLEFIELD_NUM_OF_COLS();
+        int newY = rand() % battlefield->BATTLEFIELD_NUM_OF_ROWS();
+
+        cout << "Random jump coordinates (X Y): " << newX << " " << newY << endl;
         outputLines.push_back("Enter jump coordinates (X Y): ");
+        outputLines.push_back(to_string(newX) + " " + to_string(newY));
 
-        cin >> newX >> newY;
-        outputLines.push_back(to_string(newX)  + " " + to_string(newY) );
-
-        
         // Validate coordinates
         if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
             newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
             cout << "Invalid jump location!" << endl;
-        outputLines.push_back("Invalid jump location!" );
-
+            outputLines.push_back("Invalid jump location!");
             return;
         }
-        
+
         // Check if occupied
         for (Robot* robot : battlefield->robots()) {
             if (robot->x() == newX && robot->y() == newY) {
                 cout << "Jump location occupied!" << endl;
-        outputLines.push_back("Jump location occupied!");
-
+                outputLines.push_back("Jump location occupied!");
                 return;
             }
         }
-        
+
         // Perform jump
         battlefield->setCell(robotPosX, robotPosY, nullptr);
         robotPosX = newX;
         robotPosY = newY;
         battlefield->setCell(robotPosX, robotPosY, this);
-        cout << id_ << " jumped to (" << newX << "," << newY << ")!" << endl;
-        outputLines.push_back(id_ + " jumped to (" + to_string(newX)  + "," + to_string(newY)  + ")!");
 
+        cout << id_ << " jumped to (" << newX << "," << newY << ")!" << endl;
+        outputLines.push_back(id_ + " jumped to (" + to_string(newX) + "," + to_string(newY) + ")!");
     } else {
         cout << "Jump limit reached or invalid choice!" << endl;
         outputLines.push_back("Jump limit reached or invalid choice!");
@@ -6949,65 +7014,60 @@ void GodBot::actionMove(Battlefield* battlefield) {
 
 // LongShot
 void GodBot::actionShoot(Battlefield* battlefield) {
-    // Implement the logic for shooting robot actions here
-    cout << "GodBot actionShoot" << endl;
-    outputLines.push_back("GodBot actionShoot");
-
-
     string CurrentRobotsName = this->robotName();
-    cout<<"The Current Robot controlled is "<<CurrentRobotsName<<endl;
+    cout << "The Current Robot controlled is " << CurrentRobotsName << endl;
     outputLines.push_back("The Current Robot controlled is " + CurrentRobotsName);
-
 
     int CurrentRobotsX = this->x();
     int CurrentRobotsY = this->y();
 
     int targetX, targetY;
-
     bool validTarget = false;
 
-    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();    
-    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();  
+    int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
+    int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    do {
-        cout << "Enter your target coordinates (X Y): ";
-        outputLines.push_back("Enter your target coordinates (X Y): ");
+    
+    vector<pair<int, int>> possibleTargets;
+    for (int dx = -3; dx <= 3; dx++) {
+        for (int dy = -3; dy <= 3; dy++) {
+            if (dx == 0 && dy == 0) continue; // Skip self
+            if (abs(dx) + abs(dy) > 3) continue; 
 
-        cin >> targetX >> targetY;
-        outputLines.push_back( to_string(targetX) + " " + to_string(targetY));
+            int newX = CurrentRobotsX + dx;
+            int newY = CurrentRobotsY + dy;
 
-
-        int dx = abs(targetX - CurrentRobotsX);
-        int dy = abs(targetY - CurrentRobotsY);
-        int distance = dx + dy;
-
-        // check if shooting self
-        bool notSelf = !(targetX == CurrentRobotsX && targetY == CurrentRobotsY);
-
-        // check if surrounding 8 blocks
-        bool withinRange = (distance <= 3);  
-
-        // check whether in bounds
-        bool insideMap = (targetX >= 0 && targetX < battlefieldWidth && targetY >= 0 && targetY < battlefieldHeight);
-
-        validTarget = notSelf && withinRange && insideMap;
-
-        if (!validTarget) {
-            cout << "Invalid target. Please choose a tile next to you, not yourself, and within the map"<<endl;
-            outputLines.push_back("Invalid target. Please choose a tile next to you, not yourself, and within the map");
-
+            // Check if within bounds
+            if (newX >= 0 && newX < battlefieldWidth && newY >= 0 && newY < battlefieldHeight) {
+                possibleTargets.emplace_back(newX, newY);
+            }
         }
-
-    } while (!validTarget);
-
-    int ShellLeft = this->numOfShell();
-    if (ShellLeft == 0) {
-        cout<<"Oh no! You ran out of shells! You can't shoot anything!"<<endl;
-        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything!");
-
-        return;
     }
 
+    if (!possibleTargets.empty()) {
+        int index = rand() % possibleTargets.size();
+        targetX = possibleTargets[index].first;
+        targetY = possibleTargets[index].second;
+
+        cout << "Random target selected at: " << targetX << " " << targetY << endl;
+        outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
+        
+        validTarget = true;
+    } else {
+        cout << "No valid tiles found for targeting." << endl;
+        outputLines.push_back("No valid tiles found for targeting.");
+        return; // Exit early since there's no valid target
+    }
+
+    // Shell check
+    int ShellLeft = this->numOfShell();
+    if (ShellLeft == 0) {
+        cout << "Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!" << endl;
+        outputLines.push_back("Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!");
+        this->reduceLives();
+        this->setNumOfShells(30);
+        return;
+    }
 
     bool hit = false;
 
@@ -7449,10 +7509,6 @@ int main() {
             currentTurn++;
             continue;  
         }
-
-
-    
-
         
         cout << "Robot Info: " << *currentRobot << endl;
         ostringstream oss;
@@ -7466,21 +7522,7 @@ int main() {
 
         
 
-        // should implement actions here
         currentRobot->actions(&battlefield);
-
-        // char proceed;
-        // cout << "Press 'y' to execute this robot's actions, or 'n' to quit: ";
-        // cin >> proceed;
-
-        // if (proceed == 'n' || proceed == 'N') {
-        //     cout << "Exiting game loop." << endl;
-        //     break;
-        // } else if (proceed == 'y' || proceed == 'Y') {
-        //     currentRobot->actions(&battlefield);  // Call the robot's action sequence
-        // } else {
-        //     cout << "Wrong input, skipping your turn." << endl;
-        // }
 
         currentTurn++;
     }
@@ -7496,18 +7538,6 @@ int main() {
     }
 
     outFile.close();
-
-    
-    
-
-    
-    //Robot* robotGenericRobot = new GenericRobot("GR01", 4, 4);
-
-    //cout << *robotGenericRobot << endl;
-    //robotGenericRobot->actions(&battlefield);
-
-    //delete robotGenericRobot;
-    //robotGenericRobot = nullptr;
 
     return 0;
 }
