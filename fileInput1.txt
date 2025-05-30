@@ -1,5 +1,5 @@
 M by N: 10 15 
-turns: 10
+turns: 300
 robots: 5 
 GenericRobot GR01_Kidd 3 6 
 GenericRobot GR02_Jet 1 1 
