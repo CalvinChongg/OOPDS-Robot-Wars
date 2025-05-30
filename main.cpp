@@ -220,16 +220,18 @@ public:
 
     virtual void actions (Battlefield* battlefield) {
         cout << "Actions:" << endl;
-        cout << "1." << robotType_ << " actionMove" << endl;
-        cout << "2." << robotType_ << " actionShoot" << endl;
-        cout << "3." << robotType_ << " actionLook" << endl;
-        cout << "4." << robotType_ << " actionThink" << endl;
+        cout << "1." << robotType_ << " actionThink" << endl;
+        cout << "2." << robotType_ << " actionLook" << endl;
+        cout << "3." << robotType_ << " actionMove" << endl;
+        cout << "4." << robotType_ << " actionShoot" << endl;
+
+
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1." + robotType_ + " actionMove" );
-        outputLines.push_back("2." + robotType_ + " actionShoot");
-        outputLines.push_back("3." + robotType_ + " actionLook");
-        outputLines.push_back("4." + robotType_ + " actionThink");
+        outputLines.push_back("1." + robotType_ + " actionThink");
+        outputLines.push_back("2." + robotType_ + " actionLook");
+        outputLines.push_back("3." + robotType_ + " actionMove" );
+        outputLines.push_back("4." + robotType_ + " actionShoot");
 
         actionThink(battlefield);
         actionLook(battlefield);
@@ -632,18 +634,18 @@ public:
 
     void actions(Battlefield* battlefield) override {
  
-        cout << "ScoutBot Actions:" << endl;
-        cout << "1. ScoutBot actionMove" << endl;
-        cout << "2. ScoutBot actionShoot" << endl;
-        cout << "3. ScoutBot actionLook" << endl;
-        cout << "4. ScoutBot actionThink" << endl;
+        cout << "Actions:" << endl;
+        cout << "1. ScoutBot actionLook" << endl;
+        cout << "2. ScoutBot actionThink" << endl;
+        cout << "3. ScoutBot actionMove" << endl;
+        cout << "4. ScoutBot actionShoot" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("4. ScoutBot actionMove" );
+        outputLines.push_back("1. ScoutBot actionThink" );
+        outputLines.push_back("2. ScoutBot actionLook" );
+        outputLines.push_back("3. ScoutBot actionMove" );
         outputLines.push_back("4. ScoutBot actionShoot" );
-        outputLines.push_back("4. ScoutBot actionLook" );
-        outputLines.push_back("4. ScoutBot actionThink" );
-
+        
         actionThink(battlefield);
         actionLook(battlefield);
         actionMove(battlefield);
@@ -684,17 +686,17 @@ public:
 
         int trackerChoice = rand() % 2;
         cout << "Actions:" << endl;
-        cout << "1. TrackBot actionMove" << endl;
-        cout << "2. TrackBot actionShoot" << endl;
-        cout << "3. TrackBot actionLook" << endl;
-        cout << "4. TrackBot actionThink" << endl;
+        cout << "1. TrackBot actionThink" << endl;
+        cout << "2. TrackBot actionLook" << endl;
+        cout << "3. TrackBot actionMove" << endl;
+        cout << "4. TrackBot actionShoot" << endl;
         cout << "5. TrackBot PlantTracker" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. TrackBot actionMove" );
-        outputLines.push_back("2. TrackBot actionShoot" );
-        outputLines.push_back("3. TrackBot actionLook" );
-        outputLines.push_back("4. TrackBot actionThink" );
+        outputLines.push_back("1. TrackBot actionThink" );
+        outputLines.push_back("2. TrackBot actionLook" );
+        outputLines.push_back("3. TrackBot actionMove" );
+        outputLines.push_back("4. TrackBot actionShoot" );
         outputLines.push_back("5. TrackBot PlantTracker");
 
         
@@ -702,10 +704,6 @@ public:
         actionLook(battlefield);
         actionShoot(battlefield);
         actionMove(battlefield);
-
-        if (trackerChoice == 0){
-            plantTracker(battlefield);
-        }
             
         
     }
@@ -741,16 +739,16 @@ public:
     void actions(Battlefield* battlefield) override {
 
         cout << "Actions:" << endl;
-        cout << "1. LongShotBot actionMove" << endl;
-        cout << "2. LongShotBot actionShoot" << endl;
-        cout << "3. LongShotBot actionLook" << endl;
-        cout << "4. LongShotBot actionThink" << endl;
+        cout << "1. LongShotBot actionThink" << endl;
+        cout << "2. LongShotBot actionLook" << endl;
+        cout << "3. LongShotBot actionMove" << endl;
+        cout << "4. LongShotBot actionShoot" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. LongShotBot actionMove" );
-        outputLines.push_back("2. LongShotBot actionShoot" );
-        outputLines.push_back("3. LongShotBot actionLook" );
-        outputLines.push_back("4. LongShotBot actionThink" );
+        outputLines.push_back("1. LongShotBot actionThink" );
+        outputLines.push_back("2. LongShotBot actionLook" );
+        outputLines.push_back("3. LongShotBot actionMove" );
+        outputLines.push_back("4. LongShotBot actionShoot" );
 
         actionThink(battlefield);
         actionLook(battlefield);
@@ -785,47 +783,23 @@ public:
     void actionShoot(Battlefield* battlefield) override;
 
     void actions(Battlefield* battlefield) override {
-        int choice = rand() % 2;
+        cout << "Actions:" << endl;
+        cout << "1. SemiAutoBot actionThink" << endl;
+        cout << "2. SemiAutoBot actionLook" << endl;
+        cout << "3. SemiAutoBot actionMove" << endl;
+        cout << "4. SemiAutoBot actionShoot" << endl;
 
-        if (choice == 0) {
-            cout << "Actions:" << endl;
-            cout << "1. SemiAutoBot actionMove" << endl;
-            cout << "2. SemiAutoBot actionShoot" << endl;
-            cout << "3. SemiAutoBot actionLook" << endl;
-            cout << "4. SemiAutoBot actionThink" << endl;
-
-            outputLines.push_back("Actions:");
-            outputLines.push_back("1. SemiAutoBot actionMove" );
-            outputLines.push_back("2. SemiAutoBot actionShoot" );
-            outputLines.push_back("3. SemiAutoBot actionLook" );
-            outputLines.push_back("4. SemiAutoBot actionThink" );
-            
-            actionThink(battlefield);
-            actionLook(battlefield);
-            actionShoot(battlefield);
-            actionMove(battlefield);
-            
-        }
+        outputLines.push_back("Actions:");
+        outputLines.push_back("1. SemiAutoBot actionThink" );
+        outputLines.push_back("2. SemiAutoBot actionLook" );
+        outputLines.push_back("3. SemiAutoBot actionMove" );
+        outputLines.push_back("4. SemiAutoBot actionShoot" );
         
-        if (choice == 1) {
-            cout << "Actions:" << endl;
-            cout << "1. SemiAutoBot actionMove" << endl;
-            cout << "2. SemiAutoBot actionShoot" << endl;
-            cout << "3. SemiAutoBot actionLook" << endl;
-            cout << "4. SemiAutoBot actionThink" << endl;
+        actionThink(battlefield);
+        actionLook(battlefield);
+        actionShoot(battlefield);
+        actionMove(battlefield);
 
-            outputLines.push_back("Actions:");
-            outputLines.push_back("1. SemiAutoBot actionMove" );
-            outputLines.push_back("2. SemiAutoBot actionShoot" );
-            outputLines.push_back("3. SemiAutoBot actionLook" );
-            outputLines.push_back("4. SemiAutoBot actionThink" );
-
-            actionThink(battlefield);
-            actionLook(battlefield);
-            actionShoot(battlefield);
-            actionMove(battlefield);
-
-        }
     }
 };
 
@@ -856,16 +830,16 @@ public:
 
     void actions(Battlefield* battlefield) override {
         cout << "Actions:" << endl;
-        cout << "1. ThirtyShotBot actionMove" << endl;
-        cout << "2. ThirtyShotBot actionShoot" << endl;
-        cout << "3. ThirtyShotBot actionLook" << endl;
-        cout << "4. ThirtyShotBot actionThink" << endl;
+        cout << "1. ThirtyShotBot actionThink" << endl;
+        cout << "2. ThirtyShotBot actionLook" << endl;
+        cout << "3. ThirtyShotBot actionMove" << endl;
+        cout << "4. ThirtyShotBot actionShoot" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. ThirtyShotBot actionMove" );
-        outputLines.push_back("2. ThirtyShotBot actionShoot" );
-        outputLines.push_back("3. ThirtyShotBot actionLook" );
-        outputLines.push_back("4. ThirtyShotBot actionThink" );
+        outputLines.push_back("1. ThirtyShotBot actionThink" );
+        outputLines.push_back("2. ThirtyShotBot actionLook" );
+        outputLines.push_back("3. ThirtyShotBot actionMove" );
+        outputLines.push_back("4. ThirtyShotBot actionShoot" );
 
         actionThink(battlefield);
         actionLook(battlefield);
@@ -905,16 +879,16 @@ public:
 
     void actions(Battlefield* battlefield) override {
         cout << "Actions:" << endl;
-        cout << "1. HideBot actionMove" << endl;
-        cout << "2. HideBot actionShoot" << endl;
-        cout << "3. HideBot actionLook" << endl;
-        cout << "4. HideBot actionThink" << endl;
+        cout << "1. HideBot actionThink" << endl;
+        cout << "2. HideBot actionLook" << endl;
+        cout << "3. HideBot actionMove" << endl;
+        cout << "4. HideBot actionShoot" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. HideBot actionMove" );
-        outputLines.push_back("2. HideBot actionShoot" );
-        outputLines.push_back("3. HideBot actionLook" );
-        outputLines.push_back("4. HideBot actionThink" );
+        outputLines.push_back("1. HideBot actionThink" );
+        outputLines.push_back("2. HideBot actionLook" );
+        outputLines.push_back("3. HideBot actionMove" );
+        outputLines.push_back("4. HideBot actionShoot" );
 
         actionThink(battlefield);
         actionLook(battlefield);
@@ -955,16 +929,16 @@ public:
 
     void actions(Battlefield* battlefield) override {
         cout << "Actions:" << endl;
-        cout << "1. JumpBot actionMove" << endl;
-        cout << "2. JumpBot actionShoot" << endl;
-        cout << "3. JumpBot actionLook" << endl;
-        cout << "4. JumpBot actionThink" << endl;
+        cout << "1. JumpBot actionThink" << endl;
+        cout << "2. JumpBot actionLook" << endl;
+        cout << "3. JumpBot actionMove" << endl;
+        cout << "4. JumpBot actionShoot" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. JumpBot actionMove" );
-        outputLines.push_back("2. JumpBot actionShoot" );
-        outputLines.push_back("3. JumpBot actionLook" );
-        outputLines.push_back("4. JumpBot actionThink" );
+        outputLines.push_back("1. JumpBot actionThink" );
+        outputLines.push_back("2. JumpBot actionLook" );
+        outputLines.push_back("3. JumpBot actionMove" );
+        outputLines.push_back("4. JumpBot actionShoot" );
 
         actionThink(battlefield);
         actionLook(battlefield);
@@ -1006,16 +980,16 @@ public:
 
     void actions(Battlefield* battlefield) override {
         cout << "Actions:" << endl;
-        cout << "1. NukeBot actionMove" << endl;
-        cout << "2. NukeBot actionShoot" << endl;
-        cout << "3. NukeBot actionLook" << endl;
-        cout << "4. NukeBot actionThink" << endl;
+        cout << "1. NukeBot actionThink" << endl;
+        cout << "2. NukeBot actionLook" << endl;
+        cout << "3. NukeBot actionMove" << endl;
+        cout << "4. NukeBot actionShoot" << endl;
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. NukeBot actionMove" );
-        outputLines.push_back("2. NukeBot actionShoot" );
-        outputLines.push_back("3. NukeBot actionLook" );
-        outputLines.push_back("4. NukeBot actionThink" );
+        outputLines.push_back("1. NukeBot actionThink" );
+        outputLines.push_back("2. NukeBot actionLook" );
+        outputLines.push_back("3. NukeBot actionMove" );
+        outputLines.push_back("4. NukeBot actionShoot" );
 
         actionThink(battlefield);
         actionLook(battlefield);
@@ -1083,47 +1057,26 @@ public:
             }
         }
 
-        int choice = rand() % 1;
+       
+        cout << "Actions:" << endl;
+        cout << "1. JukeBot actionMove" << endl;
+        cout << "2. JukeBot actionShoot" << endl;
+        cout << "3. JukeBot actionLook" << endl;
+        cout << "4. JukeBot actionThink" << endl;
 
-        if (choice == 0) {
-            cout << "Actions:" << endl;
-            cout << "1. NukeBot actionMove" << endl;
-            cout << "2. NukeBot actionShoot" << endl;
-            cout << "3. NukeBot actionLook" << endl;
-            cout << "4. NukeBot actionThink" << endl;
-
-            outputLines.push_back("Actions:");
-            outputLines.push_back("1. NukeBot actionMove" );
-            outputLines.push_back("2. NukeBot actionShoot" );
-            outputLines.push_back("3. NukeBot actionLook" );
-            outputLines.push_back("4. NukeBot actionThink" );
-            
-            actionThink(battlefield);
-            actionLook(battlefield);
-            actionShoot(battlefield);
-            actionMove(battlefield);
-            
-        }
+        outputLines.push_back("Actions:");
+        outputLines.push_back("1. JukeBot actionMove" );
+        outputLines.push_back("2. JukeBot actionShoot" );
+        outputLines.push_back("3. JukeBot actionLook" );
+        outputLines.push_back("4. JukeBot actionThink" );
         
-        if (choice == 1) {
-            cout << "Actions:" << endl;
-            cout << "1. NukeBot actionMove" << endl;
-            cout << "2. NukeBot actionShoot" << endl;
-            cout << "3. NukeBot actionLook" << endl;
-            cout << "4. NukeBot actionThink" << endl;
+        actionThink(battlefield);
+        actionLook(battlefield);
+        actionShoot(battlefield);
+        actionMove(battlefield);
 
-            outputLines.push_back("Actions:");
-            outputLines.push_back("1. NukeBot actionMove" );
-            outputLines.push_back("2. NukeBot actionShoot" );
-            outputLines.push_back("3. NukeBot actionLook" );
-            outputLines.push_back("4. NukeBot actionThink" );
 
-            actionThink(battlefield);
-            actionLook(battlefield);
-            actionShoot(battlefield);
-            actionMove(battlefield);
-
-        }
+        
     }
 };
 
@@ -1156,16 +1109,17 @@ public:
     void actions(Battlefield* battlefield) override {
 
         cout << "Actions:" << endl;
-        cout << "1. NukeBot actionMove" << endl;
-        cout << "2. NukeBot actionShoot" << endl;
-        cout << "3. NukeBot actionLook" << endl;
-        cout << "4. NukeBot actionThink" << endl;
+        cout << "1. GodBot actionThink" << endl;
+        cout << "2. GodBot actionLook" << endl;
+        cout << "3. GodBot actionMove" << endl;
+        cout << "4. GodBot actionShoot" << endl;
+
 
         outputLines.push_back("Actions:");
-        outputLines.push_back("1. NukeBot actionMove" );
-        outputLines.push_back("2. NukeBot actionShoot" );
-        outputLines.push_back("3. NukeBot actionLook" );
-        outputLines.push_back("4. NukeBot actionThink" );
+        outputLines.push_back("1. GodBot actionThink" );
+        outputLines.push_back("2. GodBot actionLook" );
+        outputLines.push_back("3. GodBot actionMove" );
+        outputLines.push_back("4. GodBot actionShoot" );
 
         actionThink(battlefield);
         actionLook(battlefield);
