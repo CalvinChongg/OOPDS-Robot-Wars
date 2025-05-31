@@ -11,31 +11,31 @@
 //*********************************************************
 // Task Distribution
 // Member_1: CHONG MENG HANG
-// FUNCTIONS : starting base struture, printing battlefield, print only current robot, get set and clear cells, 
+// FUNCTIONS : starting base struture, printing battlefield, print only current robot, get set and clear cells,
 //             , getter and setter fucntions
 // code logic : upgrade class, pointer related, turn-based
 // class : scoutbot, trackbot, longshotbot
 // extra task :
-// 
-// 
+//
+//
 // Member_2: TAN YONG XIN
 // FUNCTIONS :
 // code logic :
 // class :
 // extra task :
-// 
-// 
+//
+//
 // Member_3: THAM MEI TING
 // FUNCTIONS :
 // code logic :
 // class :
 // extra task :
-// 
-// 
+//
+//
 // Member_4: YAP CHI YI
-//FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,  
+//FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,
 // code logic     : actionShoot 's general shooting logic( not upgrading ) , outputting to a txt file , game ending requirements
-// class          : thirtyshotbot, semiautobot, hidebot 
+// class          : thirtyshotbot, semiautobot, hidebot
 // extra task     : change code to non user input, debugging upgrade class
 // ********************************************************
 
@@ -305,16 +305,13 @@ public:
                 int newX, newY;
                 bool positionFound = false;
 
-                // Try random positions first
-                for (int attempt = 0; attempt < 100; attempt++) {
+                do {
                     newX = rand() % BATTLEFIELD_NUM_OF_COLS_;
                     newY = rand() % BATTLEFIELD_NUM_OF_ROWS_;
-
                     if (isCellEmpty(newX, newY)) {
                         positionFound = true;
-                        break;
                     }
-                }
+                } while (positionFound = false);
 
                 // Fallback: linear search if random failed
                 if (!positionFound) {
