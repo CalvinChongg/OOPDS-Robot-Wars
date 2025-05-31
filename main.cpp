@@ -4737,7 +4737,7 @@ void HideBot::actionLook(Battlefield* battlefield) {
 
 void HideBot::actionMove(Battlefield* battlefield) {
     bool isHidden ;
-    int hiddenChoice = 0;
+    int hiddenChoice = rand() % 2;
 
     if (hiddenChoice == 0 && hiddenCount > 0) {
         isHidden = true;
