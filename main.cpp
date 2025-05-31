@@ -13,7 +13,11 @@
 // Member_1: CHONG MENG HANG
 // Member_2: TAN YONG XIN
 // Member_3: THAM MEI TING 
-// Member_4: YAP CHI YI
+// Member_4: YAP CHI YI     : 
+//           FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,  
+//           code logic     : actionShoot 's general shooting logic( not upgrading ) , outputting to a txt file , game ending requirements
+//           class          : thirtyshotbot, semiautobot, hidebot 
+//           extra task     : change code to non user input, debugging upgrade class
 // ********************************************************
 
 #include <iostream>
@@ -30,7 +34,6 @@ using namespace std;
 
 
 class Battlefield;
-class HealthBot;
 
 //global vector to store output lines
 vector<string> outputLines;
@@ -7627,6 +7630,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 // Main Function
 int main() {
     srand(time(0)); 
+    //srand(2422122441020/1000); 
 
     Battlefield battlefield;
 
