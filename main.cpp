@@ -1978,6 +1978,7 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
             if (!robot->canBeTargeted()) {
                 cout << "Target is hidden and cannot be hit!" << endl;
+                outputLines.push_back("Target is hidden and cannot be hit!");
                 return;
             }
             int hitChance = rand() % 100; // number from 0-99
