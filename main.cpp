@@ -11,13 +11,32 @@
 //*********************************************************
 // Task Distribution
 // Member_1: CHONG MENG HANG
+// FUNCTIONS : starting base struture, printing battlefield, print only current robot, get set and clear cells, 
+//             , getter and setter fucntions
+// code logic : upgrade class, pointer related, turn-based
+// class : scoutbot, trackbot, longshotbot
+// extra task :
+// 
+// 
 // Member_2: TAN YONG XIN
+// FUNCTIONS :
+// code logic :
+// class :
+// extra task :
+// 
+// 
 // Member_3: THAM MEI TING
-// Member_4: YAP CHI YI     :
-//           FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,
-//           code logic     : actionShoot 's general shooting logic( not upgrading ) , outputting to a txt file , game ending requirements
-//           class          : thirtyshotbot, semiautobot, hidebot
-//           extra task     : change code to non user input, debugging upgrade class
+// FUNCTIONS :
+// code logic :
+// class :
+// extra task :
+// 
+// 
+// Member_4: YAP CHI YI
+//FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,  
+// code logic     : actionShoot 's general shooting logic( not upgrading ) , outputting to a txt file , game ending requirements
+// class          : thirtyshotbot, semiautobot, hidebot 
+// extra task     : change code to non user input, debugging upgrade class
 // ********************************************************
 
 #include <iostream>
@@ -431,46 +450,6 @@ public:
 
         GameFile.close();
     }
-
-    // void placeCurrentRobot(Robot* robot) {
-    //     if (robot == nullptr) {
-    //         cout << "No robot to place!" << endl;
-    //         return;
-    //     }
-
-    //     string robotID = robot->id();
-    //     int x = robot->x();
-    //     int y = robot->y();
-
-    //     // Check if the robot is already placed
-    //     // for (const auto& row : battlefield_) {
-    //     //     for (const auto& cell : row) {
-    //     //         if (cell == robotID) {
-    //     //             cout << "Robot " << robotID << " is already placed at (" << x << ", " << y << ")." << endl;
-    //     //             return;
-    //     //         }
-    //     //     }
-    //     // }
-
-    //     // Place the robot on the battlefield
-    //     for (Robot* robots : robots_) {
-    //         if (robotID == robots->id()) {
-    //              if (y < battlefield_.size() && x < battlefield_[y].size()) {
-    //                 setCell(x, y, robot);
-    //             } else {
-    //                 cout << "Robot " << robotID << " is out of bounds!" << endl;
-    //                 exit(1);
-    //             }
-    //         }
-    //     }
-
-    //     // if (y < battlefield_.size() && x < battlefield_[y].size()) {
-    //     //     setCell(x, y, robot);
-    //     // } else {
-    //     //     cout << "Robot " << robotID << " is out of bounds!" << endl;
-    //     //     exit(1);
-    //     // }
-    // }
 
     void placeCurrentRobot(Robot* robot, int currentTurn, int robotCount) {
         // Clear battlefield display grid first
