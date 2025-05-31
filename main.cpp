@@ -864,8 +864,7 @@ public:
     void actionShoot(Battlefield* battlefield) override;
 
     void actions(Battlefield* battlefield) override {
-        bool isHidden = false;
-        int hiddenChoice = rand() % 2;
+        
         cout << "Actions:" << endl;
         cout << "1. HideBot actionThink" << endl;
         cout << "2. HideBot actionLook" << endl;
@@ -886,16 +885,6 @@ public:
         actionShoot(battlefield);
         actionMove(battlefield);
 
-        if (hiddenChoice == 0 && hiddenCount > 0) {
-            isHidden = true;
-            hiddenCount--;
-            cout << "HideBot " << id_ << " has decided to hide!" << endl;
-            cout << "Number of Hides left: " << hiddenCount << endl;
-            outputLines.push_back("HideBot " + id_ + " has decided to hide!");
-            outputLines.push_back("Number of Hides left: " + to_string(hiddenCount));
-        } else {
-            isHidden = false;
-        }
     }
 };
 
@@ -4747,6 +4736,20 @@ void HideBot::actionLook(Battlefield* battlefield) {
 }
 
 void HideBot::actionMove(Battlefield* battlefield) {
+    bool isHidden ;
+    int hiddenChoice = rand() % 2;
+
+    if (hiddenChoice == 0 && hiddenCount > 0) {
+        isHidden = true;
+        hiddenCount--;
+        cout << "HideBot " << id_ << " has decided to hide!" << endl;
+        cout << "Number of Hides left: " << hiddenCount << endl;
+        outputLines.push_back("HideBot " + id_ + " has decided to hide!");
+        outputLines.push_back("Number of Hides left: " + to_string(hiddenCount));
+    } else {
+        isHidden = false;
+    }
+
     int currentX = robotPosX;
     int currentY = robotPosY;
 
@@ -4831,6 +4834,7 @@ void HideBot::actionMove(Battlefield* battlefield) {
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
+
 
 }
 
