@@ -7649,7 +7649,6 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 // Main Function
 int main() {
     srand(time(0)); 
-    // srand(2422122441020/1000);
 
     Battlefield battlefield;
 
@@ -7663,51 +7662,109 @@ int main() {
     int robotCount = robots.size();
 
     cout << "Total turns: " << totalTurns << endl;
-    outputLines.push_back("Total turns: " + totalTurns );
+    outputLines.push_back("Total turns: " + to_string(totalTurns));
 
-    // Game Loop
     int currentTurn = 0;
+    int actualTurnsPlayed = 0;
 
     while (currentTurn < totalTurns) {
-        // Determine which robot's turn it is
+        actualTurnsPlayed++;
         int robotIndex = (currentTurn % robotCount);
         Robot* currentRobot = robots[robotIndex];
 
-        // Skip dead robots
-        if (!currentRobot->isAlive()) {
+        // condition to end game when only 1 survivor left
+        int aliveCount = 0;
+        Robot* lastSurvivor = nullptr;
+        for (Robot* robot : robots) {
+            if (robot->isAlive() && robot->x() != -1 && robot->y() != -2) {
+                aliveCount++;
+                lastSurvivor = robot;
+            }
+        }
+
+        // If only one robot remains, declare it the winner and break
+        if (aliveCount == 1) {
+            cout << "Early victory! Only one robot remains!" << endl;
+            outputLines.push_back("Early victory! Only one robot remains!");
+            auto winner = lastSurvivor;
+            break;  // Exit the loop immediately
+        }  
+
+        // If no robot remains, declare it the winner and break
+        if (aliveCount == 0) {
+            cout << "\nAll robots are either destroyed or waiting. Game over.\n";
+            outputLines.push_back("All robots are either destroyed or waiting. Game over.");
+            // cout << "Total turns played: " << currentTurn << endl;
+            // outputLines.push_back("Total turns played: " + to_string(currentTurn));
+            break;
+        }
+
+        //////////////////////////////////////////////////////////////////////////
+
+        // // Check if all robots are inactive
+        // bool allRobotsInactive = true;
+        // for (Robot* robot : robots) {
+        //     if (robot->x() != -1 && robot->y() != -2) {
+        //         allRobotsInactive = false;
+        //         break;
+        //     }
+        // }
+
+        // // check if all bots are in destroyed 
+        // if (allRobotsInactive) {
+        //     cout << "\nAll robots are either destroyed or waiting. Game over.\n";
+        //     outputLines.push_back("All robots are either destroyed or waiting. Game over.");
+        //     cout << "Total turns played: " << currentTurn << endl;
+        //     outputLines.push_back("Total turns played: " + to_string(currentTurn));
+        //     break;
+        // }
+
+        //////////////////////////////////////////////////////////////////////////
+
+        //  check if current bots has no lives left
+        if (currentRobot->x() == -1 && currentRobot->y() == -1) {
+            cout << "\nSkipping Turns, Robot " << currentRobot->robotName() << " is still in waiting queue.\n" << endl;
+            outputLines.push_back("Skipping Turns, Robot " + currentRobot->robotName() + " is still in waiting queue.");
             currentTurn++;
             continue;
         }
 
-        // Display the battlefield
-        //battlefield.placeCurrentRobot(currentRobot);
-        battlefield.placeRobots();
-        //battlefield.placeCurrentRobot(currentRobot, currentTurn, robotCount);
-        battlefield.displayBattlefield(currentRobot, currentTurn, robotCount);
-        battlefield.updateWaitingRobots();
+        // OR 
+
+        //  check if current bots has no lives left
+        if (!currentRobot->isAlive()) {
+            currentTurn++;
+            cout << "\nSkipping Turns, Robot " << currentRobot->robotName() << " is destroyed and out of the game!\n" << endl;
+            outputLines.push_back("Skipping Turns, Robot " + currentRobot->robotName() + " is destroyed and out of the game!");
+            continue;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+
+        //  check if current bots is in waiting queue
+        if (currentRobot->x() == -1 && currentRobot->y() == -2) {
+            cout << "\nSkipping Turns, Robot " << currentRobot->robotName() << " is destroyed and out of the game!\n" << endl;
+            outputLines.push_back("Skipping Turns, Robot " + currentRobot->robotName() + " is destroyed and out of the game!");
+            currentTurn++;
+            continue;
+        }
+
+        //  check if all rounds are played
+        if (currentTurn == totalTurns - 1) {
+            // Reached last allowed turn
+            cout << "All Rounds Played" << endl;
+            outputLines.push_back("All Rounds Played");
+            break;
+        }
 
         
+        battlefield.placeRobots();
+        battlefield.displayBattlefield(currentRobot, currentTurn, robotCount);
+        battlefield.updateWaitingRobots();
 
         cout << "Turn " << currentTurn + 1 << endl;
         outputLines.push_back("Turn " + to_string(currentTurn + 1));   
 
-
-        if (currentRobot->x()== -1 && currentRobot->y()== -1){ // check if is in waiting queue
-            cout<<"\nSkipping Turns, Robot "<<currentRobot->robotName()<<" is still in waiting queue.\n"<<endl;
-            outputLines.push_back("\nSkipping Turns, Robot " + currentRobot->robotName() + " is still in waiting queue.\n");   
-
-            currentTurn++;
-            continue;  
-        }
-
-        if (currentRobot->x()== -1 && currentRobot->y()== -2){ // check if is in destroyed queue
-            cout<<"\nSkipping Turns, Robot "<<currentRobot->robotName()<<" is destroyed and out of the game!\n"<<endl;
-            outputLines.push_back("\nSkipping Turns, Robot " + currentRobot->robotName() + " is destroyed and out of the game!\n");   
-
-            currentTurn++;
-            continue;  
-        }
-        
         cout << "Robot Info: " << *currentRobot << endl;
         ostringstream oss;
         oss.str("");     
@@ -7715,26 +7772,41 @@ int main() {
         oss << *currentRobot;
         outputLines.push_back("Robot Info: " + oss.str());  
 
-        cout << "Robot Type: "<<currentRobot->robotType()<<endl;
+        cout << "Robot Type: " << currentRobot->robotType() << endl;
         outputLines.push_back("Robot Type: " + currentRobot->robotType());   
-
-        
 
         currentRobot->actions(&battlefield);
 
         currentTurn++;
     }
 
-    cout << "\nGame Over. Total turns played: " << currentTurn << endl;
-    outputLines.push_back("\nGame Over. Total turns played: " + to_string(currentTurn)  );   
+    int highestKills = 0;
+    Robot* winner = nullptr;
+
+    for (Robot* robot : robots) {
+        if (robot->numOfKills() > highestKills && robot->numOfLives() > 0) {
+            highestKills = robot->numOfKills();
+            winner = robot;
+        }
+    }
+
+    if (winner != nullptr) {
+        cout << "The Ultimate Winner is ......." << endl;
+        outputLines.push_back("The Ultimate Winner is .......");
+
+        cout << winner->robotType() << " " << winner->id() << " with " << winner->numOfKills() << " kills and " << winner->numOfLives() << " lives left with rounds played :"<< actualTurnsPlayed - 1 << endl;
+        outputLines.push_back(winner->robotType() + " " + winner->id() + " with " + to_string(winner->numOfKills()) + " kills and " + to_string(winner->numOfLives()) + " lives left with rounds played " + to_string(actualTurnsPlayed -1));
+
+    } else {
+        cout << "No winner (no robot survived or had kills)." << endl;
+        outputLines.push_back("No winner (no robot survived or had kills).");
+    }
 
     string outputFile = "fileOutput" + inputFile.substr(9);
-
     ofstream outFile(outputFile);
     for (const string& line : outputLines) {
         outFile << line << endl;
     }
-
     outFile.close();
 
     return 0;
