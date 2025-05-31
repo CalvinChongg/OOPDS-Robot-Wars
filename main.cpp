@@ -1,22 +1,22 @@
-//*********************************************************  
-// Program: main.cpp  
-// Course: CCP6124 OOPDS 
+//*********************************************************
+// Program: main.cpp
+// Course: CCP6124 OOPDS
 // Lecture Class: TC2L
 // Tutorial Class: TT5L
 // Trimester: 2510
 // Member_1: 242UC244JT | CHONG MENG HANG | chong.meng.hang@student.mmu.edu.my | 016-8711296
 // Member_2: 242UC244PF | TAN YONG XIN | tan.yong.xin@student.mmu.edu.my | 012-6556505
 // Member_3: 242UC244S6 | THAM MEI TING | tham.mei.ting@student.mmu.edu.my | 017-3268006
-// Member_4: 242UC244KX | YAP CHI YI | yap.chi.yi@student.mmu.edu.my | 018-2694514	 
+// Member_4: 242UC244KX | YAP CHI YI | yap.chi.yi@student.mmu.edu.my | 018-2694514
 //*********************************************************
 // Task Distribution
 // Member_1: CHONG MENG HANG
 // Member_2: TAN YONG XIN
-// Member_3: THAM MEI TING 
-// Member_4: YAP CHI YI     : 
-//           FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,  
+// Member_3: THAM MEI TING
+// Member_4: YAP CHI YI     :
+//           FUNCTIONS      : readfile, placeRobots, updateWaitingRobots, returnbattlefield_, waitingrobots, destroyedrobots, returnrobots,
 //           code logic     : actionShoot 's general shooting logic( not upgrading ) , outputting to a txt file , game ending requirements
-//           class          : thirtyshotbot, semiautobot, hidebot 
+//           class          : thirtyshotbot, semiautobot, hidebot
 //           extra task     : change code to non user input, debugging upgrade class
 // ********************************************************
 
@@ -29,7 +29,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
- 
+
 using namespace std;
 
 
@@ -153,7 +153,7 @@ protected:
 public:
     virtual ~ThinkingRobot() {}
 
-    virtual void actionThink(Battlefield* battlefield) = 0; 
+    virtual void actionThink(Battlefield* battlefield) = 0;
     //virtual function for stepping
 };
 
@@ -163,7 +163,7 @@ protected:
 public:
     virtual ~SeeingRobot() {}
 
-    virtual void actionLook(Battlefield* battlefield) = 0; 
+    virtual void actionLook(Battlefield* battlefield) = 0;
     //virtual function for seeing
 };
 
@@ -173,7 +173,7 @@ protected:
 public:
     virtual ~ShootingRobot() {}
 
-    virtual void actionShoot(Battlefield* battlefield) = 0; 
+    virtual void actionShoot(Battlefield* battlefield) = 0;
     //virtual function for shooting
 };
 
@@ -183,12 +183,12 @@ protected:
 public:
     virtual ~MovingRobot() {}
 
-    virtual void actionMove(Battlefield* battlefield) = 0; 
+    virtual void actionMove(Battlefield* battlefield) = 0;
     //virtual function for moving
 };
 
-class GenericRobot: public ThinkingRobot, public SeeingRobot, 
-                    public ShootingRobot, public MovingRobot 
+class GenericRobot: public ThinkingRobot, public SeeingRobot,
+                    public ShootingRobot, public MovingRobot
 {
 private:
     static int robotAutoIncrementInt; // static variable for auto incrementing robot id
@@ -216,7 +216,7 @@ public:
     virtual void actionThink(Battlefield* battlefield);
 
     virtual void actionLook(Battlefield* battlefield);
-    
+
     virtual void actionShoot(Battlefield* battlefield);
 
     virtual void actionMove(Battlefield* battlefield);
@@ -240,7 +240,7 @@ public:
         actionLook(battlefield);
         actionMove(battlefield);
         actionShoot(battlefield);
-        
+
     }
 };
 
@@ -259,7 +259,7 @@ private:
     queue<Robot*> destroyedRobots_;
     queue<pair<Robot*, int>> waitingRobots_;
     vector<vector<string>> battlefield_; //2D vector for battlefield
-    
+
 
 public:
     //Getter Functions
@@ -285,18 +285,18 @@ public:
                 // Find random empty position
                 int newX, newY;
                 bool positionFound = false;
-                
+
                 // Try random positions first
                 for (int attempt = 0; attempt < 100; attempt++) {
                     newX = rand() % BATTLEFIELD_NUM_OF_COLS_;
                     newY = rand() % BATTLEFIELD_NUM_OF_ROWS_;
-                    
+
                     if (isCellEmpty(newX, newY)) {
                         positionFound = true;
                         break;
                     }
                 }
-                
+
                 // Fallback: linear search if random failed
                 if (!positionFound) {
                     for (newY = 0; newY < BATTLEFIELD_NUM_OF_ROWS_; newY++) {
@@ -315,7 +315,7 @@ public:
                     robot->setX(newX);
                     robot->setY(newY);
                     setCell(newX, newY, robot);
-                    
+
                     cout << robot->id() << " has waited 5 turns and is returning at (" << newX << "," << newY << ")\n";
                     outputLines.push_back( robot->id() + " has waited 5 turns and is returning at (" + to_string(newX) + "," + to_string(newY) + ")\n");
 
@@ -344,7 +344,7 @@ public:
     // Setter Functions
     void setCurrentTurn(int turn) { this->turn = turn; } // set current turn
 
-    void setCell(int x, int y, Robot* robot) { 
+    void setCell(int x, int y, Robot* robot) {
         if (robot == nullptr) {
             battlefield_[y][x] = "";
         } else {
@@ -362,11 +362,11 @@ public:
         ifstream GameFile(filename);
         string line;
 
-        battlefield_.clear();  
+        battlefield_.clear();
 
         while (getline(GameFile, line)) {
             vector<string> row;
-            row.push_back(line);  
+            row.push_back(line);
 
             // check input for map battlefield size
             if (line.find("M by N:") != string::npos) {
@@ -377,7 +377,7 @@ public:
                 battlefield_.resize(BATTLEFIELD_NUM_OF_ROWS_, vector<string>(BATTLEFIELD_NUM_OF_COLS_, ""));
             }
 
-            // check input for amount of turns 
+            // check input for amount of turns
             if (line.find("turns:") != string::npos) {
                 sscanf(line.c_str(), "turns: %d", &turns_);
             }
@@ -394,17 +394,17 @@ public:
 
                 istringstream iss(line);
                 iss >> tag >> robotName >> posXStr >> posYStr;
-                
-                // when encounter pos input of random 
+
+                // when encounter pos input of random
 
                 if (posXStr == "random") {
-                    robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;  
+                    robotXPos = rand() % BATTLEFIELD_NUM_OF_COLS_;
                 } else {
                     robotXPos = stoi(posXStr);
                 }
 
                 if (posYStr == "random") {
-                    robotsYPos = rand() % BATTLEFIELD_NUM_OF_ROWS_;  
+                    robotsYPos = rand() % BATTLEFIELD_NUM_OF_ROWS_;
                 } else {
                     robotsYPos = stoi(posYStr);
                 }
@@ -422,12 +422,12 @@ public:
                 robot->setRobotType(tag);
                 robot->setRobotName(robotName);
                 robots_.push_back(robot);
-                
+
             }
 
         }
 
-        
+
 
         GameFile.close();
     }
@@ -453,7 +453,7 @@ public:
     //     // }
 
     //     // Place the robot on the battlefield
-    //     for (Robot* robots : robots_) { 
+    //     for (Robot* robots : robots_) {
     //         if (robotID == robots->id()) {
     //              if (y < battlefield_.size() && x < battlefield_[y].size()) {
     //                 setCell(x, y, robot);
@@ -610,7 +610,7 @@ public:
 
 
 // Seeing Upgrades
-class ScoutBot: public ThinkingRobot, public SeeingRobot, 
+class ScoutBot: public ThinkingRobot, public SeeingRobot,
                 public ShootingRobot, public MovingRobot
 {
 private:
@@ -623,7 +623,7 @@ public:
         robotPosY = y;
         robotName_ ;
 
-        
+
     }
 
     virtual ~ScoutBot() {}
@@ -641,7 +641,7 @@ public:
 
 
     void actions(Battlefield* battlefield) override {
- 
+
         cout << "Actions:" << endl;
         cout << "1. ScoutBot actionLook" << endl;
         cout << "2. ScoutBot actionThink" << endl;
@@ -653,17 +653,17 @@ public:
         outputLines.push_back("2. ScoutBot actionLook" );
         outputLines.push_back("3. ScoutBot actionMove" );
         outputLines.push_back("4. ScoutBot actionShoot" );
-        
+
         actionThink(battlefield);
         actionLook(battlefield);
         actionMove(battlefield);
         actionShoot(battlefield);
-        
+
     }
 };
 
-class TrackBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class TrackBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 private:
     vector<Robot*> trackedRobots_;
@@ -706,20 +706,20 @@ public:
         outputLines.push_back("4. TrackBot actionShoot" );
         outputLines.push_back("5. TrackBot PlantTracker");
 
-        
+
         actionThink(battlefield);
         actionLook(battlefield);
         actionShoot(battlefield);
         actionMove(battlefield);
-            
+
     }
 };
 
 
 
 // Shooting Upgrades
-class LongShotBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class LongShotBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 public:
     LongShotBot(string id = "", int x = -1, int y = -1) {
@@ -760,12 +760,12 @@ public:
         actionLook(battlefield);
         actionShoot(battlefield);
         actionMove(battlefield);
-        
+
     }
 };
 
-class SemiAutoBot: public ThinkingRobot, public SeeingRobot,    
-                public ShootingRobot, public MovingRobot 
+class SemiAutoBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 public:
     SemiAutoBot(string id = "", int x = -1, int y = -1) {
@@ -800,7 +800,7 @@ public:
         outputLines.push_back("2. SemiAutoBot actionLook" );
         outputLines.push_back("3. SemiAutoBot actionMove" );
         outputLines.push_back("4. SemiAutoBot actionShoot" );
-        
+
         actionThink(battlefield);
         actionLook(battlefield);
         actionShoot(battlefield);
@@ -809,8 +809,8 @@ public:
     }
 };
 
-class ThirtyShotBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class ThirtyShotBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 public:
     ThirtyShotBot(string id = "", int x = -1, int y = -1) {
@@ -851,15 +851,15 @@ public:
         actionLook(battlefield);
         actionShoot(battlefield);
         actionMove(battlefield);
-        
+
     }
 };
 
 
 
 // Moving Upgrades
-class HideBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class HideBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 protected:
     int hiddenCount = 3;
@@ -885,7 +885,7 @@ public:
     void actionThink(Battlefield* battlefield) override;
     void actionLook(Battlefield* battlefield) override;
     void actionMove(Battlefield* battlefield) override;
-    void actionShoot(Battlefield* battlefield) override; 
+    void actionShoot(Battlefield* battlefield) override;
 
     void actions(Battlefield* battlefield) override {
         bool isHidden = false;
@@ -918,13 +918,13 @@ public:
             outputLines.push_back("HideBot " + id_ + " has decided to hide!");
             outputLines.push_back("Number of Hides left: " + to_string(hiddenCount));
         } else {
-            isHidden = false; 
+            isHidden = false;
         }
-    }   
+    }
 };
 
-class JumpBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class JumpBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 private:
     int jumpCount = 0;
@@ -974,8 +974,8 @@ public:
 
 
 // Extras Upgrades
-class HealthBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class HealthBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 public:
     HealthBot(string id = "", int x = -1, int y = -1) {
@@ -1018,8 +1018,8 @@ public:
     }
 };
 
-class JukeBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class JukeBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 private:
     int turnCounter = 0;
@@ -1049,12 +1049,12 @@ public:
             // Juke to random position
             int newX, newY;
             bool positionFound = false;
-            
+
             // Try random positions first
             for (int attempt = 0; attempt < 100; attempt++) {
                 newX = rand() % battlefield->BATTLEFIELD_NUM_OF_COLS();
                 newY = rand() % battlefield->BATTLEFIELD_NUM_OF_ROWS();
-                
+
                 if (battlefield->isCellEmpty(newX, newY)) {
                     positionFound = true;
                     break;
@@ -1076,7 +1076,7 @@ public:
             }
         }
 
-       
+
         cout << "Actions:" << endl;
         cout << "1. JukeBot actionMove" << endl;
         cout << "2. JukeBot actionShoot" << endl;
@@ -1088,19 +1088,19 @@ public:
         outputLines.push_back("2. JukeBot actionShoot" );
         outputLines.push_back("3. JukeBot actionLook" );
         outputLines.push_back("4. JukeBot actionThink" );
-        
+
         actionThink(battlefield);
         actionLook(battlefield);
         actionShoot(battlefield);
         actionMove(battlefield);
 
 
-        
+
     }
 };
 
-class GodBot: public ThinkingRobot, public SeeingRobot, 
-                public ShootingRobot, public MovingRobot 
+class GodBot: public ThinkingRobot, public SeeingRobot,
+                public ShootingRobot, public MovingRobot
 {
 public:
     GodBot(string id = "", int x = -1, int y = -1) {
@@ -1145,7 +1145,7 @@ public:
         actionShoot(battlefield);
         actionMove(battlefield);
 
-    
+
     }
 };
 
@@ -1235,7 +1235,7 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -1260,7 +1260,7 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -1282,7 +1282,7 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
 
 
-}  
+}
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
 
@@ -1322,12 +1322,12 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -1343,7 +1343,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -1371,7 +1371,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
 
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -1540,7 +1540,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -1563,7 +1563,7 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -1707,10 +1707,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -1876,7 +1876,7 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -1901,7 +1901,7 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -1962,12 +1962,12 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -1983,7 +1983,7 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -2004,7 +2004,7 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
                     outputLines.push_back(targetRobotId + " has been destroyed!");
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -2176,7 +2176,7 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -2199,7 +2199,7 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
                         //     int seeChoice = rand() % 2 + 1;
                         //     if (seeChoice == 1) {
                         //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                        //         outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                        //         outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                         //         ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                         //         // Copy state
@@ -2343,10 +2343,10 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -2461,7 +2461,7 @@ void TrackBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -2486,7 +2486,7 @@ void TrackBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -2547,12 +2547,12 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -2568,7 +2568,7 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -2589,7 +2589,7 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                     outputLines.push_back(targetRobotId + " has been destroyed!");
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -2761,7 +2761,7 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -2784,7 +2784,7 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
                         //     int seeChoice = rand() % 2 + 1;
                         //     if (seeChoice == 1) {
                         //         cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                        //         outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                        //         outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                         //         ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                         //         // Copy state
@@ -2928,10 +2928,10 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -3087,7 +3087,7 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -3112,7 +3112,7 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -3174,12 +3174,12 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid tiles found for targeting." << endl;
         outputLines.push_back("No valid tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -3195,7 +3195,7 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -3216,7 +3216,7 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
                     outputLines.push_back(targetRobotId + " has been destroyed!");
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -3411,7 +3411,7 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -3555,10 +3555,10 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -3648,7 +3648,7 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -3673,7 +3673,7 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -3734,12 +3734,12 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -3755,7 +3755,7 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -3791,7 +3791,7 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
                     outputLines.push_back(targetRobotId + " has been destroyed!");
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -3986,7 +3986,7 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -4130,10 +4130,10 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -4224,7 +4224,7 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -4249,7 +4249,7 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -4310,12 +4310,12 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -4330,7 +4330,7 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -4351,7 +4351,7 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
                     outputLines.push_back(targetRobotId + " has been destroyed!");
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -4546,7 +4546,7 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -4690,10 +4690,10 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -4784,7 +4784,7 @@ void HideBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -4809,7 +4809,7 @@ void HideBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -4868,12 +4868,12 @@ void HideBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -4889,7 +4889,7 @@ void HideBot::actionShoot(Battlefield* battlefield) {
     bool hit = false;
 
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -4913,7 +4913,7 @@ void HideBot::actionShoot(Battlefield* battlefield) {
 
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -5088,7 +5088,7 @@ void HideBot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -5111,7 +5111,7 @@ void HideBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -5255,10 +5255,10 @@ void HideBot::actionShoot(Battlefield* battlefield) {
         this->decreaseShell();
         cout<<"No enemy robot was at the selected location."<<endl;
         cout<< this->id() <<" now has "<< this->numOfShell() <<" of shells left!"<<endl;
-        
+
         outputLines.push_back("No enemy robot was at the selected location.");
         outputLines.push_back(this->id() + " now has " + to_string(this->numOfShell()) + " of shells left!");
-        
+
     }
 }
 
@@ -5357,7 +5357,7 @@ void JumpBot::actionMove(Battlefield* battlefield) {
             }
         }
 
-        // Check invalid input 
+        // Check invalid input
         if (!validInput) {
             cout << "Invalid move direction\n";
             outputLines.push_back("Invalid move direction");
@@ -5382,7 +5382,7 @@ void JumpBot::actionMove(Battlefield* battlefield) {
         }
 
         // Check if destination is occupied
-        for (Robot* robot : battlefield->robots()) { 
+        for (Robot* robot : battlefield->robots()) {
             int PotentialRobotX = robot->x();
             int PotentialRobotY = robot->y();
 
@@ -5490,12 +5490,12 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -5511,7 +5511,7 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -5535,7 +5535,7 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
 
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -5709,7 +5709,7 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -5732,7 +5732,7 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -5971,7 +5971,7 @@ void HealthBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -5996,7 +5996,7 @@ void HealthBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -6056,12 +6056,12 @@ void HealthBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -6077,7 +6077,7 @@ void HealthBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -6101,7 +6101,7 @@ void HealthBot::actionShoot(Battlefield* battlefield) {
 
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -6275,7 +6275,7 @@ void HealthBot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -6298,7 +6298,7 @@ void HealthBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -6529,7 +6529,7 @@ void JukeBot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Check invalid input 
+    // Check invalid input
     if (!validInput) {
         cout << "Invalid move direction\n";
         outputLines.push_back("Invalid move direction");
@@ -6554,7 +6554,7 @@ void JukeBot::actionMove(Battlefield* battlefield) {
     }
 
     // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
 
@@ -6614,12 +6614,12 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid adjacent tiles found for targeting." << endl;
         outputLines.push_back("No valid adjacent tiles found for targeting.");
-        return; 
+        return;
     }
 
     // Shell check
@@ -6635,7 +6635,7 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -6659,7 +6659,7 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
 
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -6833,7 +6833,7 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -6856,7 +6856,7 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -7008,7 +7008,7 @@ void GodBot::actionThink(Battlefield* battlefield) {
 
 // Sees
 void GodBot::actionLook(Battlefield* battlefield) {
-    
+
     int currentX = robotPosX;
     int currentY = robotPosY;
 
@@ -7054,7 +7054,7 @@ void GodBot::actionMove(Battlefield* battlefield) {
 
 
     int choice = rand() % 2;
-   
+
 
     if (choice == 1) {
         cout<<"Regular Move Chosen"<<endl;
@@ -7100,7 +7100,7 @@ void GodBot::actionMove(Battlefield* battlefield) {
             }
         }
 
-        // Check invalid input 
+        // Check invalid input
         if (!validInput) {
             cout << "Invalid move direction\n";
             outputLines.push_back("Invalid move direction");
@@ -7125,7 +7125,7 @@ void GodBot::actionMove(Battlefield* battlefield) {
         }
 
         // Check if destination is occupied
-        for (Robot* robot : battlefield->robots()) { 
+        for (Robot* robot : battlefield->robots()) {
             int PotentialRobotX = robot->x();
             int PotentialRobotY = robot->y();
 
@@ -7147,7 +7147,7 @@ void GodBot::actionMove(Battlefield* battlefield) {
         outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
 
 
-        
+
     } else if (choice == 2) {
         cout << "Regular Move Chosen" << endl;
         outputLines.push_back("Jump Move Chosen");
@@ -7206,12 +7206,12 @@ void GodBot::actionShoot(Battlefield* battlefield) {
     int battlefieldWidth = battlefield->BATTLEFIELD_NUM_OF_COLS();
     int battlefieldHeight = battlefield->BATTLEFIELD_NUM_OF_ROWS();
 
-    
+
     vector<pair<int, int>> possibleTargets;
     for (int dx = -3; dx <= 3; dx++) {
         for (int dy = -3; dy <= 3; dy++) {
             if (dx == 0 && dy == 0) continue; // Skip self
-            if (abs(dx) + abs(dy) > 3) continue; 
+            if (abs(dx) + abs(dy) > 3) continue;
 
             int newX = CurrentRobotsX + dx;
             int newY = CurrentRobotsY + dy;
@@ -7230,7 +7230,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 
         cout << "Random target selected at: " << targetX << " " << targetY << endl;
         outputLines.push_back("Random target selected at: " + to_string(targetX) + " " + to_string(targetY));
-        
+
         validTarget = true;
     } else {
         cout << "No valid tiles found for targeting." << endl;
@@ -7250,7 +7250,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 
     bool hit = false;
 
-    for (Robot* robot : battlefield->robots()) { 
+    for (Robot* robot : battlefield->robots()) {
         string targetRobotId = robot->id() ;
         int PotentialRobotX = robot->x() ;
         int PotentialRobotY = robot->y() ;
@@ -7274,7 +7274,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 
 
                     battlefield->setCell(PotentialRobotX, PotentialRobotY, nullptr); // remove robot from battlefield
-                    battlefield->clearCell(PotentialRobotX, PotentialRobotY); 
+                    battlefield->clearCell(PotentialRobotX, PotentialRobotY);
                     robot->setX(-1);
                     robot->setY(-2);
 
@@ -7450,7 +7450,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
                                 // Copy state
                                 upgradedRobot->setNumOfLives(this->numOfLives());
                                 upgradedRobot->setNumOfKills(this->numOfKills());
-                                upgradedRobot->setNumOfShells(this->numOfShell());
+                                // upgradedRobot->setNumOfShells(this->numOfShell());
                                 upgradedRobot->setUpgradeCount(this->getUpgradeCount());
 
                                 int robotName_pos = this->robotName().find("_");
@@ -7473,7 +7473,7 @@ void GodBot::actionShoot(Battlefield* battlefield) {
                             int seeChoice = rand() % 2 + 1;
                             if (seeChoice == 1) {
                                 cout <<this->id() <<" are now upgraded to ScoutBot!"<< endl;
-                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");                                
+                                outputLines.push_back(this->id() + " are now upgraded to ScoutBot!");
                                 ScoutBot* upgradedRobot = new ScoutBot(this->id(), this->x(), this->y());
 
                                 // Copy state
@@ -7629,15 +7629,15 @@ void GodBot::actionShoot(Battlefield* battlefield) {
 
 // Main Function
 int main() {
-    srand(time(0)); 
-    //srand(2422122441020/1000); 
+    srand(time(0));
+    //srand(2422122441020/1000);
 
     Battlefield battlefield;
 
     // read the file
-    string inputFile = "fileInput2.txt";
-    battlefield.readFile(inputFile); 
-    
+    string inputFile = "fileInput2b.txt";
+    battlefield.readFile(inputFile);
+
     // Get total number of turns and robot list
     int totalTurns = battlefield.turns();
     vector<Robot*>& robots = battlefield.robots();
@@ -7658,7 +7658,7 @@ int main() {
         int aliveCount = 0;
         Robot* lastSurvivor = nullptr;
         for (Robot* robot : robots) {
-            if (robot->isAlive() && robot->x() != -1 && robot->y() != -2) {
+            if (robot->numOfLives() != 0 && robot->x() != -1 && robot->y() != -2) {
                 aliveCount++;
                 lastSurvivor = robot;
             }
@@ -7670,7 +7670,7 @@ int main() {
             outputLines.push_back("Early victory! Only one robot remains!");
             auto winner = lastSurvivor;
             break;  // Exit the loop immediately
-        }  
+        }
 
         // If no robot remains, declare it the winner and break
         if (aliveCount == 0) {
@@ -7692,7 +7692,7 @@ int main() {
         //     }
         // }
 
-        // // check if all bots are in destroyed 
+        // // check if all bots are in destroyed
         // if (allRobotsInactive) {
         //     cout << "\nAll robots are either destroyed or waiting. Game over.\n";
         //     outputLines.push_back("All robots are either destroyed or waiting. Game over.");
@@ -7711,7 +7711,7 @@ int main() {
             continue;
         }
 
-        // OR 
+        // OR
 
         //  check if current bots has no lives left
         if (!currentRobot->isAlive()) {
@@ -7739,27 +7739,28 @@ int main() {
             break;
         }
 
-        
+
         battlefield.placeRobots();
         battlefield.displayBattlefield(currentRobot, currentTurn, robotCount);
         battlefield.updateWaitingRobots();
 
         cout << "Turn " << currentTurn + 1 << endl;
-        outputLines.push_back("Turn " + to_string(currentTurn + 1));   
+        outputLines.push_back("Turn " + to_string(currentTurn + 1));
 
         cout << "Robot Info: " << *currentRobot << endl;
         ostringstream oss;
-        oss.str("");     
-        oss.clear();  
+        oss.str("");
+        oss.clear();
         oss << *currentRobot;
-        outputLines.push_back("Robot Info: " + oss.str());  
+        outputLines.push_back("Robot Info: " + oss.str());
 
         cout << "Robot Type: " << currentRobot->robotType() << endl;
-        outputLines.push_back("Robot Type: " + currentRobot->robotType());   
+        outputLines.push_back("Robot Type: " + currentRobot->robotType());
 
         currentRobot->actions(&battlefield);
-
         currentTurn++;
+
+
     }
 
     int highestKills = 0;
@@ -7776,8 +7777,8 @@ int main() {
         cout << "The Ultimate Winner is ......." << endl;
         outputLines.push_back("The Ultimate Winner is .......");
 
-        cout << winner->robotType() << " " << winner->id() << " with " << winner->numOfKills() << " kills and " << winner->numOfLives() << " lives left with rounds played :"<< actualTurnsPlayed - 1 << endl;
-        outputLines.push_back(winner->robotType() + " " + winner->id() + " with " + to_string(winner->numOfKills()) + " kills and " + to_string(winner->numOfLives()) + " lives left with rounds played " + to_string(actualTurnsPlayed -1));
+        cout << winner->robotType() << " " << winner->id() << " with " << winner->numOfKills() << " kills and " << winner->numOfLives() << " lives left with rounds played :"<< actualTurnsPlayed  << endl;
+        outputLines.push_back(winner->robotType() + " " + winner->id() + " with " + to_string(winner->numOfKills()) + " kills and " + to_string(winner->numOfLives()) + " lives left with rounds played " + to_string(actualTurnsPlayed ));
 
     } else {
         cout << "No winner (no robot survived or had kills)." << endl;
