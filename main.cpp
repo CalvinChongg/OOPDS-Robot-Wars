@@ -1337,6 +1337,10 @@ void GenericRobot::actionShoot(Battlefield* battlefield) {
                 cout << "Target is hidden and cannot be hit!" << endl;
                 return;
             }
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -1972,6 +1976,10 @@ void ScoutBot::actionShoot(Battlefield* battlefield){
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -2557,6 +2565,10 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -3184,6 +3196,10 @@ void LongShotBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -3744,6 +3760,10 @@ void SemiAutoBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             bool threeShotSuccess = false;
             int hitChance;
             for (int i = 0; i < 3 ; i++){
@@ -4319,6 +4339,10 @@ void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -4879,6 +4903,10 @@ void HideBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -5501,6 +5529,10 @@ void JumpBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -6067,6 +6099,10 @@ void HealthBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -6625,6 +6661,10 @@ void JukeBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
@@ -7240,6 +7280,10 @@ void GodBot::actionShoot(Battlefield* battlefield) {
             break;
         }
         if (targetX == PotentialRobotX && targetY == PotentialRobotY ){
+            if (!robot->canBeTargeted()) {
+                cout << "Target is hidden and cannot be hit!" << endl;
+                return;
+            }
             int hitChance = rand() % 100; // number from 0-99
             if (hitChance < 70) { // 70% chance to hit
                 cout<<"\nYou've successfully shot an enemy Robot!"<<endl;
