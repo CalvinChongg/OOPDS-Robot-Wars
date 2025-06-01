@@ -19,17 +19,17 @@
 //
 //
 // Member_2: TAN YONG XIN
-// FUNCTIONS :
-// code logic :
-// class :
-// extra task :
+// FUNCTIONS: actionLook 
+// Code logic: let robot check 3x3 area around itself, show [R] for itself, [ ] for empty, [E] for enemy, log everything to file 
+// Class: HealthBot, GodBot 
+// Extra task: UML design 
 //
 //
 // Member_3: THAM MEI TING
-// FUNCTIONS :
-// code logic :
-// class :
-// extra task :
+// FUNCTIONS: actionMove, handle random jump coordinate 
+// Code logic: jump limit check using jumpCount and MAXjump, turnCounter to control when JukeBot teleport 
+// Class: JumpBot, JukeBot 
+// Extra task: UML design  
 //
 //
 // Member_4: YAP CHI YI
