@@ -1184,12 +1184,12 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         int newX = currentX + directionsMove[i].first;
         int newY = currentY + directionsMove[i].second;
 
-        // Check bounds
+        // chekc if out of bounds
         if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
             newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
             continue;
 
-        // Check if destination is occupied
+        // check if contain a robot 
         bool isOccupied = false;
         for (Robot* robot : battlefield->robots()) {
             if (robot->x() == newX && robot->y() == newY) {
@@ -1203,25 +1203,25 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         }
     }
 
-    // Handle case when no valid directions
+    // go into affect when no posible movement availavlbe
     if (validIndex.empty()) {
         cout << "No valid move directions available\n";
         outputLines.push_back("No valid move directions available");
         return;
     }
 
-    // Randomly pick a valid direction
+    //rand to randomly choose from vectorIdex that contains only possible movements
     int chosenIndex = validIndex[rand() % validIndex.size()];
     string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Calculate new position
+    // calculate new pos
     int newX = currentX + directionsMove[chosenIndex].first;
     int newY = currentY + directionsMove[chosenIndex].second;
 
-    // Update position
+    // update new pos
     robotPosX = newX;
     robotPosY = newY;
     battlefield->setCell(currentX, currentY, nullptr);
