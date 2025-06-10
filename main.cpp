@@ -6556,7 +6556,7 @@ void JukeBot::actionMove(Battlefield* battlefield) {
         return;
     }
 
-    // Check if destination is occupied
+    // Check if destination is empty
     for (Robot* robot : battlefield->robots()) {
         int PotentialRobotX = robot->x();
         int PotentialRobotY = robot->y();
@@ -7648,7 +7648,7 @@ int main() {
     Battlefield battlefield;
 
     // read the file
-    string inputFile = "fileInput2.txt";
+    string inputFile = "fileInput2a.txt";
     battlefield.readFile(inputFile);
 
     // Get total number of turns and robot list
