@@ -518,15 +518,9 @@ public:
         }
     }
 
-    void displayBattlefield(Robot* robot, int currentTurn, int robotCount) {
-        int robotIndex = currentTurn % robotCount;
-        Robot* currentRobot = robots_[robotIndex];
-
-        int robotX = currentRobot->x();
-        int robotY = currentRobot->y();
-
-        cout << "Display Battlefield (Current Robot Only)" << endl;
-        outputLines.push_back("Display Battlefield (Current Robot Only)");
+    void displayBattlefield() {
+        cout << "Display Battlefield " << endl;
+        outputLines.push_back("Display Battlefield ");
 
         cout << endl << "     ";
         string header = "     ";
@@ -557,13 +551,16 @@ public:
             rowLine << " " << right << setfill('0') << setw(2) << i;
 
             for (int j = 0; j < battlefield_[i].size(); j++) {
-                if (i == robotY && j == robotX) {
-                    cout << "|" << left << setw(4) << currentRobot->id();
-                    rowLine << "|" << left << setw(4) << currentRobot->id();
-                } else {
-                    cout << "|    ";
+                
+                if (battlefield_[i][j] == "") {
+                    cout << "|" << "    ";
                     rowLine << "|    ";
+                } else {
+                    cout << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
+                    rowLine << "|" << left << setw(4) << battlefield_[i][j];
                 }
+            
+                
             }
             cout << "|" << endl;
             rowLine << "|";
@@ -7772,7 +7769,7 @@ int main() {
 
 
         battlefield.placeRobots();
-        battlefield.displayBattlefield(currentRobot, currentTurn, robotCount);
+        battlefield.displayBattlefield();
         battlefield.updateWaitingRobots();
 
         cout << "Turn " << currentTurn + 1 << endl;
