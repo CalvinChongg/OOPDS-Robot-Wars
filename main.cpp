@@ -19,17 +19,17 @@
 //
 //
 // Member_2: TAN YONG XIN
-// FUNCTIONS: actionLook 
-// Code logic: let robot check 3x3 area around itself, show [R] for itself, [ ] for empty, [E] for enemy, log everything to file 
-// Class: HealthBot, GodBot 
-// Extra task: UML design 
+// FUNCTIONS: actionLook
+// Code logic: let robot check 3x3 area around itself, show [R] for itself, [ ] for empty, [E] for enemy, log everything to file
+// Class: HealthBot, GodBot
+// Extra task: UML design
 //
 //
 // Member_3: THAM MEI TING
-// FUNCTIONS: actionMove, handle random jump coordinate 
-// Code logic: jump limit check using jumpCount and MAXjump, turnCounter to control when JukeBot teleport 
-// Class: JumpBot, JukeBot 
-// Extra task: UML design  
+// FUNCTIONS: actionMove, handle random jump coordinate
+// Code logic: jump limit check using jumpCount and MAXjump, turnCounter to control when JukeBot teleport
+// Class: JumpBot, JukeBot
+// Extra task: UML design
 //
 //
 // Member_4: YAP CHI YI
@@ -551,7 +551,7 @@ public:
             rowLine << " " << right << setfill('0') << setw(2) << i;
 
             for (int j = 0; j < battlefield_[i].size(); j++) {
-                
+
                 if (battlefield_[i][j] == "") {
                     cout << "|" << "    ";
                     rowLine << "|    ";
@@ -559,8 +559,8 @@ public:
                     cout << "|" << left << setfill(' ') << setw(4) << battlefield_[i][j];
                     rowLine << "|" << left << setw(4) << battlefield_[i][j];
                 }
-            
-                
+
+
             }
             cout << "|" << endl;
             rowLine << "|";
@@ -861,7 +861,7 @@ public:
     void actionShoot(Battlefield* battlefield) override;
 
     void actions(Battlefield* battlefield) override {
-        
+
         cout << "Actions:" << endl;
         cout << "1. HideBot actionThink" << endl;
         cout << "2. HideBot actionLook" << endl;
@@ -7382,7 +7382,7 @@ int main() {
     Battlefield battlefield;
 
     // read the file
-    string inputFile = "fileInput2b.txt";
+    string inputFile = "fileInput1.txt";
     battlefield.readFile(inputFile);
 
     // Get total number of turns and robot list

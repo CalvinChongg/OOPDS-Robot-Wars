@@ -8,14 +8,14 @@ Robot position = (1, 1)
 Robots in game are = GR04_Beta
 Robot position = (1, 0)
 Robots in game are = GR05_Star
-Robot position = (1, 0)
+Robot position = (1, 1)
 Total turns: 400
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|GR01|GR05|    |    |    |
+ 00|GR01|GR04|    |    |    |
    +----+----+----+----+----+
- 01|GR02|GR03|    |    |    |
+ 01|GR02|GR05|    |    |    |
    +----+----+----+----+----+
  02|    |    |    |    |    |
    +----+----+----+----+----+
@@ -45,22 +45,22 @@ L, C, R
 DL, D, DR
 No valid move directions available
 The Current Robot controlled is GR01_Kidd
-Random target selected at: 1 0
+Random target selected at: 1 1
 
 You've successfully shot an enemy Robot!
-GR04 was hit and is now temporarily inactive!
-GR04 now has 2 of lives left
+GR03 was hit and is now temporarily inactive!
+GR03 now has 2 of lives left
 GR01 now has 1 of kills!
 GR01 now has 9 of shells left!
 
 GR01 earned an upgrade! A random upgrade is applied!
-GR01 are now upgraded to SemiAutoBot!
+GR01 are now upgraded to TrackBot!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|SA01|GR05|    |    |    |
+ 00|TB01|GR04|    |    |    |
    +----+----+----+----+----+
- 01|GR02|GR03|    |    |    |
+ 01|GR02|GR05|    |    |    |
    +----+----+----+----+----+
  02|    |    |    |    |    |
    +----+----+----+----+----+
@@ -80,7 +80,7 @@ Actions:
 4.GenericRobot actionShoot
 GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[#] [S] [G] 
+[#] [T] [G] 
 [#] [R] [G] 
 [#] [ ] [ ] 
 
@@ -91,284 +91,27 @@ DL, D, DR
 Random direction selected: DR
 Moved to (1,2)
 The Current Robot controlled is GR02_Jet
-Random target selected at: 1 1
-
-You've successfully shot an enemy Robot!
-GR03 was hit and is now temporarily inactive!
-GR03 now has 2 of lives left
-GR02 now has 1 of kills!
+Random target selected at: 1 3
+No enemy robot was at the selected location.
 GR02 now has 9 of shells left!
-
-GR02 earned an upgrade! A random upgrade is applied!
-GR02 are now upgraded to HideBot!
 Skipping Turns, Robot GR03_Alpha is still in waiting queue.
-Skipping Turns, Robot GR04_Beta is still in waiting queue.
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|SA01|GR05|    |    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |HB02|    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 5
-GR05 at (1, 0)
-GR05 at (1, 0)
-Robot Info: GR05 at (1, 0)
-Robot Type: GenericRobot
-Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[S] [R] [ ] 
-[ ] [ ] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (2,0)
-The Current Robot controlled is GR05_Star
-Random target selected at: 2 1
-No enemy robot was at the selected location.
-GR05 now has 9 of shells left!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|SA01|    |GR05|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |HB02|    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 6
-SA01 at (0, 0)
-SA01 at (0, 0)
-Robot Info: SA01 at (0, 0)
-Robot Type: SemiAutoBot
-Actions:
-1. SemiAutoBot actionThink
-2. SemiAutoBot actionLook
-3. SemiAutoBot actionMove
-4. SemiAutoBot actionShoot
-SemiAutoBot is analyzing long-range targets...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is SA01_Kidd
-Random target selected at: 1 1
-No enemy robot was at the selected location.
-SA01 now has 8 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (1,0)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |SA01|GR05|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |HB02|    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 7
-HB02 at (1, 2)
-HB02 at (1, 2)
-Robot Info: HB02 at (1, 2)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 0 2
-No enemy robot was at the selected location.
-HB02 now has 8 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DL
-Moved to (0,3)
-Skipping Turns, Robot GR03_Alpha is still in waiting queue.
-Skipping Turns, Robot GR04_Beta is still in waiting queue.
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |SA01|GR05|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|HB02|    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-GR04 has waited 5 turns and is returning at (0,0)
-
-Turn 10
-GR05 at (2, 0)
-GR05 at (2, 0)
-Robot Info: GR05 at (2, 0)
-Robot Type: GenericRobot
-Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[S] [R] [ ] 
-[ ] [ ] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DL
-Moved to (1,1)
-The Current Robot controlled is GR05_Star
-Random target selected at: 2 0
-No enemy robot was at the selected location.
-GR05 now has 8 of shells left!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR04|SA01|    |    |    |
+ 00|TB01|GR04|    |    |    |
    +----+----+----+----+----+
  01|    |GR05|    |    |    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|    |GR02|    |    |    |
    +----+----+----+----+----+
- 03|HB02|    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-GR03 has waited 5 turns and is returning at (2,0)
-
-Turn 11
-SA01 at (1, 0)
-SA01 at (1, 0)
-Robot Info: SA01 at (1, 0)
-Robot Type: SemiAutoBot
-Actions:
-1. SemiAutoBot actionThink
-2. SemiAutoBot actionLook
-3. SemiAutoBot actionMove
-4. SemiAutoBot actionShoot
-SemiAutoBot is analyzing long-range targets...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[G] [R] [G] 
-[ ] [G] [ ] 
-The Current Robot controlled is SA01_Kidd
-Random target selected at: 1 1
-
-You've successfully shot an enemy Robot!
-GR05 was hit and is now temporarily inactive!
-GR05 now has 2 of lives left
-SA01 now has 2 of kills!
-SA01 now has 7 of shells left!
-
-SA01 earned an upgrade! A random upgrade is applied!
-SA01 are now upgraded to TrackBot!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DL
-Moved to (0,1)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR04|TB01|GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|HB02|    |    |    |    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 12
-HB02 at (0, 3)
-HB02 at (0, 3)
-Robot Info: HB02 at (0, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[#] [ ] [ ] 
-[#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 4
-No enemy robot was at the selected location.
-HB02 now has 7 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (1,3)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR04|TB01|GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |HB02|    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 13
-GR03 at (2, 0)
-GR03 at (2, 0)
-Robot Info: GR03 at (2, 0)
+Turn 4
+GR04 at (1, 0)
+GR04 at (1, 0)
+Robot Info: GR04 at (1, 0)
 Robot Type: GenericRobot
 Actions:
 1.GenericRobot actionThink
@@ -379,35 +122,35 @@ GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [#] [#] [#] 
 [T] [R] [ ] 
-[ ] [ ] [ ] 
+[ ] [G] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: D
-Moved to (2,1)
-The Current Robot controlled is GR03_Alpha
-Random target selected at: 3 2
+Random direction selected: R
+Moved to (2,0)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 3 1
 No enemy robot was at the selected location.
-GR03 now has 9 of shells left!
+GR04 now has 9 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|GR04|TB01|    |    |    |
+ 00|TB01|    |GR04|    |    |
    +----+----+----+----+----+
- 01|SA01|    |GR03|    |    |
+ 01|    |GR05|    |    |    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|    |GR02|    |    |    |
    +----+----+----+----+----+
- 03|    |HB02|    |    |    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 14
-GR04 at (0, 0)
-GR04 at (0, 0)
-Robot Info: GR04 at (0, 0)
+Turn 5
+GR05 at (1, 1)
+GR05 at (1, 1)
+Robot Info: GR05 at (1, 1)
 Robot Type: GenericRobot
 Actions:
 1.GenericRobot actionThink
@@ -416,38 +159,37 @@ Actions:
 4.GenericRobot actionShoot
 GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [T] 
-[#] [S] [ ] 
+[T] [ ] [G] 
+[ ] [R] [ ] 
+[ ] [G] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: DR
-Moved to (1,1)
-The Current Robot controlled is GR04_Beta
-Random target selected at: 0 0
+Random direction selected: U
+Moved to (1,0)
+The Current Robot controlled is GR05_Star
+Random target selected at: 2 1
 No enemy robot was at the selected location.
-GR04 now has 9 of shells left!
-Skipping Turns, Robot GR05_Star is still in waiting queue.
+GR05 now has 9 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |TB01|    |    |    |
+ 00|TB01|GR05|GR04|    |    |
    +----+----+----+----+----+
- 01|SA01|GR04|GR03|    |    |
+ 01|    |    |    |    |    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|    |GR02|    |    |    |
    +----+----+----+----+----+
- 03|    |HB02|    |    |    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 16
-TB01 at (1, 0)
-TB01 at (1, 0)
-Robot Info: TB01 at (1, 0)
+Turn 6
+TB01 at (0, 0)
+TB01 at (0, 0)
+Robot Info: TB01 at (0, 0)
 Robot Type: TrackBot
 Actions:
 1. TrackBot actionThink
@@ -459,249 +201,74 @@ Trackbot is analyzing the battlefield...
 No robots are being tracked.
 === Robot View (3x3 Grid) ===
 [#] [#] [#] 
-[ ] [R] [ ] 
-[S] [G] [G] 
+[#] [R] [G] 
+[#] [ ] [ ] 
 The Current Robot controlled is TB01_Kidd
-Random target selected at: 2 1
-
-You've successfully shot an enemy Robot!
-GR03 was hit and is now temporarily inactive!
-GR03 now has 1 of lives left
-TB01 now has 3 of kills!
-TB01 now has 6 of shells left!
-TB01 are now upgraded to JukeBot!
+Random target selected at: 0 1
+No enemy robot was at the selected location.
+TB01 now has 8 of shells left!
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: R
-Moved to (2,0)
+Random direction selected: DR
+Moved to (1,1)
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |TB01|    |    |
+ 00|    |GR05|GR04|    |    |
    +----+----+----+----+----+
- 01|SA01|GR04|    |    |    |
+ 01|    |TB01|    |    |    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|    |GR02|    |    |    |
    +----+----+----+----+----+
- 03|    |HB02|    |    |    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
-   +----+----+----+----+----+
-GR05 has waited 5 turns and is returning at (0,0)
-
-Turn 17
-HB02 at (1, 3)
-HB02 at (1, 3)
-Robot Info: HB02 at (1, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 2
-No enemy robot was at the selected location.
-HB02 now has 6 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (2,4)
-Skipping Turns, Robot GR03_Alpha is still in waiting queue.
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR05|    |TB01|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |HB02|    |    |
-   +----+----+----+----+----+
-Turn 19
-GR04 at (1, 1)
-GR04 at (1, 1)
-Robot Info: GR04 at (1, 1)
-Robot Type: GenericRobot
-Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
-=== Robot View (3x3 Grid) ===
-[G] [ ] [T] 
-[S] [R] [ ] 
-[ ] [ ] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (2,2)
-The Current Robot controlled is GR04_Beta
-Random target selected at: 3 2
-No enemy robot was at the selected location.
-GR04 now has 8 of shells left!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR05|    |TB01|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |GR04|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |HB02|    |    |
-   +----+----+----+----+----+
-Turn 20
-GR05 at (0, 0)
-GR05 at (0, 0)
-Robot Info: GR05 at (0, 0)
-Robot Type: GenericRobot
-Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [S] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (1,0)
-The Current Robot controlled is GR05_Star
-Random target selected at: 2 1
-No enemy robot was at the selected location.
-GR05 now has 7 of shells left!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |GR05|TB01|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |GR04|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |HB02|    |    |
-   +----+----+----+----+----+
-Turn 21
-TB01 at (2, 0)
-TB01 at (2, 0)
-Robot Info: TB01 at (2, 0)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (2, 2)
- - GR03 at (-1, -1)
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[G] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 0
-
-You've successfully shot an enemy Robot!
-GR05 was hit and is now temporarily inactive!
-GR05 now has 1 of lives left
-TB01 now has 4 of kills!
-TB01 now has 5 of shells left!
-TB01 are now upgraded to JukeBot!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (1,0)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |TB01|    |    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |GR04|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |HB02|    |    |
    +----+----+----+----+----+
 GR03 has waited 5 turns and is returning at (0,0)
 
-Turn 22
-HB02 at (2, 4)
-HB02 at (2, 4)
-Robot Info: HB02 at (2, 4)
-Robot Type: HideBot
+Turn 7
+GR02 at (1, 2)
+GR02 at (1, 2)
+Robot Info: GR02 at (1, 2)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
+[ ] [T] [ ] 
 [ ] [R] [ ] 
-[#] [#] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 4
-No enemy robot was at the selected location.
-HB02 now has 5 of shells left!
+[ ] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: UR
-Moved to (3,3)
+Random direction selected: UL
+Moved to (0,1)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 2
+No enemy robot was at the selected location.
+GR02 now has 8 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|GR03|TB01|    |    |    |
+ 00|GR03|GR05|GR04|    |    |
    +----+----+----+----+----+
- 01|SA01|    |    |    |    |
+ 01|GR02|TB01|    |    |    |
    +----+----+----+----+----+
- 02|    |    |GR04|    |    |
+ 02|    |    |    |    |    |
    +----+----+----+----+----+
- 03|    |    |    |HB02|    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 23
+Turn 8
 GR03 at (0, 0)
 GR03 at (0, 0)
 Robot Info: GR03 at (0, 0)
@@ -714,36 +281,35 @@ Actions:
 GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [#] [#] [#] 
-[#] [R] [T] 
-[#] [S] [ ] 
+[#] [R] [G] 
+[#] [G] [T] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: DR
-Moved to (1,1)
+No valid move directions available
 The Current Robot controlled is GR03_Alpha
 Random target selected at: 0 1
-No enemy robot was at the selected location.
-GR03 now has 8 of shells left!
+Shot missed! The enemy robot was not hit.
+GR03 now has 9 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |TB01|    |    |    |
+ 00|GR03|GR05|GR04|    |    |
    +----+----+----+----+----+
- 01|SA01|GR03|    |    |    |
+ 01|GR02|TB01|    |    |    |
    +----+----+----+----+----+
- 02|    |    |GR04|    |    |
+ 02|    |    |    |    |    |
    +----+----+----+----+----+
- 03|    |    |    |HB02|    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 24
-GR04 at (2, 2)
-GR04 at (2, 2)
-Robot Info: GR04 at (2, 2)
+Turn 9
+GR04 at (2, 0)
+GR04 at (2, 0)
+Robot Info: GR04 at (2, 0)
 Robot Type: GenericRobot
 Actions:
 1.GenericRobot actionThink
@@ -752,58 +318,48 @@ Actions:
 4.GenericRobot actionShoot
 GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[G] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [H] 
+[#] [#] [#] 
+[G] [R] [ ] 
+[T] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: UR
+Random direction selected: DR
 Moved to (3,1)
 The Current Robot controlled is GR04_Beta
-Random target selected at: 2 0
+Random target selected at: 4 2
 No enemy robot was at the selected location.
-GR04 now has 7 of shells left!
-Skipping Turns, Robot GR05_Star is still in waiting queue.
+GR04 now has 8 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |TB01|    |    |    |
+ 00|GR03|GR05|    |    |    |
    +----+----+----+----+----+
- 01|SA01|GR03|    |GR04|    |
+ 01|GR02|TB01|    |GR04|    |
    +----+----+----+----+----+
  02|    |    |    |    |    |
    +----+----+----+----+----+
- 03|    |    |    |HB02|    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 26
-TB01 at (1, 0)
-TB01 at (1, 0)
-Robot Info: TB01 at (1, 0)
-Robot Type: TrackBot
+Turn 10
+GR05 at (1, 0)
+GR05 at (1, 0)
+Robot Info: GR05 at (1, 0)
+Robot Type: GenericRobot
 Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (3, 1)
- - GR03 at (1, 1)
- - GR05 at (-1, -1)
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [#] [#] [#] 
-[ ] [R] [ ] 
-[S] [G] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 2 0
-No enemy robot was at the selected location.
-TB01 now has 4 of shells left!
+[G] [R] [ ] 
+[G] [T] [ ] 
 
 Available Directions:
 UL, U, UR
@@ -811,953 +367,43 @@ L, C, R
 DL, D, DR
 Random direction selected: DR
 Moved to (2,1)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |    |    |    |
-   +----+----+----+----+----+
- 01|SA01|GR03|TB01|GR04|    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-GR05 has waited 5 turns and is returning at (0,0)
-
-Turn 27
-HB02 at (3, 3)
-HB02 at (3, 3)
-Robot Info: HB02 at (3, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 2 2
+The Current Robot controlled is GR05_Star
+Random target selected at: 3 2
 No enemy robot was at the selected location.
-HB02 now has 4 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (4,4)
+GR05 now has 8 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|GR05|    |    |    |    |
+ 00|GR03|    |    |    |    |
    +----+----+----+----+----+
- 01|SA01|GR03|TB01|GR04|    |
+ 01|GR02|TB01|GR05|GR04|    |
    +----+----+----+----+----+
  02|    |    |    |    |    |
    +----+----+----+----+----+
  03|    |    |    |    |    |
    +----+----+----+----+----+
- 04|    |    |    |    |HB02|
+ 04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 28
-GR03 at (1, 1)
-GR03 at (1, 1)
-Robot Info: GR03 at (1, 1)
-Robot Type: GenericRobot
+Turn 11
+TB01 at (1, 1)
+TB01 at (1, 1)
+Robot Info: TB01 at (1, 1)
+Robot Type: TrackBot
 Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
+1. TrackBot actionThink
+2. TrackBot actionLook
+3. TrackBot actionMove
+4. TrackBot actionShoot
+5. TrackBot PlantTracker
+Trackbot is analyzing the battlefield...
+Tracked Robots:
+ - GR05 at (2, 1)
 === Robot View (3x3 Grid) ===
 [G] [ ] [ ] 
-[S] [R] [T] 
-[ ] [ ] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: UR
-Moved to (2,0)
-The Current Robot controlled is GR03_Alpha
-Random target selected at: 3 1
-
-You've successfully shot an enemy Robot!
-GR04 was hit and is now temporarily inactive!
-GR04 now has 1 of lives left
-GR03 now has 1 of kills!
-GR03 now has 7 of shells left!
-
-GR03 earned an upgrade! A random upgrade is applied!
-GR03 are now upgraded to ScoutBot!
-Skipping Turns, Robot GR04_Beta is still in waiting queue.
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR05|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |TB01|    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-Turn 30
-GR05 at (0, 0)
-GR05 at (0, 0)
-Robot Info: GR05 at (0, 0)
-Robot Type: GenericRobot
-Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [S] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (1,0)
-The Current Robot controlled is GR05_Star
-Random target selected at: 2 0
-
-You've successfully shot an enemy Robot!
-SB03 has been destroyed!
-SB03 now has 0 of lives left
-GR05 now has 1 of kills!
-GR05 now has 6 of shells left!
-
-GR05 earned an upgrade! A random upgrade is applied!
-GR05 are now upgraded to SemiAutoBot!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |GR05|GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |TB01|    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-Turn 31
-TB01 at (2, 1)
-TB01 at (2, 1)
-Robot Info: TB01 at (2, 1)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (-1, -1)
- - GR03 at (2, 0)
- - GR05 at (1, 0)
- - GR03 at (2, 0)
-=== Robot View (3x3 Grid) ===
-[G] [G] [ ] 
-[ ] [R] [ ] 
+[G] [R] [G] 
 [ ] [ ] [ ] 
 The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 0
-
-You've successfully shot an enemy Robot!
-SA05 has been destroyed!
-SA05 now has 0 of lives left
-TB01 now has 5 of kills!
-TB01 now has 3 of shells left!
-TB01 are now upgraded to JukeBot!
-
-You've successfully shot an enemy Robot!
-GR05 has been destroyed!
-GR05 now has 0 of lives left
-TB01 now has 6 of kills!
-TB01 now has 2 of shells left!
-TB01 are now upgraded to JukeBot!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (3,2)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |TB01|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-Turn 32
-HB02 at (4, 4)
-HB02 at (4, 4)
-Robot Info: HB02 at (4, 4)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[#] [#] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 4
-No enemy robot was at the selected location.
-HB02 now has 3 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: UL
-Moved to (3,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot GR04_Beta is still in waiting queue.
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |TB01|    |
-   +----+----+----+----+----+
- 03|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 36
-TB01 at (3, 2)
-TB01 at (3, 2)
-Robot Info: TB01 at (3, 2)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (-1, -1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [H] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 4 1
-No enemy robot was at the selected location.
-TB01 now has 1 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (2,2)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |TB01|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-GR04 has waited 5 turns and is returning at (0,0)
-
-Turn 37
-HB02 at (3, 3)
-HB02 at (3, 3)
-Robot Info: HB02 at (3, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[T] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 4
-No enemy robot was at the selected location.
-HB02 now has 2 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (4,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|GR04|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |TB01|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |HB02|
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 39
-GR04 at (0, 0)
-GR04 at (0, 0)
-Robot Info: GR04 at (0, 0)
-Robot Type: GenericRobot
-Actions:
-1.GenericRobot actionThink
-2.GenericRobot actionLook
-3.GenericRobot actionMove
-4.GenericRobot actionShoot
-GenericRobot is Thinking...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [S] [ ] 
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (1,1)
-The Current Robot controlled is GR04_Beta
-Random target selected at: 2 2
-
-You've successfully shot an enemy Robot!
-TB01 was hit and is now temporarily inactive!
-TB01 now has 2 of lives left
-GR04 now has 1 of kills!
-GR04 now has 6 of shells left!
-
-GR04 earned an upgrade! A random upgrade is applied!
-GR04 are now upgraded to JumpBot!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is still in waiting queue.
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |HB02|
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 42
-HB02 at (4, 3)
-HB02 at (4, 3)
-Robot Info: HB02 at (4, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[ ] [ ] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 4 4
-No enemy robot was at the selected location.
-HB02 now has 1 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (3,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 44
-JB04 at (1, 1)
-JB04 at (1, 1)
-Robot Info: JB04 at (1, 1)
-Robot Type: JumpBot
-Actions:
-1. JumpBot actionThink
-2. JumpBot actionLook
-3. JumpBot actionMove
-4. JumpBot actionShoot
-JumpBot is thinking about jumping...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [G] 
-[S] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is JB04_Beta
 Random target selected at: 1 2
-No enemy robot was at the selected location.
-JB04 now has 5 of shells left!
-1. Regular Move
-2. Jump
-Choose action: 
-Jump Move Chosen
-Enter jump coordinates (X Y): 
-0 0
-JB04 jumped to (0,0)!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is still in waiting queue.
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|JB04|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 47
-HB02 at (3, 3)
-HB02 at (3, 3)
-Robot Info: HB02 at (3, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 2 4
-No enemy robot was at the selected location.
-HB02 now has 0 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (4,4)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|JB04|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-Turn 49
-JB04 at (0, 0)
-JB04 at (0, 0)
-Robot Info: JB04 at (0, 0)
-Robot Type: JumpBot
-Actions:
-1. JumpBot actionThink
-2. JumpBot actionLook
-3. JumpBot actionMove
-4. JumpBot actionShoot
-JumpBot is thinking about jumping...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [S] [G] 
-The Current Robot controlled is JB04_Beta
-Random target selected at: 1 0
-No enemy robot was at the selected location.
-JB04 now has 4 of shells left!
-1. Regular Move
-2. Jump
-Choose action: 
-Jump Move Chosen
-Enter jump coordinates (X Y): 
-4 1
-JB04 jumped to (4,1)!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is still in waiting queue.
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |JB04|
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-TB01 has waited 5 turns and is returning at (0,0)
-
-Turn 52
-HB02 at (4, 4)
-HB02 at (4, 4)
-Robot Info: HB02 at (4, 4)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[#] [#] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 3
-Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (3,4)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|TB01|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|SA01|GR04|    |    |JB04|
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |HB02|    |
-   +----+----+----+----+----+
-Turn 54
-JB04 at (4, 1)
-JB04 at (4, 1)
-Robot Info: JB04 at (4, 1)
-Robot Type: JumpBot
-Actions:
-1. JumpBot actionThink
-2. JumpBot actionLook
-3. JumpBot actionMove
-4. JumpBot actionShoot
-JumpBot is thinking about jumping...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[ ] [ ] [#] 
-The Current Robot controlled is JB04_Beta
-Random target selected at: 4 0
-No enemy robot was at the selected location.
-JB04 now has 3 of shells left!
-1. Regular Move
-2. Jump
-Choose action: 
-Jump Move Chosen
-Enter jump coordinates (X Y): 
-0 1
-JB04 jumped to (0,1)!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|TB01|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|JB04|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |HB02|    |
-   +----+----+----+----+----+
-Turn 56
-TB01 at (0, 0)
-TB01 at (0, 0)
-Robot Info: TB01 at (0, 0)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (3, 4)
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [J] [G] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 0 1
-
-You've successfully shot an enemy Robot!
-JB04 has been destroyed!
-JB04 now has 0 of lives left
-TB01 now has 7 of kills!
-TB01 now has 0 of shells left!
-TB01 are now upgraded to JukeBot!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: D
-Moved to (0,1)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|TB01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |HB02|    |
-   +----+----+----+----+----+
-Turn 57
-HB02 at (3, 4)
-HB02 at (3, 4)
-Robot Info: HB02 at (3, 4)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[#] [#] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 2 3
-No enemy robot was at the selected location.
-HB02 now has 9 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: UR
-Moved to (4,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|TB01|GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |HB02|
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 61
-TB01 at (0, 1)
-TB01 at (0, 1)
-Robot Info: TB01 at (0, 1)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (4, 3)
- - JB04 at (-1, -2)
- - GR04 at (1, 1)
-=== Robot View (3x3 Grid) ===
-[#] [ ] [ ] 
-[#] [R] [G] 
-[#] [ ] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 0
-Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: UR
-Moved to (1,0)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |TB01|GR03|    |    |
-   +----+----+----+----+----+
- 01|    |GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |HB02|
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 62
-HB02 at (4, 3)
-HB02 at (4, 3)
-Robot Info: HB02 at (4, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[ ] [ ] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 4 4
-No enemy robot was at the selected location.
-HB02 now has 8 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: D
-Moved to (4,4)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |TB01|GR03|    |    |
-   +----+----+----+----+----+
- 01|    |GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-Turn 66
-TB01 at (1, 0)
-TB01 at (1, 0)
-Robot Info: TB01 at (1, 0)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (4, 4)
- - JB04 at (-1, -2)
- - GR04 at (1, 1)
- - GR04 at (1, 1)
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[ ] [R] [G] 
-[ ] [G] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 1
-Shot missed! The enemy robot was not hit.
-TB01 now has 9 of shells left!
-Shot missed! The enemy robot was not hit.
-TB01 now has 8 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (0,0)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|TB01|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |HB02|
-   +----+----+----+----+----+
-Turn 67
-HB02 at (4, 4)
-HB02 at (4, 4)
-Robot Info: HB02 at (4, 4)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[#] [#] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 4
-No enemy robot was at the selected location.
-HB02 now has 7 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (3,4)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|TB01|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |HB02|    |
-   +----+----+----+----+----+
-Turn 71
-TB01 at (0, 0)
-TB01 at (0, 0)
-Robot Info: TB01 at (0, 0)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (3, 4)
- - JB04 at (-1, -2)
- - GR04 at (1, 1)
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR04 at (1, 1)
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [ ] [G] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 0
 No enemy robot was at the selected location.
 TB01 now has 7 of shells left!
 
@@ -1765,68 +411,181 @@ Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: R
-Moved to (1,0)
+Random direction selected: DR
+Moved to (2,2)
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |TB01|GR03|    |    |
+ 00|GR03|    |    |    |    |
    +----+----+----+----+----+
- 01|    |GR04|    |    |    |
+ 01|GR02|    |GR05|GR04|    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|    |    |TB01|    |    |
    +----+----+----+----+----+
  03|    |    |    |    |    |
    +----+----+----+----+----+
- 04|    |    |    |HB02|    |
+ 04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 72
-HB02 at (3, 4)
-HB02 at (3, 4)
-Robot Info: HB02 at (3, 4)
-Robot Type: HideBot
+Turn 12
+GR02 at (0, 1)
+GR02 at (0, 1)
+Robot Info: GR02 at (0, 1)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[#] [#] [#] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 3
-No enemy robot was at the selected location.
-HB02 now has 6 of shells left!
+[#] [G] [ ] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: UL
-Moved to (2,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Random direction selected: D
+Moved to (0,2)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 1 2
+No enemy robot was at the selected location.
+GR02 now has 7 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |TB01|GR03|    |    |
+ 00|GR03|    |    |    |    |
    +----+----+----+----+----+
- 01|    |GR04|    |    |    |
+ 01|    |    |GR05|GR04|    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|GR02|    |TB01|    |    |
    +----+----+----+----+----+
- 03|    |    |HB02|    |    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 76
-TB01 at (1, 0)
-TB01 at (1, 0)
-Robot Info: TB01 at (1, 0)
+Turn 13
+GR03 at (0, 0)
+GR03 at (0, 0)
+Robot Info: GR03 at (0, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (1,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 0 1
+No enemy robot was at the selected location.
+GR03 now has 8 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |GR03|    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |GR05|GR04|    |
+   +----+----+----+----+----+
+ 02|GR02|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 14
+GR04 at (3, 1)
+GR04 at (3, 1)
+Robot Info: GR04 at (3, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[G] [R] [ ] 
+[T] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UR
+Moved to (4,0)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR04 now has 7 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |GR03|    |    |GR04|
+   +----+----+----+----+----+
+ 01|    |    |GR05|    |    |
+   +----+----+----+----+----+
+ 02|GR02|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 15
+GR05 at (2, 1)
+GR05 at (2, 1)
+Robot Info: GR05 at (2, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[G] [ ] [ ] 
+[ ] [R] [ ] 
+[ ] [T] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (3,1)
+The Current Robot controlled is GR05_Star
+Random target selected at: 3 2
+No enemy robot was at the selected location.
+GR05 now has 7 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |GR03|    |    |GR04|
+   +----+----+----+----+----+
+ 01|    |    |    |GR05|    |
+   +----+----+----+----+----+
+ 02|GR02|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 16
+TB01 at (2, 2)
+TB01 at (2, 2)
+Robot Info: TB01 at (2, 2)
 Robot Type: TrackBot
 Actions:
 1. TrackBot actionThink
@@ -1836,25 +595,16 @@ Actions:
 5. TrackBot PlantTracker
 Trackbot is analyzing the battlefield...
 Tracked Robots:
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (2, 3)
- - JB04 at (-1, -2)
- - GR04 at (1, 1)
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR04 at (1, 1)
- - GR04 at (1, 1)
+ - GR05 at (3, 1)
+ - GR03 at (1, 0)
+ - GR02 at (0, 2)
+ - GR05 at (3, 1)
 === Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[ ] [R] [G] 
-[ ] [G] [ ] 
+[ ] [ ] [G] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
 The Current Robot controlled is TB01_Kidd
-Random target selected at: 0 0
+Random target selected at: 2 3
 No enemy robot was at the selected location.
 TB01 now has 6 of shells left!
 
@@ -1862,576 +612,178 @@ Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: L
-Moved to (0,0)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|TB01|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |    |
-   +----+----+----+----+----+
- 03|    |    |HB02|    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 77
-HB02 at (2, 3)
-HB02 at (2, 3)
-Robot Info: HB02 at (2, 3)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 3 4
-No enemy robot was at the selected location.
-HB02 now has 5 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: UR
-Moved to (3,2)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|TB01|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |GR04|    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 81
-TB01 at (0, 0)
-TB01 at (0, 0)
-Robot Info: TB01 at (0, 0)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (3, 2)
- - JB04 at (-1, -2)
- - GR04 at (1, 1)
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR04 at (1, 1)
- - GR04 at (1, 1)
- - GR03 at (2, 0)
- - GR04 at (1, 1)
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [ ] [G] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 1
-
-You've successfully shot an enemy Robot!
-GR04 has been destroyed!
-GR04 now has 0 of lives left
-TB01 now has 8 of kills!
-TB01 now has 5 of shells left!
-TB01 are now upgraded to JukeBot!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (1,0)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |TB01|GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |HB02|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 82
-HB02 at (3, 2)
-HB02 at (3, 2)
-Robot Info: HB02 at (3, 2)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 4 2
-No enemy robot was at the selected location.
-HB02 now has 4 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (2,2)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |TB01|GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |HB02|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 86
-TB01 at (1, 0)
-TB01 at (1, 0)
-Robot Info: TB01 at (1, 0)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (2, 2)
- - JB04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[ ] [R] [G] 
-[ ] [ ] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 1
-No enemy robot was at the selected location.
-TB01 now has 4 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
 Random direction selected: DR
-Moved to (2,1)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |TB01|    |    |
-   +----+----+----+----+----+
- 02|    |    |HB02|    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 87
-HB02 at (2, 2)
-HB02 at (2, 2)
-Robot Info: HB02 at (2, 2)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [T] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 2
-No enemy robot was at the selected location.
-HB02 now has 3 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (1,2)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |TB01|    |    |
-   +----+----+----+----+----+
- 02|    |HB02|    |    |    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 91
-TB01 at (2, 1)
-TB01 at (2, 1)
-Robot Info: TB01 at (2, 1)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (1, 2)
- - JB04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
-=== Robot View (3x3 Grid) ===
-[ ] [G] [ ] 
-[ ] [R] [ ] 
-[H] [ ] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 1 0
-No enemy robot was at the selected location.
-TB01 now has 3 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (3,2)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |HB02|    |TB01|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 92
-HB02 at (1, 2)
-HB02 at (1, 2)
-Robot Info: HB02 at (1, 2)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 0 3
-No enemy robot was at the selected location.
-HB02 now has 2 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: L
-Moved to (0,2)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|HB02|    |    |TB01|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 96
-TB01 at (3, 2)
-TB01 at (3, 2)
-Robot Info: TB01 at (3, 2)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (0, 2)
- - JB04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR03 at (2, 0)
- - HB02 at (0, 2)
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 2 3
-No enemy robot was at the selected location.
-TB01 now has 2 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: R
-Moved to (4,2)
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|HB02|    |    |    |TB01|
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 97
-HB02 at (0, 2)
-HB02 at (0, 2)
-Robot Info: HB02 at (0, 2)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[#] [ ] [ ] 
-[#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 0 3
-No enemy robot was at the selected location.
-HB02 now has 1 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DR
-Moved to (1,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |    |TB01|
-   +----+----+----+----+----+
- 03|    |HB02|    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 101
-TB01 at (4, 2)
-TB01 at (4, 2)
-Robot Info: TB01 at (4, 2)
-Robot Type: TrackBot
-Actions:
-1. TrackBot actionThink
-2. TrackBot actionLook
-3. TrackBot actionMove
-4. TrackBot actionShoot
-5. TrackBot PlantTracker
-Trackbot is analyzing the battlefield...
-Tracked Robots:
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (1, 3)
- - JB04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR03 at (2, 0)
- - HB02 at (1, 3)
-=== Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[ ] [ ] [#] 
-The Current Robot controlled is TB01_Kidd
-Random target selected at: 4 1
-No enemy robot was at the selected location.
-TB01 now has 1 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: DL
 Moved to (3,3)
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |GR03|    |    |
+ 00|    |GR03|    |    |GR04|
    +----+----+----+----+----+
- 01|    |    |    |    |    |
+ 01|    |    |    |GR05|    |
    +----+----+----+----+----+
- 02|    |    |    |    |    |
+ 02|GR02|    |    |    |    |
    +----+----+----+----+----+
- 03|    |HB02|    |TB01|    |
+ 03|    |    |    |TB01|    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 102
-HB02 at (1, 3)
-HB02 at (1, 3)
-Robot Info: HB02 at (1, 3)
-Robot Type: HideBot
+Turn 17
+GR02 at (0, 2)
+GR02 at (0, 2)
+Robot Info: GR02 at (0, 2)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 2 2
-No enemy robot was at the selected location.
-HB02 now has 0 of shells left!
+[#] [ ] [ ] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: R
-Moved to (2,3)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Random direction selected: U
+Moved to (0,1)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 2
+No enemy robot was at the selected location.
+GR02 now has 6 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |GR03|    |    |
+ 00|    |GR03|    |    |GR04|
    +----+----+----+----+----+
- 01|    |    |    |    |    |
+ 01|GR02|    |    |GR05|    |
    +----+----+----+----+----+
  02|    |    |    |    |    |
    +----+----+----+----+----+
- 03|    |    |HB02|TB01|    |
+ 03|    |    |    |TB01|    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 106
+Turn 18
+GR03 at (1, 0)
+GR03 at (1, 0)
+Robot Info: GR03 at (1, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[G] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (1,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 2 2
+No enemy robot was at the selected location.
+GR03 now has 7 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |GR04|
+   +----+----+----+----+----+
+ 01|GR02|GR03|    |GR05|    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 19
+GR04 at (4, 0)
+GR04 at (4, 0)
+Robot Info: GR04 at (4, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [#] 
+[G] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (4,1)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR04 now has 6 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|GR02|GR03|    |GR05|GR04|
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 20
+GR05 at (3, 1)
+GR05 at (3, 1)
+Robot Info: GR05 at (3, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [G] 
+[ ] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (4,2)
+The Current Robot controlled is GR05_Star
+Random target selected at: 3 1
+No enemy robot was at the selected location.
+GR05 now has 6 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|GR02|GR03|    |    |GR04|
+   +----+----+----+----+----+
+ 02|    |    |    |    |GR05|
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 21
 TB01 at (3, 3)
 TB01 at (3, 3)
 Robot Info: TB01 at (3, 3)
@@ -2444,82 +796,143 @@ Actions:
 5. TrackBot PlantTracker
 Trackbot is analyzing the battlefield...
 Tracked Robots:
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (2, 3)
- - JB04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR03 at (2, 0)
- - HB02 at (2, 3)
+ - GR05 at (4, 2)
+ - GR03 at (1, 1)
+ - GR02 at (0, 1)
+ - GR05 at (4, 2)
+ - GR05 at (4, 2)
 === Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[H] [R] [ ] 
+[ ] [ ] [G] 
+[ ] [R] [ ] 
 [ ] [ ] [ ] 
 The Current Robot controlled is TB01_Kidd
-Random target selected at: 2 4
+Random target selected at: 2 3
 No enemy robot was at the selected location.
-TB01 now has 0 of shells left!
+TB01 now has 5 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (3,4)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|GR02|GR03|    |    |GR04|
+   +----+----+----+----+----+
+ 02|    |    |    |    |GR05|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |TB01|    |
+   +----+----+----+----+----+
+Turn 22
+GR02 at (0, 1)
+GR02 at (0, 1)
+Robot Info: GR02 at (0, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [ ] [ ] 
+[#] [R] [G] 
+[#] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (0,2)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 3
+No enemy robot was at the selected location.
+GR02 now has 5 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |GR03|    |    |GR04|
+   +----+----+----+----+----+
+ 02|GR02|    |    |    |GR05|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |TB01|    |
+   +----+----+----+----+----+
+Turn 23
+GR03 at (1, 1)
+GR03 at (1, 1)
+Robot Info: GR03 at (1, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [ ] 
+[G] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: UR
-Moved to (4,2)
+Moved to (2,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 1 0
+No enemy robot was at the selected location.
+GR03 now has 6 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
  00|    |    |GR03|    |    |
    +----+----+----+----+----+
- 01|    |    |    |    |    |
+ 01|    |    |    |    |GR04|
    +----+----+----+----+----+
- 02|    |    |    |    |TB01|
+ 02|GR02|    |    |    |GR05|
    +----+----+----+----+----+
- 03|    |    |HB02|    |    |
+ 03|    |    |    |    |    |
    +----+----+----+----+----+
- 04|    |    |    |    |    |
+ 04|    |    |    |TB01|    |
    +----+----+----+----+----+
-Turn 107
-HB02 at (2, 3)
-HB02 at (2, 3)
-Robot Info: HB02 at (2, 3)
-Robot Type: HideBot
+Turn 24
+GR04 at (4, 1)
+GR04 at (4, 1)
+Robot Info: GR04 at (4, 1)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 4
-Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[ ] [G] [#] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: UL
-Moved to (1,2)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Random direction selected: DL
+Moved to (3,2)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 2 1
+No enemy robot was at the selected location.
+GR04 now has 5 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
@@ -2527,16 +940,55 @@ Display Battlefield
    +----+----+----+----+----+
  01|    |    |    |    |    |
    +----+----+----+----+----+
- 02|    |HB02|    |    |TB01|
+ 02|GR02|    |    |GR04|GR05|
    +----+----+----+----+----+
  03|    |    |    |    |    |
    +----+----+----+----+----+
- 04|    |    |    |    |    |
+ 04|    |    |    |TB01|    |
    +----+----+----+----+----+
-Turn 111
-TB01 at (4, 2)
-TB01 at (4, 2)
-Robot Info: TB01 at (4, 2)
+Turn 25
+GR05 at (4, 2)
+GR05 at (4, 2)
+Robot Info: GR05 at (4, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[G] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (4,1)
+The Current Robot controlled is GR05_Star
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR05 now has 5 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |GR03|    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |GR05|
+   +----+----+----+----+----+
+ 02|GR02|    |    |GR04|    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |TB01|    |
+   +----+----+----+----+----+
+Turn 26
+TB01 at (3, 4)
+TB01 at (3, 4)
+Robot Info: TB01 at (3, 4)
 Robot Type: TrackBot
 Actions:
 1. TrackBot actionThink
@@ -2546,381 +998,822 @@ Actions:
 5. TrackBot PlantTracker
 Trackbot is analyzing the battlefield...
 Tracked Robots:
- - GR04 at (-1, -2)
+ - GR05 at (4, 1)
  - GR03 at (2, 0)
- - GR05 at (-1, -2)
- - GR03 at (2, 0)
- - SA05 at (-1, -2)
- - GR03 at (2, 0)
- - HB02 at (1, 2)
- - JB04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR04 at (-1, -2)
- - GR04 at (-1, -2)
- - GR03 at (2, 0)
- - GR03 at (2, 0)
- - HB02 at (1, 2)
- - HB02 at (1, 2)
+ - GR02 at (0, 2)
+ - GR05 at (4, 1)
+ - GR05 at (4, 1)
+ - GR05 at (4, 1)
 === Robot View (3x3 Grid) ===
-[ ] [ ] [#] 
-[ ] [R] [#] 
-[ ] [ ] [#] 
+[ ] [ ] [ ] 
+[ ] [R] [ ] 
+[#] [#] [#] 
 The Current Robot controlled is TB01_Kidd
-Random target selected at: 4 1
-Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+Random target selected at: 2 4
+No enemy robot was at the selected location.
+TB01 now has 4 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (3,3)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |GR03|    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |GR05|
+   +----+----+----+----+----+
+ 02|GR02|    |    |GR04|    |
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 27
+GR02 at (0, 2)
+GR02 at (0, 2)
+Robot Info: GR02 at (0, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [ ] [ ] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (0,1)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 2
+No enemy robot was at the selected location.
+GR02 now has 4 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |GR03|    |    |
+   +----+----+----+----+----+
+ 01|GR02|    |    |    |GR05|
+   +----+----+----+----+----+
+ 02|    |    |    |GR04|    |
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 28
+GR03 at (2, 0)
+GR03 at (2, 0)
+Robot Info: GR03 at (2, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (3,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 2 1
+No enemy robot was at the selected location.
+GR03 now has 5 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |GR03|    |
+   +----+----+----+----+----+
+ 01|GR02|    |    |    |GR05|
+   +----+----+----+----+----+
+ 02|    |    |    |GR04|    |
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 29
+GR04 at (3, 2)
+GR04 at (3, 2)
+Robot Info: GR04 at (3, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [G] 
+[ ] [R] [ ] 
+[ ] [T] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: L
-Moved to (3,2)
+Moved to (2,2)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 2 1
+No enemy robot was at the selected location.
+GR04 now has 4 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |GR03|    |    |
+ 00|    |    |    |GR03|    |
    +----+----+----+----+----+
- 01|    |    |    |    |    |
+ 01|GR02|    |    |    |GR05|
    +----+----+----+----+----+
- 02|    |HB02|    |TB01|    |
+ 02|    |    |GR04|    |    |
    +----+----+----+----+----+
- 03|    |    |    |    |    |
+ 03|    |    |    |TB01|    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 112
-HB02 at (1, 2)
-HB02 at (1, 2)
-Robot Info: HB02 at (1, 2)
-Robot Type: HideBot
+Turn 30
+GR05 at (4, 1)
+GR05 at (4, 1)
+Robot Info: GR05 at (4, 1)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[ ] [ ] [ ] 
+[G] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DL
+Moved to (3,2)
+The Current Robot controlled is GR05_Star
+Random target selected at: 2 1
+No enemy robot was at the selected location.
+GR05 now has 4 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |GR03|    |
+   +----+----+----+----+----+
+ 01|GR02|    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |GR04|GR05|    |
+   +----+----+----+----+----+
+ 03|    |    |    |TB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 31
+TB01 at (3, 3)
+TB01 at (3, 3)
+Robot Info: TB01 at (3, 3)
+Robot Type: TrackBot
+Actions:
+1. TrackBot actionThink
+2. TrackBot actionLook
+3. TrackBot actionMove
+4. TrackBot actionShoot
+5. TrackBot PlantTracker
+Trackbot is analyzing the battlefield...
+Tracked Robots:
+ - GR05 at (3, 2)
+ - GR03 at (3, 0)
+ - GR02 at (0, 1)
+ - GR05 at (3, 2)
+ - GR05 at (3, 2)
+ - GR05 at (3, 2)
+=== Robot View (3x3 Grid) ===
+[G] [G] [ ] 
 [ ] [R] [ ] 
 [ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 1
-No enemy robot was at the selected location.
-HB02 now has 9 of shells left!
+The Current Robot controlled is TB01_Kidd
+Random target selected at: 2 2
+
+You've successfully shot an enemy Robot!
+GR04 was hit and is now temporarily inactive!
+GR04 now has 2 of lives left
+TB01 now has 2 of kills!
+TB01 now has 3 of shells left!
+
+TB01 earned an upgrade! A random upgrade is applied!
+TB01 are now upgraded to JumpBot!
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: UL
-Moved to (0,1)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
+Moved to (2,2)
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |GR03|    |    |
+ 00|    |    |    |GR03|    |
    +----+----+----+----+----+
- 01|HB02|    |    |    |    |
+ 01|GR02|    |    |    |    |
    +----+----+----+----+----+
- 02|    |    |    |TB01|    |
+ 02|    |    |TB01|GR05|    |
    +----+----+----+----+----+
- 03|    |    |    |    |    |
+ 03|    |    |    |JB01|    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 117
-HB02 at (0, 1)
-HB02 at (0, 1)
-Robot Info: HB02 at (0, 1)
-Robot Type: HideBot
+Turn 32
+GR02 at (0, 1)
+GR02 at (0, 1)
+Robot Info: GR02 at (0, 1)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [#] [ ] [ ] 
 [#] [R] [ ] 
 [#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 1
-No enemy robot was at the selected location.
-HB02 now has 8 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: U
-Moved to (0,0)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|HB02|    |GR03|    |    |
-   +----+----+----+----+----+
- 01|    |    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |TB01|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 122
-HB02 at (0, 0)
-HB02 at (0, 0)
-Robot Info: HB02 at (0, 0)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[#] [#] [#] 
-[#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 0
-No enemy robot was at the selected location.
-HB02 now has 7 of shells left!
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: D
-Moved to (0,1)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
-Display Battlefield 
-       00   01   02   03   04 
-   +----+----+----+----+----+
- 00|    |    |GR03|    |    |
-   +----+----+----+----+----+
- 01|HB02|    |    |    |    |
-   +----+----+----+----+----+
- 02|    |    |    |TB01|    |
-   +----+----+----+----+----+
- 03|    |    |    |    |    |
-   +----+----+----+----+----+
- 04|    |    |    |    |    |
-   +----+----+----+----+----+
-Turn 127
-HB02 at (0, 1)
-HB02 at (0, 1)
-Robot Info: HB02 at (0, 1)
-Robot Type: HideBot
-Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
-=== Robot View (3x3 Grid) ===
-[#] [ ] [ ] 
-[#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 0
+Moved to (0,2)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 3
 No enemy robot was at the selected location.
-HB02 now has 6 of shells left!
-
-Available Directions:
-UL, U, UR
-L, C, R
-DL, D, DR
-Random direction selected: U
-Moved to (0,0)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
+GR02 now has 3 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|HB02|    |GR03|    |    |
+ 00|    |    |    |GR03|    |
    +----+----+----+----+----+
  01|    |    |    |    |    |
    +----+----+----+----+----+
- 02|    |    |    |TB01|    |
+ 02|GR02|    |TB01|GR05|    |
    +----+----+----+----+----+
- 03|    |    |    |    |    |
+ 03|    |    |    |JB01|    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 132
-HB02 at (0, 0)
-HB02 at (0, 0)
-Robot Info: HB02 at (0, 0)
-Robot Type: HideBot
+Turn 33
+GR03 at (3, 0)
+GR03 at (3, 0)
+Robot Info: GR03 at (3, 0)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [#] [#] [#] 
-[#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 0 1
-No enemy robot was at the selected location.
-HB02 now has 5 of shells left!
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: DR
-Moved to (1,1)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
+Moved to (4,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 0
+No enemy robot was at the selected location.
+GR03 now has 4 of shells left!
+Skipping Turns, Robot GR04_Beta is still in waiting queue.
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |GR03|    |    |
+ 00|    |    |    |    |    |
    +----+----+----+----+----+
- 01|    |HB02|    |    |    |
+ 01|    |    |    |    |GR03|
    +----+----+----+----+----+
- 02|    |    |    |TB01|    |
+ 02|GR02|    |TB01|GR05|    |
    +----+----+----+----+----+
- 03|    |    |    |    |    |
+ 03|    |    |    |JB01|    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 137
-HB02 at (1, 1)
-HB02 at (1, 1)
-Robot Info: HB02 at (1, 1)
-Robot Type: HideBot
+Turn 35
+GR05 at (3, 2)
+GR05 at (3, 2)
+Robot Info: GR05 at (3, 2)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [ ] [ ] [G] 
-[ ] [R] [ ] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 2 1
-No enemy robot was at the selected location.
-HB02 now has 4 of shells left!
+[T] [R] [ ] 
+[ ] [J] [ ] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
-Random direction selected: UL
-Moved to (0,0)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
+Random direction selected: U
+Moved to (3,1)
+The Current Robot controlled is GR05_Star
+Random target selected at: 2 0
+No enemy robot was at the selected location.
+GR05 now has 3 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|HB02|    |GR03|    |    |
+ 00|    |    |    |    |    |
    +----+----+----+----+----+
- 01|    |    |    |    |    |
+ 01|    |    |    |GR05|GR03|
    +----+----+----+----+----+
- 02|    |    |    |TB01|    |
+ 02|GR02|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |JB01|    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 36
+JB01 at (3, 3)
+JB01 at (3, 3)
+Robot Info: JB01 at (3, 3)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[T] [ ] [ ] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 4 4
+No enemy robot was at the selected location.
+JB01 now has 2 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Jump Move Chosen
+Enter jump coordinates (X Y): 
+0 0
+JB01 jumped to (0,0)!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |GR05|GR03|
+   +----+----+----+----+----+
+ 02|GR02|    |TB01|    |    |
    +----+----+----+----+----+
  03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 142
-HB02 at (0, 0)
-HB02 at (0, 0)
-Robot Info: HB02 at (0, 0)
-Robot Type: HideBot
+GR04 has waited 5 turns and is returning at (1,0)
+
+Turn 37
+GR02 at (0, 2)
+GR02 at (0, 2)
+Robot Info: GR02 at (0, 2)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[#] [#] [#] 
+[#] [ ] [ ] 
 [#] [R] [ ] 
 [#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 1 0
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UR
+Moved to (1,1)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 2 1
 No enemy robot was at the selected location.
-HB02 now has 3 of shells left!
+GR02 now has 2 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|GR04|    |    |    |
+   +----+----+----+----+----+
+ 01|    |GR02|    |GR05|GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 38
+GR03 at (4, 1)
+GR03 at (4, 1)
+Robot Info: GR03 at (4, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[G] [R] [#] 
+[ ] [ ] [#] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: D
-Moved to (0,1)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
+Moved to (4,2)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 1
+No enemy robot was at the selected location.
+GR03 now has 3 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |    |GR03|    |    |
+ 00|JB01|GR04|    |    |    |
    +----+----+----+----+----+
- 01|HB02|    |    |    |    |
+ 01|    |GR02|    |GR05|    |
    +----+----+----+----+----+
- 02|    |    |    |TB01|    |
+ 02|    |    |TB01|    |GR03|
    +----+----+----+----+----+
  03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 147
-HB02 at (0, 1)
-HB02 at (0, 1)
-Robot Info: HB02 at (0, 1)
-Robot Type: HideBot
+Turn 39
+GR04 at (1, 0)
+GR04 at (1, 0)
+Robot Info: GR04 at (1, 0)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
-[#] [ ] [ ] 
+[#] [#] [#] 
+[J] [R] [ ] 
+[ ] [G] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (2,1)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 2 2
+No enemy robot was at the selected location.
+GR04 now has 3 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |GR02|GR04|GR05|    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 40
+GR05 at (3, 1)
+GR05 at (3, 1)
+Robot Info: GR05 at (3, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[G] [R] [ ] 
+[T] [ ] [G] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (3,0)
+The Current Robot controlled is GR05_Star
+Random target selected at: 3 1
+No enemy robot was at the selected location.
+GR05 now has 2 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|    |    |GR05|    |
+   +----+----+----+----+----+
+ 01|    |GR02|GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 41
+JB01 at (0, 0)
+JB01 at (0, 0)
+Robot Info: JB01 at (0, 0)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
 [#] [R] [ ] 
-[#] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
+[#] [ ] [G] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 0
+No enemy robot was at the selected location.
+JB01 now has 1 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (1,0)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |JB01|    |GR05|    |
+   +----+----+----+----+----+
+ 01|    |GR02|GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 42
+GR02 at (1, 1)
+GR02 at (1, 1)
+Robot Info: GR02 at (1, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [J] [ ] 
+[ ] [R] [G] 
+[ ] [ ] [T] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: L
+Moved to (0,1)
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 0
+No enemy robot was at the selected location.
+GR02 now has 1 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |JB01|    |GR05|    |
+   +----+----+----+----+----+
+ 01|GR02|    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 43
+GR03 at (4, 2)
+GR03 at (4, 2)
+Robot Info: GR03 at (4, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (4,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 2
+No enemy robot was at the selected location.
+GR03 now has 2 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |JB01|    |GR05|    |
+   +----+----+----+----+----+
+ 01|GR02|    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 44
+GR04 at (2, 1)
+GR04 at (2, 1)
+Robot Info: GR04 at (2, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[J] [ ] [G] 
+[ ] [R] [ ] 
+[ ] [T] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (2,0)
+The Current Robot controlled is GR04_Beta
 Random target selected at: 1 1
 No enemy robot was at the selected location.
-HB02 now has 2 of shells left!
+GR04 now has 2 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |JB01|GR04|GR05|    |
+   +----+----+----+----+----+
+ 01|GR02|    |    |    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 45
+GR05 at (3, 0)
+GR05 at (3, 0)
+Robot Info: GR05 at (3, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[G] [R] [ ] 
+[ ] [ ] [G] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (3,1)
+The Current Robot controlled is GR05_Star
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR05 now has 1 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |JB01|GR04|    |    |
+   +----+----+----+----+----+
+ 01|GR02|    |    |GR05|GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 46
+JB01 at (1, 0)
+JB01 at (1, 0)
+Robot Info: JB01 at (1, 0)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [G] 
+[G] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 1
+No enemy robot was at the selected location.
+JB01 now has 0 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (1,1)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 01|GR02|JB01|    |GR05|GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 47
+GR02 at (0, 1)
+GR02 at (0, 1)
+Robot Info: GR02 at (0, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [ ] [ ] 
+[#] [R] [J] 
+[#] [ ] [ ] 
 
 Available Directions:
 UL, U, UR
@@ -2928,57 +1821,2030 @@ L, C, R
 DL, D, DR
 Random direction selected: UR
 Moved to (1,0)
-Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
-Skipping Turns, Robot JB04_Beta is destroyed and out of the game!
-Skipping Turns, Robot SA05_Star is destroyed and out of the game!
-Skipping Turns, Robot TB01_Kidd is destroyed and out of the game!
+The Current Robot controlled is GR02_Jet
+Random target selected at: 0 0
+No enemy robot was at the selected location.
+GR02 now has 0 of shells left!
 Display Battlefield 
        00   01   02   03   04 
    +----+----+----+----+----+
- 00|    |HB02|GR03|    |    |
+ 00|    |GR02|GR04|    |    |
    +----+----+----+----+----+
- 01|    |    |    |    |    |
+ 01|    |JB01|    |GR05|GR03|
    +----+----+----+----+----+
- 02|    |    |    |TB01|    |
+ 02|    |    |TB01|    |    |
    +----+----+----+----+----+
  03|    |    |    |    |    |
    +----+----+----+----+----+
  04|    |    |    |    |    |
    +----+----+----+----+----+
-Turn 152
-HB02 at (1, 0)
-HB02 at (1, 0)
-Robot Info: HB02 at (1, 0)
-Robot Type: HideBot
+Turn 48
+GR03 at (4, 1)
+GR03 at (4, 1)
+Robot Info: GR03 at (4, 1)
+Robot Type: GenericRobot
 Actions:
-1. HideBot actionThink
-2. HideBot actionLook
-3. HideBot actionMove
-4. HideBot actionShoot
-5. HideBot Hide
-HideBot is thinking about hiding...
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[G] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (4,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 1
+No enemy robot was at the selected location.
+GR03 now has 1 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |GR02|GR04|    |GR03|
+   +----+----+----+----+----+
+ 01|    |JB01|    |GR05|    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 49
+GR04 at (2, 0)
+GR04 at (2, 0)
+Robot Info: GR04 at (2, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
 === Robot View (3x3 Grid) ===
 [#] [#] [#] 
-[ ] [R] [G] 
-[ ] [ ] [ ] 
-The Current Robot controlled is HB02_Jet
-Random target selected at: 2 0
-
-You've successfully shot an enemy Robot!
-GR03 has been destroyed!
-GR03 now has 0 of lives left
-HB02 now has 2 of kills!
-HB02 now has 1 of shells left!
-
-HB02 earned an upgrade! A random upgrade is applied!
-HB02 are now upgraded to HealthBot!
+[G] [R] [ ] 
+[J] [ ] [G] 
 
 Available Directions:
 UL, U, UR
 L, C, R
 DL, D, DR
 Random direction selected: D
+Moved to (2,1)
+The Current Robot controlled is GR04_Beta
+Random target selected at: 1 0
+
+You've successfully shot an enemy Robot!
+GR02 was hit and is now temporarily inactive!
+GR02 now has 2 of lives left
+GR04 now has 1 of kills!
+GR04 now has 1 of shells left!
+
+GR04 earned an upgrade! A random upgrade is applied!
+GR04 are now upgraded to SemiAutoBot!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |    |GR03|
+   +----+----+----+----+----+
+ 01|    |JB01|GR04|GR05|    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 50
+GR05 at (3, 1)
+GR05 at (3, 1)
+Robot Info: GR05 at (3, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [G] 
+[G] [R] [ ] 
+[T] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UL
+Moved to (2,0)
+The Current Robot controlled is GR05_Star
+Random target selected at: 1 1
+
+You've successfully shot an enemy Robot!
+JB01 was hit and is now temporarily inactive!
+JB01 now has 2 of lives left
+GR05 now has 1 of kills!
+GR05 now has 0 of shells left!
+
+GR05 earned an upgrade! A random upgrade is applied!
+GR05 are now upgraded to TrackBot!
+Skipping Turns, Robot JB01_Kidd is still in waiting queue.
+Skipping Turns, Robot GR02_Jet is still in waiting queue.
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |TB05|    |GR03|
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 53
+GR03 at (4, 0)
+GR03 at (4, 0)
+Robot Info: GR03 at (4, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (4,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 2
+No enemy robot was at the selected location.
+GR03 now has 0 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |TB05|    |    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 54
+SA04 at (2, 1)
+SA04 at (2, 1)
+Robot Info: SA04 at (2, 1)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[ ] [T] [ ] 
+[ ] [R] [ ] 
+[ ] [T] [ ] 
+The Current Robot controlled is SA04_Beta
+Random target selected at: 2 0
+
+You've successfully shot an enemy Robot!
+TB05 was hit and is now temporarily inactive!
+TB05 now has 2 of lives left
+SA04 now has 2 of kills!
+SA04 now has 0 of shells left!
+
+SA04 earned an upgrade! A random upgrade is applied!
+SA04 are now upgraded to ScoutBot!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UR
+Moved to (3,0)
+Skipping Turns, Robot TB05_Star is still in waiting queue.
+Skipping Turns, Robot JB01_Kidd is still in waiting queue.
+Skipping Turns, Robot GR02_Jet is still in waiting queue.
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |SA04|    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 58
+GR03 at (4, 1)
+GR03 at (4, 1)
+Robot Info: GR03 at (4, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[S] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UL
+Moved to (3,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 2 0
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+GR02 has waited 5 turns and is returning at (0,0)
+
+Turn 59
+SB04 at (2, 1)
+SB04 at (2, 1)
+Robot Info: SB04 at (2, 1)
+Robot Type: ScoutBot
+Actions:
+1. ScoutBot actionThink
+2. ScoutBot actionLook
+3. ScoutBot actionMove
+4. ScoutBot actionShoot
+ScoutBot is analyzing the battlefield...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [G] 
+[ ] [R] [ ] 
+[ ] [T] [ ] 
+ScoutBot decided to use Look All
+Display ALL Robots in Battlefield
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR02|    |    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UL
+Moved to (1,0)
+The Current Robot controlled is SB04_Beta
+Random target selected at: 2 0
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+Skipping Turns, Robot TB05_Star is still in waiting queue.
+Skipping Turns, Robot JB01_Kidd is still in waiting queue.
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR02|SB04|    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+JB01 has waited 5 turns and is returning at (2,0)
+
+Turn 62
+GR02 at (0, 0)
+GR02 at (0, 0)
+Robot Info: GR02 at (0, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[#] [R] [S] 
+[#] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
 Moved to (1,1)
-Early victory! Only one robot remains!
+The Current Robot controlled is GR02_Jet
+Random target selected at: 1 2
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |SB04|JB01|GR03|    |
+   +----+----+----+----+----+
+ 01|    |GR02|GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 63
+GR03 at (3, 0)
+GR03 at (3, 0)
+Robot Info: GR03 at (3, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[J] [R] [ ] 
+[G] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (4,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 2
+No enemy robot was at the selected location.
+GR03 now has 9 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |SB04|JB01|    |    |
+   +----+----+----+----+----+
+ 01|    |GR02|GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+TB05 has waited 5 turns and is returning at (0,0)
+
+Turn 64
+SB04 at (1, 0)
+SB04 at (1, 0)
+Robot Info: SB04 at (1, 0)
+Robot Type: ScoutBot
+Actions:
+1. ScoutBot actionThink
+2. ScoutBot actionLook
+3. ScoutBot actionMove
+4. ScoutBot actionShoot
+ScoutBot is analyzing the battlefield...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[T] [R] [J] 
+[ ] [G] [G] 
+ScoutBot decided to use Look All
+Display ALL Robots in Battlefield
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|SB04|JB01|    |    |
+   +----+----+----+----+----+
+ 01|    |GR02|GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DL
+Moved to (0,1)
+The Current Robot controlled is SB04_Beta
+Random target selected at: 1 1
+
+You've successfully shot an enemy Robot!
+GR02 has been destroyed!
+GR02 now has 0 of lives left
+SB04 now has 3 of kills!
+SB04 now has 9 of shells left!
+SB04 are now upgraded to JukeBot!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |JB01|    |    |
+   +----+----+----+----+----+
+ 01|SB04|    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 65
+TB05 at (0, 0)
+TB05 at (0, 0)
+Robot Info: TB05 at (0, 0)
+Robot Type: TrackBot
+Actions:
+1. TrackBot actionThink
+2. TrackBot actionLook
+3. TrackBot actionMove
+4. TrackBot actionShoot
+5. TrackBot PlantTracker
+Trackbot is analyzing the battlefield...
+No robots are being tracked.
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[#] [R] [ ] 
+[#] [S] [ ] 
+The Current Robot controlled is TB05_Star
+Random target selected at: 1 0
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (1,0)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |TB05|JB01|    |    |
+   +----+----+----+----+----+
+ 01|SB04|    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 66
+JB01 at (2, 0)
+JB01 at (2, 0)
+Robot Info: JB01 at (2, 0)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[T] [R] [ ] 
+[ ] [G] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 0
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+1. Regular Move
+2. Jump
+Choose action: 
+Jump Move Chosen
+Enter jump coordinates (X Y): 
+4 1
+Invalid jump location!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |TB05|JB01|    |    |
+   +----+----+----+----+----+
+ 01|SB04|    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 68
+GR03 at (4, 1)
+GR03 at (4, 1)
+Robot Info: GR03 at (4, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UL
+Moved to (3,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 0
+No enemy robot was at the selected location.
+GR03 now has 8 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |TB05|JB01|GR03|    |
+   +----+----+----+----+----+
+ 01|SB04|    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 69
+SB04 at (0, 1)
+SB04 at (0, 1)
+Robot Info: SB04 at (0, 1)
+Robot Type: ScoutBot
+Actions:
+1. ScoutBot actionThink
+2. ScoutBot actionLook
+3. ScoutBot actionMove
+4. ScoutBot actionShoot
+ScoutBot is analyzing the battlefield...
+=== Robot View (3x3 Grid) ===
+[#] [ ] [T] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+ScoutBot decided to use Look All
+Display ALL Robots in Battlefield
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |TB05|JB01|GR03|    |
+   +----+----+----+----+----+
+ 01|SB04|    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (1,1)
+The Current Robot controlled is SB04_Beta
+Random target selected at: 2 0
+Shot missed! The enemy robot was not hit.
+SB04 now has 8 of shells left!
+Shot missed! The enemy robot was not hit.
+SB04 now has 7 of shells left!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |TB05|JB01|GR03|    |
+   +----+----+----+----+----+
+ 01|    |SB04|GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 70
+TB05 at (1, 0)
+TB05 at (1, 0)
+Robot Info: TB05 at (1, 0)
+Robot Type: TrackBot
+Actions:
+1. TrackBot actionThink
+2. TrackBot actionLook
+3. TrackBot actionMove
+4. TrackBot actionShoot
+5. TrackBot PlantTracker
+Trackbot is analyzing the battlefield...
+Tracked Robots:
+ - SB04 at (1, 1)
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [J] 
+[ ] [S] [G] 
+The Current Robot controlled is TB05_Star
+Random target selected at: 1 1
+
+You've successfully shot an enemy Robot!
+SB04 has been destroyed!
+SB04 now has 0 of lives left
+TB05 now has 2 of kills!
+TB05 now has 9 of shells left!
+
+TB05 earned an upgrade! A random upgrade is applied!
+TB05 are now upgraded to SemiAutoBot!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: L
+Moved to (0,0)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|SA05|JB01|GR03|    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 71
+JB01 at (2, 0)
+JB01 at (2, 0)
+Robot Info: JB01 at (2, 0)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[S] [R] [G] 
+[ ] [G] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 3 1
+No enemy robot was at the selected location.
+JB01 now has 9 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Jump Move Chosen
+Enter jump coordinates (X Y): 
+0 2
+JB01 jumped to (0,2)!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|SA05|    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|JB01|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 73
+GR03 at (3, 0)
+GR03 at (3, 0)
+Robot Info: GR03 at (3, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[G] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (4,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR03 now has 7 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|SA05|    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|JB01|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 75
+SA05 at (1, 0)
+SA05 at (1, 0)
+Robot Info: SA05 at (1, 0)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[T] [R] [ ] 
+[ ] [ ] [G] 
+The Current Robot controlled is SA05_Star
+Random target selected at: 2 0
+No enemy robot was at the selected location.
+SA05 now has 8 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DL
+Moved to (0,1)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|SA05|    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|JB01|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 76
+JB01 at (0, 2)
+JB01 at (0, 2)
+Robot Info: JB01 at (0, 2)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [S] [ ] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 2
+No enemy robot was at the selected location.
+JB01 now has 8 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (1,2)
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|SA05|    |GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |JB01|TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 78
+GR03 at (4, 1)
+GR03 at (4, 1)
+Robot Info: GR03 at (4, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (4,2)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 1
+No enemy robot was at the selected location.
+GR03 now has 6 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|SA05|    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |JB01|TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 80
+SA05 at (0, 1)
+SA05 at (0, 1)
+Robot Info: SA05 at (0, 1)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[#] [T] [ ] 
+[#] [R] [ ] 
+[#] [ ] [J] 
+The Current Robot controlled is SA05_Star
+Random target selected at: 1 0
+No enemy robot was at the selected location.
+SA05 now has 7 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (0,2)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |GR04|    |    |
+   +----+----+----+----+----+
+ 02|SA05|JB01|TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 81
+JB01 at (1, 2)
+JB01 at (1, 2)
+Robot Info: JB01 at (1, 2)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [G] 
+[S] [R] [T] 
+[ ] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 0 3
+No enemy robot was at the selected location.
+JB01 now has 7 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Jump Move Chosen
+Enter jump coordinates (X Y): 
+1 1
+JB01 jumped to (1,1)!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |JB01|GR04|    |    |
+   +----+----+----+----+----+
+ 02|SA05|    |TB01|    |GR03|
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 83
+GR03 at (4, 2)
+GR03 at (4, 2)
+Robot Info: GR03 at (4, 2)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (4,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 4 2
+No enemy robot was at the selected location.
+GR03 now has 5 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |JB01|GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|SA05|    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 85
+SA05 at (0, 2)
+SA05 at (0, 2)
+Robot Info: SA05 at (0, 2)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[#] [ ] [J] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+The Current Robot controlled is SA05_Star
+Random target selected at: 1 2
+No enemy robot was at the selected location.
+SA05 now has 6 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (0,1)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|SA05|JB01|GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 86
+JB01 at (1, 1)
+JB01 at (1, 1)
+Robot Info: JB01 at (1, 1)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[T] [ ] [ ] 
+[S] [R] [G] 
+[ ] [ ] [T] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 0 0
+Shot missed! The enemy robot was not hit.
+JB01 now has 6 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Invalid jump location!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|SA05|JB01|GR04|    |GR03|
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 88
+GR03 at (4, 1)
+GR03 at (4, 1)
+Robot Info: GR03 at (4, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [#] 
+[ ] [R] [#] 
+[ ] [ ] [#] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: L
+Moved to (3,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR03 now has 4 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|TB05|    |    |    |    |
+   +----+----+----+----+----+
+ 01|SA05|JB01|GR04|GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 90
+SA05 at (0, 1)
+SA05 at (0, 1)
+Robot Info: SA05 at (0, 1)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[#] [T] [ ] 
+[#] [R] [J] 
+[#] [ ] [ ] 
+The Current Robot controlled is SA05_Star
+Random target selected at: 0 0
+
+You've successfully shot an enemy Robot!
+TB05 has been destroyed!
+TB05 now has 0 of lives left
+SA05 now has 3 of kills!
+SA05 now has 5 of shells left!
+SA05 are now upgraded to JukeBot!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UR
+Moved to (1,0)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |SA05|    |    |    |
+   +----+----+----+----+----+
+ 01|    |JB01|GR04|GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 91
+JB01 at (1, 1)
+JB01 at (1, 1)
+Robot Info: JB01 at (1, 1)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[ ] [S] [ ] 
+[ ] [R] [G] 
+[ ] [ ] [T] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 0 2
+No enemy robot was at the selected location.
+JB01 now has 5 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Invalid jump location!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |SA05|    |    |    |
+   +----+----+----+----+----+
+ 01|    |JB01|GR04|GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 93
+GR03 at (3, 1)
+GR03 at (3, 1)
+Robot Info: GR03 at (3, 1)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[G] [R] [ ] 
+[T] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: U
+Moved to (3,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 1
+No enemy robot was at the selected location.
+GR03 now has 3 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |SA05|    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |JB01|GR04|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 95
+SA05 at (1, 0)
+SA05 at (1, 0)
+Robot Info: SA05 at (1, 0)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[ ] [J] [G] 
+The Current Robot controlled is SA05_Star
+Random target selected at: 2 1
+
+You've successfully shot an enemy Robot!
+GR04 was hit and is now temporarily inactive!
+GR04 now has 1 of lives left
+SA05 now has 4 of kills!
+SA05 now has 4 of shells left!
+SA05 are now upgraded to JukeBot!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (2,1)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |JB01|SA05|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 96
+JB01 at (1, 1)
+JB01 at (1, 1)
+Robot Info: JB01 at (1, 1)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [S] 
+[ ] [ ] [T] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 2 1
+Shot missed! The enemy robot was not hit.
+JB01 now has 4 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UL
+Moved to (0,0)
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|    |    |GR03|    |
+   +----+----+----+----+----+
+ 01|    |    |SA05|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 98
+GR03 at (3, 0)
+GR03 at (3, 0)
+Robot Info: GR03 at (3, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[S] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: L
+Moved to (2,0)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 3 0
+No enemy robot was at the selected location.
+GR03 now has 2 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|    |GR03|    |    |
+   +----+----+----+----+----+
+ 01|    |    |SA05|    |    |
+   +----+----+----+----+----+
+ 02|    |    |TB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 100
+SA05 at (2, 1)
+SA05 at (2, 1)
+Robot Info: SA05 at (2, 1)
+Robot Type: SemiAutoBot
+Actions:
+1. SemiAutoBot actionThink
+2. SemiAutoBot actionLook
+3. SemiAutoBot actionMove
+4. SemiAutoBot actionShoot
+SemiAutoBot is analyzing long-range targets...
+=== Robot View (3x3 Grid) ===
+[ ] [G] [ ] 
+[ ] [R] [ ] 
+[ ] [T] [ ] 
+The Current Robot controlled is SA05_Star
+Random target selected at: 1 0
+No enemy robot was at the selected location.
+SA05 now has 3 of shells left!
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (2,2)
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|JB01|    |GR03|    |    |
+   +----+----+----+----+----+
+ 01|    |    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |SA05|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 101
+JB01 at (0, 0)
+JB01 at (0, 0)
+Robot Info: JB01 at (0, 0)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 0 1
+No enemy robot was at the selected location.
+JB01 now has 3 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (0,1)
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|    |    |GR03|    |    |
+   +----+----+----+----+----+
+ 01|JB01|    |    |    |    |
+   +----+----+----+----+----+
+ 02|    |    |SA05|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+GR04 has waited 5 turns and is returning at (0,0)
+
+Turn 103
+GR03 at (2, 0)
+GR03 at (2, 0)
+Robot Info: GR03 at (2, 0)
+Robot Type: GenericRobot
+Actions:
+1.GenericRobot actionThink
+2.GenericRobot actionLook
+3.GenericRobot actionMove
+4.GenericRobot actionShoot
+GenericRobot is Thinking...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (3,1)
+The Current Robot controlled is GR03_Alpha
+Random target selected at: 2 2
+
+You've successfully shot an enemy Robot!
+SA05 has been destroyed!
+SA05 now has 0 of lives left
+GR03 now has 1 of kills!
+GR03 now has 1 of shells left!
+
+GR03 earned an upgrade! A random upgrade is applied!
+GR03 are now upgraded to ScoutBot!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR04|    |    |    |    |
+   +----+----+----+----+----+
+ 01|JB01|    |    |GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 106
+JB01 at (0, 1)
+JB01 at (0, 1)
+Robot Info: JB01 at (0, 1)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [G] [ ] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 2
+No enemy robot was at the selected location.
+JB01 now has 2 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Invalid jump location!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR04|    |    |    |    |
+   +----+----+----+----+----+
+ 01|JB01|    |    |GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 108
+SB03 at (3, 1)
+SB03 at (3, 1)
+Robot Info: SB03 at (3, 1)
+Robot Type: ScoutBot
+Actions:
+1. ScoutBot actionThink
+2. ScoutBot actionLook
+3. ScoutBot actionMove
+4. ScoutBot actionShoot
+ScoutBot is analyzing the battlefield...
+=== Robot View (3x3 Grid) ===
+[ ] [ ] [ ] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+ScoutBot decided not to use Look All
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: UL
+Moved to (2,0)
+The Current Robot controlled is SB03_Alpha
+Random target selected at: 1 1
+No enemy robot was at the selected location.
+SB03 now has 0 of shells left!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR04|    |SB03|    |    |
+   +----+----+----+----+----+
+ 01|JB01|    |    |GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 111
+JB01 at (0, 1)
+JB01 at (0, 1)
+Robot Info: JB01 at (0, 1)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[#] [G] [ ] 
+[#] [R] [ ] 
+[#] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 0
+No enemy robot was at the selected location.
+JB01 now has 1 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: R
+Moved to (1,1)
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR04|    |SB03|    |    |
+   +----+----+----+----+----+
+ 01|    |JB01|    |GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 113
+SB03 at (2, 0)
+SB03 at (2, 0)
+Robot Info: SB03 at (2, 0)
+Robot Type: ScoutBot
+Actions:
+1. ScoutBot actionThink
+2. ScoutBot actionLook
+3. ScoutBot actionMove
+4. ScoutBot actionShoot
+ScoutBot is analyzing the battlefield...
+=== Robot View (3x3 Grid) ===
+[#] [#] [#] 
+[ ] [R] [ ] 
+[J] [ ] [G] 
+ScoutBot decided not to use Look All
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: D
+Moved to (2,1)
+The Current Robot controlled is SB03_Alpha
+Random target selected at: 1 0
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR04|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |JB01|SB03|GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |    |    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 116
+JB01 at (1, 1)
+JB01 at (1, 1)
+Robot Info: JB01 at (1, 1)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[G] [ ] [ ] 
+[ ] [R] [S] 
+[ ] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 2 2
+No enemy robot was at the selected location.
+JB01 now has 0 of shells left!
+1. Regular Move
+2. Jump
+Choose action: 
+Regular Move Chosen
+
+Available Directions:
+UL, U, UR
+L, C, R
+DL, D, DR
+Random direction selected: DR
+Moved to (2,2)
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Display Battlefield 
+       00   01   02   03   04 
+   +----+----+----+----+----+
+ 00|GR04|    |    |    |    |
+   +----+----+----+----+----+
+ 01|    |    |SB03|GR03|    |
+   +----+----+----+----+----+
+ 02|    |    |JB01|    |    |
+   +----+----+----+----+----+
+ 03|    |    |    |    |    |
+   +----+----+----+----+----+
+ 04|    |    |    |    |    |
+   +----+----+----+----+----+
+Turn 121
+JB01 at (2, 2)
+JB01 at (2, 2)
+Robot Info: JB01 at (2, 2)
+Robot Type: JumpBot
+Actions:
+1. JumpBot actionThink
+2. JumpBot actionLook
+3. JumpBot actionMove
+4. JumpBot actionShoot
+JumpBot is thinking about jumping...
+=== Robot View (3x3 Grid) ===
+[ ] [S] [G] 
+[ ] [R] [ ] 
+[ ] [ ] [ ] 
+The Current Robot controlled is JB01_Kidd
+Random target selected at: 1 1
+Oh no! You ran out of shells! You can't shoot anything! YOU ARE SELF DESTRUCTING!
+1. Regular Move
+2. Jump
+Choose action: 
+Invalid jump location!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
+Skipping Turns, Robot JB01_Kidd is destroyed and out of the game!
+Skipping Turns, Robot GR02_Jet is destroyed and out of the game!
+Skipping Turns, Robot SB03_Alpha is destroyed and out of the game!
+Skipping Turns, Robot SB04_Beta is destroyed and out of the game!
+Skipping Turns, Robot SA05_Star is destroyed and out of the game!
 The Ultimate Winner is .......
-HealthBot HB02 with 2 kills and 1 lives left with rounds played 153
+GenericRobot GR03 with 1 kills and 1 lives left with rounds played 400
