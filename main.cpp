@@ -1168,7 +1168,6 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -1179,71 +1178,63 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
 
-
+    // debug purposes
+    // for (int i = 0; i < validIndex.size(); ++i) {
+    //     cout << "Valid direction index: " << validIndex[i] << " - " << directions[validIndex[i]] << endl;
+    //     outputLines.push_back("Valid direction index: " + to_string(validIndex[i]) + " - " + directions[validIndex[i]]);
+    // }
 }
 
 void GenericRobot::actionShoot(Battlefield* battlefield) {
@@ -1810,7 +1801,6 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -1821,70 +1811,57 @@ void ScoutBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
 }
 
 void ScoutBot::actionShoot(Battlefield* battlefield){
@@ -2400,7 +2377,6 @@ void TrackBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -2411,70 +2387,57 @@ void TrackBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
 }
 
 void TrackBot::actionShoot(Battlefield* battlefield) {
@@ -2908,72 +2871,6 @@ void TrackBot::actionShoot(Battlefield* battlefield) {
     }
 }
 
-// void TrackBot::plantTracker(Battlefield* battlefield) {
-//     if (trackedRobots_.size() >= MAX_TRACKERS) {
-//         cout << "You can only track " << MAX_TRACKERS << " robots at a time!" << endl;
-//         outputLines.push_back("You can only track " + to_string(MAX_TRACKERS) + " robots at a time!");
-//         return;
-//     }
-
-//     int targetX, targetY;
-//     cout << "Enter coordinates to plant tracker (X Y): ";
-//     cin >> targetX >> targetY;
-
-//     outputLines.push_back("Enter coordinates to plant tracker (X Y): ");
-//     outputLines.push_back(to_string(targetX) + " " + to_string(targetY));
-
-
-
-//     // Check if target is in surrounding cells
-//     int dx = abs(targetX - robotPosX);
-//     int dy = abs(targetY - robotPosY);
-//     if (dx > 1 || dy > 1) {
-//         cout << "Can only plant trackers on surrounding squares!" << endl;
-//         outputLines.push_back("Can only plant trackers on surrounding squares!");
-//         return;
-//     }
-
-//     // Check if target is valid
-//     if (targetX < 0 || targetX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-//         targetY < 0 || targetY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-//         cout << "Invalid coordinates!" << endl;
-//         outputLines.push_back("Invalid coordinates!");
-//         return;
-//     }
-
-//     // Find robot at target location
-//     Robot* targetRobot = nullptr;
-//     for (Robot* robot : battlefield->robots()) {
-//         if (robot->x() == targetX && robot->y() == targetY && robot != this) {
-//             targetRobot = robot;
-//             break;
-//         }
-//     }
-
-//     if (targetRobot == nullptr) {
-//         cout << "No enemy robot at target location!" << endl;
-//         outputLines.push_back("No enemy robot at target location!");
-
-//         return;
-//     }
-
-//     // Check if already tracking this robot
-//     for (auto& tracked : trackedRobots_) {
-//         if (tracked == targetRobot) {
-//             cout << "Already tracking this robot!" << endl;
-//             outputLines.push_back("Already tracking this robot!");
-
-//             return;
-//         }
-//     }
-
-//     // Plant the tracker
-//     trackedRobots_.emplace_back(targetRobot);
-//     cout << "Tracker planted on " << targetRobot->id() << " at (" << targetRobot->x() << ", " << targetRobot->y() << ")." << endl;
-//     outputLines.push_back("Tracker planted on " + targetRobot->id() + " at (" + to_string(targetRobot->x()) + ", " + to_string(targetRobot->y()) + ").");
-
-// }
-
 
 // LongSHotBot Action Logics
 void LongShotBot::actionThink(Battlefield* battlefield) {
@@ -3031,7 +2928,6 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -3042,70 +2938,57 @@ void LongShotBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
 }
 
 void LongShotBot::actionShoot(Battlefield* battlefield) {
@@ -3597,7 +3480,6 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -3608,70 +3490,57 @@ void SemiAutoBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
 }
 
 void SemiAutoBot::actionShoot(Battlefield* battlefield) {
@@ -4178,7 +4047,6 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -4189,70 +4057,57 @@ void ThirtyShotBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
 }
 
 void ThirtyShotBot::actionShoot(Battlefield* battlefield) {
@@ -4733,20 +4588,6 @@ void HideBot::actionLook(Battlefield* battlefield) {
 }
 
 void HideBot::actionMove(Battlefield* battlefield) {
-    bool isHidden ;
-    int hiddenChoice = rand() % 2;
-
-    if (hiddenChoice == 0 && hiddenCount > 0) {
-        isHidden = true;
-        hiddenCount--;
-        cout << "HideBot " << id_ << " has decided to hide!" << endl;
-        cout << "Number of Hides left: " << hiddenCount << endl;
-        outputLines.push_back("HideBot " + id_ + " has decided to hide!");
-        outputLines.push_back("Number of Hides left: " + to_string(hiddenCount));
-    } else {
-        isHidden = false;
-    }
-
     int currentX = robotPosX;
     int currentY = robotPosY;
 
@@ -4757,7 +4598,6 @@ void HideBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -4768,71 +4608,57 @@ void HideBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
     outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
-
 }
 
 void HideBot::actionShoot(Battlefield* battlefield) {
@@ -5336,7 +5162,6 @@ void JumpBot::actionMove(Battlefield* battlefield) {
             {-1, 1},  {0, 1},  {1, 1}
         };
 
-        // Show available directions
         cout << "\nAvailable Directions:\n";
         cout << "UL, U, UR\n";
         cout << "L, C, R\n";
@@ -5347,65 +5172,53 @@ void JumpBot::actionMove(Battlefield* battlefield) {
         outputLines.push_back("L, C, R");
         outputLines.push_back("DL, D, DR");
 
-        // Random direction selection (replace user input)
-        int moveIndex = rand() % directions.size();
-        string userInput = directions[moveIndex];
+        // store valid index of move location  into validIndex
+        vector<int> validIndex;
+        for (int i = 0; i < directions.size(); ++i) {
+            int newX = currentX + directionsMove[i].first;
+            int newY = currentY + directionsMove[i].second;
+
+            // Check bounds
+            if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+                newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+                continue;
+
+            // Check if destination is occupied
+            bool isOccupied = false;
+            for (Robot* robot : battlefield->robots()) {
+                if (robot->x() == newX && robot->y() == newY) {
+                    isOccupied = true;
+                    break;
+                }
+            }
+
+            if (!isOccupied) {
+                validIndex.push_back(i); // push back the index of the valid move
+            }
+        }
+
+        // Handle case when no valid directions
+        if (validIndex.empty()) {
+            cout << "No valid move directions available\n";
+            outputLines.push_back("No valid move directions available");
+            return;
+        }
+
+        // Randomly pick a valid direction
+        int chosenIndex = validIndex[rand() % validIndex.size()];
+        string userInput = directions[chosenIndex];
 
         cout << "Random direction selected: " << userInput << endl;
         outputLines.push_back("Random direction selected: " + userInput);
 
-        // Find matching direction
-        // (Already known due to random selection, but keeping logic for consistency)
-        bool validInput = false;
-        for (int i = 0; i < directions.size(); i++) {
-            if (directions[i] == userInput) {
-                moveIndex = i;
-                validInput = true;
-                break;
-            }
-        }
-
-        // Check invalid input
-        if (!validInput) {
-            cout << "Invalid move direction\n";
-            outputLines.push_back("Invalid move direction");
-            return;
-        }
-
         // Calculate new position
-        int newX = currentX;
-        int newY = currentY;
+        int newX = currentX + directionsMove[chosenIndex].first;
+        int newY = currentY + directionsMove[chosenIndex].second;
 
-        if (userInput != "C") {
-            newX += directionsMove[moveIndex].first;
-            newY += directionsMove[moveIndex].second;
-        }
-
-        // Check if moves within the boundary
-        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-            cout << "Cannot move outside battlefield\n";
-            outputLines.push_back("Cannot move outside battlefield");
-            return;
-        }
-
-        // Check if destination is occupied
-        for (Robot* robot : battlefield->robots()) {
-            int PotentialRobotX = robot->x();
-            int PotentialRobotY = robot->y();
-
-            if (newX == PotentialRobotX && newY == PotentialRobotY) {
-                cout << "Destination occupied" << endl;
-                outputLines.push_back("Destination occupied");
-                return;
-            }
-        }
-
-        // If we reach here, it means the destination is free
+        // Update position
         robotPosX = newX;
         robotPosY = newY;
-
-        battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+        battlefield->setCell(currentX, currentY, nullptr);
         battlefield->setCell(newX, newY, this);
 
         cout << "Moved to (" << newX << "," << newY << ")" << endl;
@@ -5955,7 +5768,6 @@ void HealthBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -5966,65 +5778,53 @@ void HealthBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is occupied
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
@@ -6518,7 +6318,6 @@ void JukeBot::actionMove(Battlefield* battlefield) {
         {-1, 1},  {0, 1},  {1, 1}
     };
 
-    // Show available directions
     cout << "\nAvailable Directions:\n";
     cout << "UL, U, UR\n";
     cout << "L, C, R\n";
@@ -6529,65 +6328,53 @@ void JukeBot::actionMove(Battlefield* battlefield) {
     outputLines.push_back("L, C, R");
     outputLines.push_back("DL, D, DR");
 
-    // Random direction selection (replace user input)
-    int moveIndex = rand() % directions.size();
-    string userInput = directions[moveIndex];
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
+
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
+
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
+                break;
+            }
+        }
+
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
+        }
+    }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
 
     cout << "Random direction selected: " << userInput << endl;
     outputLines.push_back("Random direction selected: " + userInput);
 
-    // Find matching direction
-    // (Already known due to random selection, but keeping logic for consistency)
-    bool validInput = false;
-    for (int i = 0; i < directions.size(); i++) {
-        if (directions[i] == userInput) {
-            moveIndex = i;
-            validInput = true;
-            break;
-        }
-    }
-
-    // Check invalid input
-    if (!validInput) {
-        cout << "Invalid move direction\n";
-        outputLines.push_back("Invalid move direction");
-        return;
-    }
-
     // Calculate new position
-    int newX = currentX;
-    int newY = currentY;
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
 
-    if (userInput != "C") {
-        newX += directionsMove[moveIndex].first;
-        newY += directionsMove[moveIndex].second;
-    }
-
-    // Check if moves within the boundary
-    if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-        newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-        cout << "Cannot move outside battlefield\n";
-        outputLines.push_back("Cannot move outside battlefield");
-        return;
-    }
-
-    // Check if destination is empty
-    for (Robot* robot : battlefield->robots()) {
-        int PotentialRobotX = robot->x();
-        int PotentialRobotY = robot->y();
-
-        if (newX == PotentialRobotX && newY == PotentialRobotY) {
-            cout << "Destination occupied" << endl;
-            outputLines.push_back("Destination occupied");
-            return;
-        }
-    }
-
-    // If we reach here, it means the destination is free
+    // Update position
     robotPosX = newX;
     robotPosY = newY;
-
-    battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
@@ -7072,146 +6859,77 @@ void GodBot::actionLook(Battlefield* battlefield) {
 
 // Jump Anywhere
 void GodBot::actionMove(Battlefield* battlefield) {
-    cout << "1. Regular Move\n2. Jump\nChoose action: ";
-    outputLines.push_back("1. Regular Move\n2. Jump\nChoose action: ");
+    int currentX = robotPosX;
+    int currentY = robotPosY;
 
+    vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
+    vector<pair<int, int>> directionsMove = {
+        {-1, -1}, {0, -1}, {1, -1},
+        {-1, 0},  {0, 0},  {1, 0},
+        {-1, 1},  {0, 1},  {1, 1}
+    };
 
-    int choice = rand() % 2;
+    cout << "\nAvailable Directions:\n";
+    cout << "UL, U, UR\n";
+    cout << "L, C, R\n";
+    cout << "DL, D, DR\n";
 
+    outputLines.push_back("\nAvailable Directions:");
+    outputLines.push_back("UL, U, UR");
+    outputLines.push_back("L, C, R");
+    outputLines.push_back("DL, D, DR");
 
-    if (choice == 1) {
-        cout<<"Regular Move Chosen"<<endl;
-        outputLines.push_back("Regular Move Chosen");
+    // store valid index of move location  into validIndex
+    vector<int> validIndex;
+    for (int i = 0; i < directions.size(); ++i) {
+        int newX = currentX + directionsMove[i].first;
+        int newY = currentY + directionsMove[i].second;
 
+        // Check bounds
+        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
+            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS())
+            continue;
 
-        int currentX = robotPosX;
-        int currentY = robotPosY;
-
-        vector<string> directions = {"UL", "U", "UR", "L", "C", "R", "DL", "D", "DR"};
-        vector<pair<int, int>> directionsMove = {
-            {-1, -1}, {0, -1}, {1, -1},
-            {-1, 0},  {0, 0},  {1, 0},
-            {-1, 1},  {0, 1},  {1, 1}
-        };
-
-        // Show available directions
-        cout << "\nAvailable Directions:\n";
-        cout << "UL, U, UR\n";
-        cout << "L, C, R\n";
-        cout << "DL, D, DR\n";
-
-        outputLines.push_back("\nAvailable Directions:");
-        outputLines.push_back("UL, U, UR");
-        outputLines.push_back("L, C, R");
-        outputLines.push_back("DL, D, DR");
-
-        // Random direction selection (replace user input)
-        int moveIndex = rand() % directions.size();
-        string userInput = directions[moveIndex];
-
-        cout << "Random direction selected: " << userInput << endl;
-        outputLines.push_back("Random direction selected: " + userInput);
-
-        // Find matching direction
-        // (Already known due to random selection, but keeping logic for consistency)
-        bool validInput = false;
-        for (int i = 0; i < directions.size(); i++) {
-            if (directions[i] == userInput) {
-                moveIndex = i;
-                validInput = true;
+        // Check if destination is occupied
+        bool isOccupied = false;
+        for (Robot* robot : battlefield->robots()) {
+            if (robot->x() == newX && robot->y() == newY) {
+                isOccupied = true;
                 break;
             }
         }
 
-        // Check invalid input
-        if (!validInput) {
-            cout << "Invalid move direction\n";
-            outputLines.push_back("Invalid move direction");
-            return;
+        if (!isOccupied) {
+            validIndex.push_back(i); // push back the index of the valid move
         }
-
-        // Calculate new position
-        int newX = currentX;
-        int newY = currentY;
-
-        if (userInput != "C") {
-            newX += directionsMove[moveIndex].first;
-            newY += directionsMove[moveIndex].second;
-        }
-
-        // Check if moves within the boundary
-        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-            cout << "Cannot move outside battlefield\n";
-            outputLines.push_back("Cannot move outside battlefield");
-            return;
-        }
-
-        // Check if destination is occupied
-        for (Robot* robot : battlefield->robots()) {
-            int PotentialRobotX = robot->x();
-            int PotentialRobotY = robot->y();
-
-            if (newX == PotentialRobotX && newY == PotentialRobotY) {
-                cout << "Destination occupied" << endl;
-                outputLines.push_back("Destination occupied");
-                return;
-            }
-        }
-
-        // If we reach here, it means the destination is free
-        robotPosX = newX;
-        robotPosY = newY;
-
-        battlefield->setCell(currentX, currentY, nullptr);  // Clear the old cell
-        battlefield->setCell(newX, newY, this);
-
-        cout << "Moved to (" << newX << "," << newY << ")" << endl;
-        outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
-
-
-
-    } else if (choice == 2) {
-        cout << "Regular Move Chosen" << endl;
-        outputLines.push_back("Jump Move Chosen");
-
-        // Generate random jump coordinates
-        int newX = rand() % battlefield->BATTLEFIELD_NUM_OF_COLS();
-        int newY = rand() % battlefield->BATTLEFIELD_NUM_OF_ROWS();
-
-        cout << "Random jump coordinates (X Y): " << newX << " " << newY << endl;
-        outputLines.push_back("Enter jump coordinates (X Y): ");
-        outputLines.push_back(to_string(newX) + " " + to_string(newY));
-
-        // Validate coordinates
-        if (newX < 0 || newX >= battlefield->BATTLEFIELD_NUM_OF_COLS() ||
-            newY < 0 || newY >= battlefield->BATTLEFIELD_NUM_OF_ROWS()) {
-            cout << "Invalid jump location!" << endl;
-            outputLines.push_back("Invalid jump location!");
-            return;
-        }
-
-        // Check if occupied
-        for (Robot* robot : battlefield->robots()) {
-            if (robot->x() == newX && robot->y() == newY) {
-                cout << "Jump location occupied!" << endl;
-                outputLines.push_back("Jump location occupied!");
-                return;
-            }
-        }
-
-        // Perform jump
-        battlefield->setCell(robotPosX, robotPosY, nullptr);
-        robotPosX = newX;
-        robotPosY = newY;
-        battlefield->setCell(robotPosX, robotPosY, this);
-
-        cout << id_ << " jumped to (" << newX << "," << newY << ")!" << endl;
-        outputLines.push_back(id_ + " jumped to (" + to_string(newX) + "," + to_string(newY) + ")!");
-    } else {
-        cout << "Jump limit reached or invalid choice!" << endl;
-        outputLines.push_back("Jump limit reached or invalid choice!");
     }
+
+    // Handle case when no valid directions
+    if (validIndex.empty()) {
+        cout << "No valid move directions available\n";
+        outputLines.push_back("No valid move directions available");
+        return;
+    }
+
+    // Randomly pick a valid direction
+    int chosenIndex = validIndex[rand() % validIndex.size()];
+    string userInput = directions[chosenIndex];
+
+    cout << "Random direction selected: " << userInput << endl;
+    outputLines.push_back("Random direction selected: " + userInput);
+
+    // Calculate new position
+    int newX = currentX + directionsMove[chosenIndex].first;
+    int newY = currentY + directionsMove[chosenIndex].second;
+
+    // Update position
+    robotPosX = newX;
+    robotPosY = newY;
+    battlefield->setCell(currentX, currentY, nullptr);
+    battlefield->setCell(newX, newY, this);
+
+    cout << "Moved to (" << newX << "," << newY << ")" << endl;
+    outputLines.push_back("Moved to (" + to_string(newX) + "," + to_string(newY) + ")");
 }
 
 // LongShot
