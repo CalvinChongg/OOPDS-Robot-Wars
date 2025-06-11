@@ -7382,7 +7382,7 @@ int main() {
     Battlefield battlefield;
 
     // read the file
-    string inputFile = "fileInput2a.txt";
+    string inputFile = "fileInput2b.txt";
     battlefield.readFile(inputFile);
 
     // Get total number of turns and robot list
