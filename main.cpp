@@ -1225,6 +1225,7 @@ void GenericRobot::actionMove(Battlefield* battlefield) {
     robotPosX = newX;
     robotPosY = newY;
     battlefield->setCell(currentX, currentY, nullptr);
+    battlefield->setCell(currentX, currentY, nullptr);
     battlefield->setCell(newX, newY, this);
 
     cout << "Moved to (" << newX << "," << newY << ")" << endl;
